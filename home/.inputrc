@@ -1,0 +1,15 @@
+# check out the READLINE section in the bash manual for details on this file
+
+"\C-x\C-e": edit-and-execute-command
+
+# Quick access -----------------------------------------------------------------
+control-o: "lfcd\C-m"
+control-f: 'rifle "$(fzf)"\C-j' 
+
+
+# Git --------------------------------------------------------------------------
+"\C-gs": "git status\r"
+"\C-ga": "git add "
+"\C-gc": "\C-agit commit -m \"\C-e\"\r"
+"\C-gp": "git push origin "
+"\C-gd": "\C-agit commit -m \"\C-e\"; git push origin "

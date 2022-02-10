@@ -1,0 +1,36 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Settings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+set zoom-step 20
+set selection-clipboard clipboard
+set window-title-home-tilde true
+set statusbar-basename true
+
+# Recoloring
+set recolor-reverse-video true
+set recolor-keephue true
+set recolor-darkcolor "#d8caac"
+set recolor-lightcolor "#323d43"
+# set default-bg "#2c343a"
+set default-bg "#262E33"
+# set default-bg "#222A2E"
+set recolor true
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Mappings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+map [normal] <Space>         navigate next
+map [normal] <BackSpace>     navigate previous
+map [fullscreen] <Space>     navigate next
+map [fullscreen] <BackSpace> navigate previous
+
+unmap [normal] <C-p>
+
+
+# Does not seem to work
+map [normal] <S-b> mark_add m
+map [normal] b     mark_evaluate m
+
+# vim: ft=config

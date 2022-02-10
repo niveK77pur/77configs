@@ -1,0 +1,5 @@
+#!/bin/sh
+
+: ${XSECURELOCK_IMAGE_PATH:=$HOME/Pictures/i3wallpapers/lockscreen/lastofusgiraffe.png}
+
+/usr/bin/feh --auto-zoom --window-id="${XSCREENSAVER_WINDOW}" -F "${XSECURELOCK_IMAGE_PATH}"

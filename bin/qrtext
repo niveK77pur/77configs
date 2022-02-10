@@ -1,0 +1,8 @@
+#!/bin/bash
+
+TEMP="$(mktemp)"
+
+$TERMINAL --class "floaty" --command nvim -b '+set ft=clipboard' "$TEMP"
+qrencode -o- -r "$TEMP" | feh --class floaty -
+
+rm "$TEMP"

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# copy text to the clipboard. Either from stdin or as given by command
+# arguments. For example:
+#       ls | clipc
+# this will put the contents of 'ls' into the clipboard
+#       clipc hello there
+# this on the other hand will put "hello there" into the clipboard
+
+XCLIP_FLAGS="-selection clipboard"
+
+if [ -n "$1" ]; then
+    if [ -f "$1" ]; then
+        xclip $XCLIP_FLAGS "$1"
+    else
+        echo -n "$@" | xclip $XCLIP_FLAGS
+    fi
+else
+    cat /dev/stdin | xclip $XCLIP_FLAGS
+fi

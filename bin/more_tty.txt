@@ -1,0 +1,2 @@
+#use the following command to open more terminals from tty8 onward to tty12
+sudo getty -8 38400 tty12

@@ -1,0 +1,11 @@
+{
+    "name": "VinLudens",
+    "icon": "/home/kevin/Desktop/Handy_Pics/DSC_0461.jpg",
+    "datafolder": "~/.config/Vieb/erwic/datafolder/vinludens",
+    "apps": [
+        {
+            "container": "vinludens",
+            "url": "https://youtube.com/c/vinludens"
+        }
+    ]
+}

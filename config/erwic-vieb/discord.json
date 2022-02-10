@@ -1,0 +1,11 @@
+{
+    "name": "Discord",
+    "icon": "/opt/discord/discord.png",
+    "datafolder": "~/.config/Vieb/erwic/datafolder/discord",
+    "apps": [
+        {
+            "container": "discord",
+            "url": "https://discord.com/app"
+        }
+    ]
+}

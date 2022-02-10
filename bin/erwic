@@ -1,0 +1,37 @@
+#!/usr/bin/bash
+
+NAME="$1"
+shift
+
+ERWIC_DIR="$HOME/.config/erwic-vieb"
+
+
+message() {
+    echo "$*"
+    notify-send "Vieb ERWIC" "$*"
+}
+
+vieb-open() {
+    vieb \
+        --erwic="$ERWIC_DIR/$NAME.json" \
+        --datafolder="$ERWIC_DIR/datafolder/$NAME" \
+        "$@"
+}
+
+dmenu-select() {
+    export NAME="$(find "$ERWIC_DIR" -maxdepth 1 -type f -name "*.json" -exec basename {} .json \; | dmenu)"
+    [ -z "$NAME" ] && { message "Nothing selected."; exit 2; }
+    vieb-open "$@"
+}
+
+which vieb >/dev/null || {
+    message "Vieb not found. Exiting."
+    exit 1
+}
+
+if [ -f "$ERWIC_DIR/$NAME.json" ]
+then
+    vieb-open "$@"
+else
+    dmenu-select "$@"
+fi

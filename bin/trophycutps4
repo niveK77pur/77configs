@@ -1,0 +1,32 @@
+#!/bin/bash 
+# Cut out the trophy notification in an image of a PS4 screenshot
+
+# Check if the script is correctly used
+if [[ $# -eq 0 ]] || [[ $# -gt 1 ]]; then
+        echo "You have to specify exactly one image"
+        echo -e "Usage: $(basename $0) \e[4mimage\e[0m"
+        exit 1
+elif [[ $# -eq 1 ]]; then
+        imgpath=$(dirname "$1")
+        imgname=$(basename "$1")
+        filename="${imgname%.*}"
+        extension="${imgname##*.}"
+        filetype=$(file "$1" | awk -F: '{print $2}' | awk '{print $2 $3}')
+fi
+
+# Check if it is an image or not and what file extension it has.
+if [ "$filetype" = "imagedata," ]; then
+        case "$extension" in
+                "jpg") convert "$1" -crop 652x154+0+134 -background transparent -extent 1920x1080+0-134 "$imgpath/Trophycut--$filename.png"
+                        echo "Done."
+                ;;
+                "png") convert "$1" -crop 652x154+0+134 -background transparent -extent 1920x1080+0-134 "$imgpath/Trophycut--$imgname"
+                        echo "Done."
+                ;;
+                *)     echo "Invalid file extention. File extension for the image must be .jpg or .png"
+                       exit 2
+                ;;
+        esac
+else
+        echo "Invalid file type. It has to be an image."
+fi
