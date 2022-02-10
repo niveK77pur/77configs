@@ -1,0 +1,23 @@
+# https://github.com/flightlessmango/MangoHud#mangohud_config-and-mangohud_configfile-environment-variables
+
+background_alpha=0.3
+battery=1
+core_load=0
+cpu_load_change=1
+cpu_mhz=0
+#cpu_power=1
+cpu_temp=1
+fps_limit=60
+gamemode=1
+gpu_load_change=1
+#gpu_power=1
+gpu_temp=1
+permit_upload=0
+position=top-right
+ram=1
+resolution=1
+round_corners=15.0
+show_fps_limit=1
+time=0
+vram=1
+wine=1
