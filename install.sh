@@ -29,7 +29,7 @@ install-files() {
             #rsync -PUt "$SRC/$f" "$DEST/$f"
             #rm -v "$DEST/$f"
         else
-            ln -s "$(realpath "$SRC/$f")" "$DEST/$f"
+            ln -vs "$(realpath "$SRC/$f")" "$DEST/$f"
         fi
     done
 }
