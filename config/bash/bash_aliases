@@ -69,14 +69,15 @@ alias jn='jupyter-notebook'
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # get faster to the bics folders -----------------------------------------------
-alias mr='cd /home/kuni/University/Master/semester_1/Space-Resources-Fundamentals/ && lfcd'
-alias mi='cd /home/kuni/University/Master/semester_1/Space-Informatics/ && lfcd'
-alias mc='cd /home/kuni/University/Master/semester_1/Satellite-Communications-and-Security/ && lfcd'
-alias ms='cd /home/kuni/University/Master/semester_1/Spacecraft-Subsystem-Design-and-Engineering/ && lfcd'
-alias ml='cd /home/kuni/University/Master/semester_1/Space-Policy-Law-and-Ethics/ && lfcd'
-alias mp='cd /home/kuni/University/Master/semester_1/Space-Project-Management/ && lfcd'
-alias mo='cd /home/kuni/University/Master/semester_1/Space-Robotics-I/ && lfcd'
-alias md='cd /home/kuni/University/Master/semester_1/CubeSatLab-Design-I/ && lfcd'
+alias mr='cd /home/kuni/University/Master/semester_2/Space-Resource-Utilization-Technologies && lfcd'
+alias ms='cd /home/kuni/University/Master/semester_2/Spacecraft-design-and-Subsystems-engineering && lfcd'
+alias mb='cd /home/kuni/University/Master/semester_2/Space-Business && lfcd'
+alias md='cd /home/kuni/University/Master/semester_2/CubeSat-Project && lfcd'
+alias me='cd /home/kuni/University/Master/semester_2/Space-Economics && lfcd'
+alias mg='cd /home/kuni/University/Master/semester_2/GNCSS-Guidance-Navigation-and-Control-for-Space-Systems && lfcd'
+alias ma='cd /home/kuni/University/Master/semester_2/Autonomous-Space-Systems && lfcd'
+alias ml='cd /home/kuni/University/Master/semester_2/Law-Science-and-Technology && lfcd'
+alias mf='cd /home/kuni/University/Master/semester_2/Entrepreneurial-Space-Finance && lfcd'
 
 # # swift aliases ----------------------------------------------------------------
 # alias sb='swift build'
