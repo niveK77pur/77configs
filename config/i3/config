@@ -158,8 +158,8 @@ floating_modifier $mod
 # {{{
 
 # Gaps -------------------------------------------------------------------------
-gaps inner 10
-smart_gaps on
+# gaps inner 10
+# smart_gaps on
 
 # Window borders ---------------------------------------------------------------
 default_border pixel 2
