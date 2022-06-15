@@ -3,12 +3,12 @@
 
 START="$1"
 
-MPV_FLAGS="\
+MPV_FLAGS="
     --fs
-    --resume-playback-check-mtime\
-    --save-position-on-quit\
-    --write-filename-in-watch-later-config\
-    --watch-later-directory=.\
+    --resume-playback-check-mtime
+    --save-position-on-quit
+    --write-filename-in-watch-later-config
+    --watch-later-directory=.
     "
 
 if [ -n "$START" ];
