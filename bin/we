@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+# we - Watch Episode
+
+START="$1"
+
+MPV_FLAGS="
+    --fs
+    --resume-playback-check-mtime
+    --save-position-on-quit
+    --write-filename-in-watch-later-config
+    --watch-later-directory=.
+    "
+
+if [ -n "$START" ];
+then
+    mpv $MPV_FLAGS --playlist-start="$(( $START - 1 ))" *.mp4
+else
+    mpv $MPV_FLAGS *.mp4
+fi

@@ -25,7 +25,8 @@ install-files() {
         [ -d "$DIR" ] || mkdir -p "$DIR"
         if [ -f "$DEST/$f" ]
         then
-            echo "$DEST/$f already exists. Skipping."
+            :
+            #echo "$DEST/$f already exists. Skipping."
             #rsync -PUt "$SRC/$f" "$DEST/$f"
             #rm -v "$DEST/$f"
         else
