@@ -6,6 +6,7 @@ START="$1"
 MPV_FLAGS="
     --fs
     --resume-playback-check-mtime
+    --input-conf=""$HOME/.config/mpv/watch-episode-input.conf""
     --save-position-on-quit
     --write-filename-in-watch-later-config
     --watch-later-directory=.
