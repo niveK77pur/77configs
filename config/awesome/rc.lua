@@ -900,6 +900,13 @@ globalkeys = gears.table.join(
         clipmenu = clipmenu .. ' -i'
         awful.spawn(clipmenu)
     end, {description = "launch 'clipmenu'", group = "launcher"}),
+    -- GhostText NeoVim {{{2
+    awful.key({ modkey }, "g", function()
+        awful.spawn('alacritty --command nvim +GhostStart')
+    end, {description = "launch 'clipmenu'", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "g", function()
+        awful.spawn('alacritty --class floaty --command nvim +GhostStart')
+    end, {description = "launch 'clipmenu'", group = "launcher"}),
     --}}}2
     -- switch screens {{{2
     awful.key({ modkey, alt }, "space", function()
