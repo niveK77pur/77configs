@@ -87,7 +87,7 @@ cmd open ${{
         blend*)         blender $f & exit;;
         pcapng)         wireshark $f & exit;;
         ipynb)          jupyter-notebook $f;;
-        docx|pptx|xlsx) onlyoffice-desktop & exit;;
+        docx|pptx|xlsx) onlyoffice-desktopeditors & exit;;
     esac
 
     # based on mime type
