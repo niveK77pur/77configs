@@ -4,7 +4,7 @@ VIEWER=feh
 VIEWER_FLAGS="--class floaty"
 
 EDITOR=gimp
-EDITOR_FLAGS="--new-instance --no-splash --no-data"
+EDITOR_FLAGS="--new-instance --no-splash" #" --no-data"
 
 helpMessage() {
     echo -e "Usage:
