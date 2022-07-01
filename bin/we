@@ -6,6 +6,7 @@ START="$1"
 MPV_FLAGS="
     --fs
     --resume-playback-check-mtime
+    --input-conf=""$HOME/.config/mpv/watch-episode-input.conf""
     --save-position-on-quit
     --write-filename-in-watch-later-config
     --watch-later-directory=.
@@ -13,7 +14,13 @@ MPV_FLAGS="
 
 if [ -n "$START" ];
 then
-    mpv $MPV_FLAGS --playlist-start="$(( $START - 1 ))" *.mp4
+    START_INDEX="$(ls -1b *.mp4 | cat -n | grep -P "ep0{0,3}""$START""_" | awk '{print $1 - 1}')"
+    if [ -z $START_INDEX ]
+    then
+        echo Episode $START does not exist.
+        exit 1
+    fi
+    mpv $MPV_FLAGS --playlist-start="$START_INDEX" *.mp4
 else
     mpv $MPV_FLAGS *.mp4
 fi
