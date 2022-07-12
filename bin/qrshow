@@ -1,3 +1,3 @@
 #!/bin/bash
 
-qrencode -o- $@ | feh --class floaty -
+qrencode -o- "$@" | feh --class floaty -
