@@ -7,3 +7,5 @@ $out_dir = "latexmk-output";
 # $cleanup_mode = 1;
 # $cleanup_includes_generated = 1;
 # $cleanup_includes_cusdep_generated = 1;
+
+$show_time = 1;
