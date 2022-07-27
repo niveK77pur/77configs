@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # WALLPAPER_DIR=~/Pictures/i3wallpapers/active
-WALLPAPER_DIR=~/Pictures/i3wallpapers/anime_games
+WALLPAPER_DIR=~/Pictures/i3wallpapers/active
 
 ps -u $USER | grep redshift >/dev/null || {
     echo "Starting redshift ..."
