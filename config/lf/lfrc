@@ -212,3 +212,11 @@ cmd dragon &{{
     #     dragon-drag-and-drop -a $fs
     # fi
 }}
+
+# Navigate using z.lua ---------------------------------------------------------
+cmd z-jump ${{
+  z_exe="/usr/share/z.lua/z.lua"
+  lf -remote "send ${id} cd '$($z_exe -I -e $1)'"
+}}
+map zz push :z-jump<space>
+
