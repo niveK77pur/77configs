@@ -109,7 +109,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: fira code
+    family: fira code nerd font
     # family: victor mono
 
     # The `style` can be specified to pick a specific face.
