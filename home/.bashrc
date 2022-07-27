@@ -275,7 +275,9 @@ export FZF_DEFAULT_COMMAND='rg --files'
 
 # autojump/z ---------------------------------------------------------------------
 # [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-[[ -s /usr/share/z/z.sh ]] && source /usr/share/z/z.sh
+# [[ -s /usr/share/z/z.sh ]] && source /usr/share/z/z.sh
+ZLUA="/usr/share/z.lua/z.lua"
+[[ -s $ZLUA ]] && eval "$(lua $ZLUA --init bash enhanced once fzf)"
 
 # chroot
 CHROOT="$HOME/chroot"
