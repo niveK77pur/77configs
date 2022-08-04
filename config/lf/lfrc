@@ -205,11 +205,11 @@ cmd fzf_grep ${{
 
 # open dragon-drag-and-drop ----------------------------------------------------
 cmd dragon &{{
-    dragon-drag-and-drop -a -x $fx
+    dragon-drop -a -x $fx
     # if [ "${#fs}" -eq 0 ]; then
-    #     dragon-drag-and-drop -x $f
+    #     dragon-drag -x $f
     # else
-    #     dragon-drag-and-drop -a $fs
+    #     dragon-drag -a $fs
     # fi
 }}
 
