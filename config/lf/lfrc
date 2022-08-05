@@ -215,8 +215,13 @@ cmd dragon &{{
 
 # Navigate using z.lua ---------------------------------------------------------
 cmd z-jump ${{
-  z_exe="/usr/share/z.lua/z.lua"
-  lf -remote "send ${id} cd '$($z_exe -I -e $1)'"
+    HOSTNAME="$(hostname)"
+    if [ "$HOSTNAME" = "titan" ]; then
+        z_exe="/home/kevinb/Downloads/Programs/z.lua/z.lua"
+    elif [ "$HOSTNAME" = "NB-ASUS" ]; then
+        z_exe="/usr/share/z.lua/z.lua"
+    fi
+    lf -remote "send ${id} cd '$($z_exe -I -e $1)'"
 }}
 map zz push :z-jump<space>
 
