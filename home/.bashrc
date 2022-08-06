@@ -286,3 +286,8 @@ CHROOT="$HOME/chroot"
 # PATH=$PATH:/home/kuni/.local/bin/bin;export PATH; # ADDED BY INSTALLER - DO NOT EDIT OR DELETE THIS COMMENT - RealTime-At-Work RTaW-Sim 1.4.13 (Starter) DAAFF252-216B-107D-F1E5-3E22F3C424D6
 
 # PATH=$PATH:/home/kuni/RTaW/RTaW-Sim-1.4.13-Starter/bin;export PATH; # ADDED BY INSTALLER - DO NOT EDIT OR DELETE THIS COMMENT - RealTime-At-Work RTaW-Sim 1.4.13 (Starter) 331454D4-2DA4-BCAE-7FA4-A780A5206F9B
+
+# pnpm
+export PNPM_HOME="/home/kuni/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
