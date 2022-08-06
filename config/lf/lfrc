@@ -215,7 +215,7 @@ cmd dragon &{{
 
 # Navigate using z.lua ---------------------------------------------------------
 cmd z-jump ${{
-    HOSTNAME="$(hostname)"
+    HOSTNAME="$(cat /etc/hostname)"
     if [ "$HOSTNAME" = "titan" ]; then
         z_exe="/home/kevinb/Downloads/Programs/z.lua/z.lua"
     elif [ "$HOSTNAME" = "NB-ASUS" ]; then
