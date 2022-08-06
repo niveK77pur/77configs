@@ -47,7 +47,7 @@ disable = [
 # Additional git repositories to pull
 repos = [
    "~/.config/77configs",
-   "~/.password-store/"
+   "~/.password-store/",
 ]
 
 # Don't pull the predefined git repos
