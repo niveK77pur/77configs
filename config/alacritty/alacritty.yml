@@ -263,8 +263,10 @@ font:
 # Colors (Vim Forest Night)
 colors:
   primary:
-    background: '0x323d43'
-    foreground: '0xd8caac'
+    # background: '0x2b3339' # hard
+    background: '0x2f383e' # medium
+    # background: '0x323d43' # soft
+    foreground: '0xd3c6aa'
 
   # normal:
   #   black:   '0x868d80'
