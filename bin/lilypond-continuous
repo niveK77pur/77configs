@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while inotifywait *.ly /tmp/*.ly~
+do
+    python3 -c "print('=' * $(tput cols))"
+    lilypond "$@"
+done
