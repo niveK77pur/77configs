@@ -145,8 +145,8 @@ cmd 7z ${{
 
 # Fuzzy Finder -----------------------------------------------------------------
 cmd fzf_jump ${{
-    # res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location (maxdepth=1)')"
-    res="$(sk -c 'find -maxdepth 1' --reverse --header='Jump to location (maxdepth=1)')"
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location (maxdepth=1)')"
+    # res="$(sk -c 'find -maxdepth 1' --reverse --header='Jump to location (maxdepth=1)')"
     if [ -f "$res" ]; then
         cmd="select"
     elif [ -d "$res" ]; then
@@ -156,9 +156,9 @@ cmd fzf_jump ${{
 }}
 
 cmd fzf_go ${{
-    # res="$(find */* | fzf --reverse --header='Jump to location')"
+    res="$(find */* | fzf --reverse --header='Jump to location')"
     # res="$(sk -c 'find */*' --reverse --header='Jump to location')"
-    res="$(sk -c 'rg --files' --reverse --header='Jump to location')"
+    # res="$(sk -c 'rg --files' --reverse --header='Jump to location')"
     if [ -f "$res" ]; then
         cmd="select"
     elif [ -d "$res" ]; then
@@ -168,8 +168,8 @@ cmd fzf_go ${{
 }}
 
 cmd fzf_cd_shell ${{
-    # res="$(__fzf_cd__)"
-    res="$(sk -c 'find -type d')"
+    res="$(__fzf_cd__)"
+    # res="$(sk -c 'find -type d')"
     lf -remote "send $id cd \"$res\""
 }}
 
