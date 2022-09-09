@@ -7,7 +7,6 @@ disable = [
     "conda",
     "containers",
     "gem",
-    "vim",
 ]
 
 # Ignore failures for these steps
@@ -48,6 +47,7 @@ disable = [
 # Additional git repositories to pull
 repos = [
    "~/.config/77configs",
+   "~/.config/nvim",
    "~/.password-store/",
 ]
 
