@@ -192,7 +192,7 @@ return {
                 '#404544', -- 7 = white (Midnight.Grey)
             },
             brights = {
-                'black', -- 0 = black
+                'black',   -- 0 = black
                 '#f94b7d', -- 1 = red (Midnight.Red)
                 '#b8ee92', -- 2 = green (Midnight.Green)
                 '#ffb046', -- 3 = yellow (Midnight.Yellow)
