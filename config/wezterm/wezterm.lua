@@ -1,4 +1,16 @@
 local wezterm = require('wezterm')
+local act = wezterm.action
+
+-- Show which key table is active in the status area {{{
+wezterm.on('update-right-status', function(window, pane)
+  local name = window:active_key_table()
+  if name then
+    name = 'TABLE: ' .. name
+  end
+  window:set_right_status(name or '')
+end)
+-- }}}
+
 return {
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -6,10 +18,21 @@ return {
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --{{{
 
+    font_size = 10.0,
+
     font = wezterm.font {
-        family = 'Fira Code Nerd Font',
+        family = 'Fira Code',
         harfbuzz_features = { 'zero' }, -- 0 with dot instead of line through
+        weight = 'Medium',
     },
+
+    -- https://wezfurlong.org/wezterm/config/lua/config/font_rules.html
+    -- font_rules = {
+    --     {
+    --         italic = true,
+    --         font = wezterm.font('Fira Code', { italic=true, weight='Medium', })
+    --     }
+    -- },
 
 --}}}
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,9 +40,16 @@ return {
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --{{{
 
+    -- Default Shortcut / Key Binding Assignments
+    --  https://wezfurlong.org/wezterm/config/default-keys.html
+    -- Available Key Assignments:
+    --  https://wezfurlong.org/wezterm/config/lua/keyassignment/index.html
+
     -- key_map_preference = ({"Mapped", "Physical"})[1],
 
-    keys = {
+    leader = { mods = 'CTRL|ALT', key = 'w', timeout_milliseconds = 1000 },
+
+    keys = { -- {{{
 
         -- Disable default keys {{{
 
@@ -28,10 +58,95 @@ return {
 
         --}}}
 
-        { mods = 'CTRL', key = '.', action = wezterm.action.IncreaseFontSize },
-        { mods = 'CTRL', key = '-', action = wezterm.action.DecreaseFontSize },
+        { mods = 'CTRL', key = '.', action = act.IncreaseFontSize },
+        { mods = 'CTRL', key = '-', action = act.DecreaseFontSize },
+
+
+        -- ActivatePaneDirection - Vim Motion
+        { mods = 'CTRL|SHIFT', key = 'h', action = act.ActivatePaneDirection 'Left' },
+        { mods = 'CTRL|SHIFT', key = 'l', action = act.ActivatePaneDirection 'Right' },
+        { mods = 'CTRL|SHIFT', key = 'k', action = act.ActivatePaneDirection 'Up' },
+        { mods = 'CTRL|SHIFT', key = 'j', action = act.ActivatePaneDirection 'Down' },
+
+        -- Pane Activation Table
+        { mods = 'LEADER|CTRL', key = 'p', action = act.ActivateKeyTable {
+            name = 'manage_panes',
+            one_shot = true,
+            replace_current = false,
+        } },
+
+        -- AdjustPaneSize - Vim Motion
+        { mods = 'ALT', key = '1', action = act.SplitVertical },
+
+
+        -- Activate Tab
+        { mods = 'ALT', key = '1', action = act.ActivateTab(0) },
+        { mods = 'ALT', key = '2', action = act.ActivateTab(1) },
+        { mods = 'ALT', key = '3', action = act.ActivateTab(2) },
+        { mods = 'ALT', key = '4', action = act.ActivateTab(3) },
+        { mods = 'ALT', key = '5', action = act.ActivateTab(4) },
+        { mods = 'ALT', key = '6', action = act.ActivateTab(5) },
+        { mods = 'ALT', key = '7', action = act.ActivateTab(6) },
+        { mods = 'ALT', key = '8', action = act.ActivateTab(7) },
+        { mods = 'ALT', key = '9', action = act.ActivateTab(-1) },
+
+    }, -- }}}
+
+    key_tables = { -- {{{
+        -- https://wezfurlong.org/wezterm/config/key-tables.html
+
+        -- {{{ panes
+
+        manage_panes = {
+            -- resize panes
+            { mods = 'CTRL', key = 'r', action = act.ActivateKeyTable {
+                name = 'resize_panes',
+                one_shot = false,
+                replace_current = false,
+            } },
+
+            -- Split Panes
+            { mods = 'CTRL', key = 'h', action = act.SplitVertical },
+            { mods = 'CTRL', key = 'v', action = act.SplitHorizontal },
+            -- Pane Selection
+            { mods = 'CTRL', key = 's', action = act.PaneSelect },
+        },
+
+        resize_panes = {
+            { mods = 'CTRL', key = 'h', action = act.AdjustPaneSize { 'Left',  5 } },
+            { mods = 'CTRL', key = 'j', action = act.AdjustPaneSize { 'Down',  5 } },
+            { mods = 'CTRL', key = 'k', action = act.AdjustPaneSize { 'Up',    5 } },
+            { mods = 'CTRL', key = 'l', action = act.AdjustPaneSize { 'Right', 5 } },
+            -- Cancel the mode by pressing escape
+            { key = 'Escape', action = 'PopKeyTable' },
+        }
+
+        -- }}}
+
+    }, -- }}}
+
+    -- https://wezfurlong.org/wezterm/config/mouse.html
+    mouse_bindings = { -- {{{
+
+        -- block select (default ALT+Left)
+        {
+            event = { Down = { streak = 1, button = 'Left' } },
+            action = act.SelectTextAtMouseCursor 'Block',
+            mods = 'CTRL|ALT',
+        },
+        {
+            event = { Drag = { streak = 1, button = 'Left' } },
+            action = act.ExtendSelectionToMouseCursor("Block"),
+            mods = 'CTRL|ALT',
+        },
+        {
+            event = { Up = { streak = 1, button = 'Left' } },
+            action = act.CompleteSelection("PrimarySelection"),
+            mods = 'CTRL|ALT',
+        },
 
     },
+    -- }}}
 
 --}}}
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,11 +160,59 @@ return {
     -- hide the tab bar when there is only a single tab in the window
     hide_tab_bar_if_only_one_tab = true,
 
-    -- Everforest: https://github.com/sainnhe/everforest
-    colors = {
-        foreground = '#d3c6aa',
-        -- 1: hard, 2: medium, 3: soft
-        background = ({'#2b3339', '#2f383e', '#323d43'})[2],
+
+    color_scheme = 'Nebulous Midnight',
+
+    color_schemes = {
+
+        ['Everforest'] = { -- {{{
+            -- https://github.com/Yagua/nebulous.nvim
+            foreground = '#d3c6aa',
+            -- 1: hard, 2: medium, 3: soft
+            background = ({'#2b3339', '#2f383e', '#323d43'})[2],
+        }, -- }}}
+
+        ['Nebulous Midnight'] = { -- {{{
+            -- https://github.com/Yagua/nebulous.nvim
+            foreground = '#ced5e5', -- Midnight.White
+            background = '#201f30', -- Midnight.background
+            cursor_bg = '#e796ff', -- Midnight.Orange
+            cursor_border = '#e796ff', -- Midnight.Orange
+            cursor_fg = 'black',
+            selection_bg = '#404554', -- Midnight.Grey
+            compose_cursor = 'white',
+            ansi = {
+                'black',   -- 0 = black
+                '#fd2e6a', -- 1 = red (Midnight.DarkRed)
+                '#61d143', -- 2 = green (Midnight.DarkGreen)
+                '#19cbcc', -- 3 = yellow (Midnight.DarkYellow)
+                '#007ed3', -- 4 = blue (Midnight.DarkBlue)
+                '#fe92e1', -- 5 = magenta (Midnight.DarkMangenta)
+                '#ffae2d', -- 6 = cyan (Midnight.DarkCyan)
+                '#404544', -- 7 = white (Midnight.Grey)
+            },
+            brights = {
+                'black', -- 0 = black
+                '#f94b7d', -- 1 = red (Midnight.Red)
+                '#b8ee92', -- 2 = green (Midnight.Green)
+                '#ffb046', -- 3 = yellow (Midnight.Yellow)
+                '#00d5a7', -- 4 = blue (Midnight.Blue)
+                '#18abda', -- 5 = magenta (Midnight.Mangenta)
+                '#5cdfdf', -- 6 = cyan (Midnight.Cyan)
+                '#ced5e5', -- 7 = white (Midnight.White)
+            },
+        }, -- }}}
+
+    },
+
+
+    window_background_opacity = 1.0,
+
+    window_padding = {
+        left   = 10,
+        right  = 10,
+        top    = 10,
+        bottom = 10,
     },
 
 --}}}
