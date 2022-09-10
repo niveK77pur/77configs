@@ -183,24 +183,24 @@ return {
             compose_cursor = 'white',
             ansi = {
                 'black',   -- 0 = black
-                '#fd2e6a', -- 1 = red (Midnight.DarkRed)
-                '#61d143', -- 2 = green (Midnight.DarkGreen)
-                '#edbe34', -- 3 = yellow (Nova.DarkYellow)
-                '#007ed3', -- 4 = blue (Twilight.DarkBlue)
+                '#fd2e6a', -- 1 = red     (Midnight.DarkRed)
+                '#61d143', -- 2 = green   (Midnight.DarkGreen)
+                '#edbe34', -- 3 = yellow  (Nova.DarkYellow)
+                '#007ed3', -- 4 = blue    (Twilight.DarkBlue)
                 '#fe92e1', -- 5 = magenta (Night.DarkMangenta)
-                '#ffae2d', -- 6 = cyan (Midnight.DarkCyan)
-                '#404544', -- 7 = white (Midnight.Grey)
+                '#ffae2d', -- 6 = cyan    (Midnight.DarkCyan)
+                '#404544', -- 7 = white   (Midnight.Grey)
             },
             brights = {
                 'black',   -- 0 = black
-                '#f94b7d', -- 1 = red (Midnight.Red)
-                '#b8ee92', -- 2 = green (Midnight.Green)
-                '#ddcf43', -- 3 = yellow (Nova.Yellow)
+                '#f94b7d', -- 1 = red     (Midnight.Red)
+                '#b8ee92', -- 2 = green   (Midnight.Green)
+                '#ddcf43', -- 3 = yellow  (Nova.Yellow)
                 -- '#00d5a7', -- 4 = blue (Midnight.Blue)
-                '#47b5d8', -- 4 = blue (Twilight.Blue)
+                '#47b5d8', -- 4 = blue    (Twilight.Blue)
                 '#f95ce6', -- 5 = magenta (Night.Mangenta)
-                '#5cdfdf', -- 6 = cyan (Midnight.Cyan)
-                '#ced5e5', -- 7 = white (Midnight.White)
+                '#5cdfdf', -- 6 = cyan    (Midnight.Cyan)
+                '#ced5e5', -- 7 = white   (Midnight.White)
             },
         }, -- }}}
 
