@@ -185,9 +185,9 @@ return {
                 'black',   -- 0 = black
                 '#fd2e6a', -- 1 = red (Midnight.DarkRed)
                 '#61d143', -- 2 = green (Midnight.DarkGreen)
-                '#19cbcc', -- 3 = yellow (Midnight.DarkYellow)
-                '#007ed3', -- 4 = blue (Midnight.DarkBlue)
-                '#fe92e1', -- 5 = magenta (Midnight.DarkMangenta)
+                '#edbe34', -- 3 = yellow (Nova.DarkYellow)
+                '#007ed3', -- 4 = blue (Twilight.DarkBlue)
+                '#fe92e1', -- 5 = magenta (Night.DarkMangenta)
                 '#ffae2d', -- 6 = cyan (Midnight.DarkCyan)
                 '#404544', -- 7 = white (Midnight.Grey)
             },
@@ -195,9 +195,10 @@ return {
                 'black',   -- 0 = black
                 '#f94b7d', -- 1 = red (Midnight.Red)
                 '#b8ee92', -- 2 = green (Midnight.Green)
-                '#ffb046', -- 3 = yellow (Midnight.Yellow)
-                '#00d5a7', -- 4 = blue (Midnight.Blue)
-                '#18abda', -- 5 = magenta (Midnight.Mangenta)
+                '#ddcf43', -- 3 = yellow (Nova.Yellow)
+                -- '#00d5a7', -- 4 = blue (Midnight.Blue)
+                '#47b5d8', -- 4 = blue (Twilight.Blue)
+                '#f95ce6', -- 5 = magenta (Night.Mangenta)
                 '#5cdfdf', -- 6 = cyan (Midnight.Cyan)
                 '#ced5e5', -- 7 = white (Midnight.White)
             },
