@@ -55,6 +55,7 @@ return {
 
         -- increase font size
         { mods = 'CTRL', key = '=', action = 'DisableDefaultAssignment' },
+        { mods = 'CTRL|SHIFT', key = 'K', action = 'DisableDefaultAssignment' },
 
         --}}}
 
@@ -75,9 +76,6 @@ return {
             replace_current = false,
         } },
 
-        -- AdjustPaneSize - Vim Motion
-        { mods = 'ALT', key = '1', action = act.SplitVertical },
-
 
         -- Activate Tab
         { mods = 'ALT', key = '1', action = act.ActivateTab(0) },
@@ -89,6 +87,14 @@ return {
         { mods = 'ALT', key = '7', action = act.ActivateTab(6) },
         { mods = 'ALT', key = '8', action = act.ActivateTab(7) },
         { mods = 'ALT', key = '9', action = act.ActivateTab(-1) },
+
+
+        -- Scrollback Activation Table
+        { mods = 'LEADER|CTRL', key = 's', action = act.ActivateKeyTable {
+            name = 'scrollback',
+            one_shot = false,
+            replace_current = false,
+        } },
 
     }, -- }}}
 
@@ -110,6 +116,8 @@ return {
             { mods = 'CTRL', key = 'v', action = act.SplitHorizontal },
             -- Pane Selection
             { mods = 'CTRL', key = 's', action = act.PaneSelect },
+            -- Toggle Pane Zoom
+            { mods = 'CTRL', key = 'z', action = act.TogglePaneZoomState },
         },
 
         resize_panes = {
@@ -119,9 +127,22 @@ return {
             { mods = 'CTRL', key = 'l', action = act.AdjustPaneSize { 'Right', 5 } },
             -- Cancel the mode by pressing escape
             { key = 'Escape', action = 'PopKeyTable' },
-        }
+        },
 
         -- }}}
+
+        scrollback = {
+            { mods = 'CTRL', key = 'k', action = act.ScrollByPage(-0.5) },
+            { mods = 'CTRL', key = 'j', action = act.ScrollByPage(0.5) },
+
+            { mods = 'CTRL', key = 'c', action = act.ClearScrollback 'ScrollbackOnly' },
+            { mods = 'CTRL|ALT', key = 'c', action = act.Multiple {
+                act.ClearScrollback 'ScrollbackAndViewport',
+                act.SendKey { key = 'L', mods = 'CTRL' },
+            }, },
+
+            { key = 'Escape', action = 'PopKeyTable' },
+        },
 
     }, -- }}}
 
@@ -225,6 +246,31 @@ return {
     warn_about_missing_glyphs = false,
 
     check_for_updates = false,
+
+    -- How many lines of scrollback you want to retain per tab
+    -- scrollback_lines = 3500,
+
+    -- uses rust regex: https://docs.rs/regex/1.3.9/regex/#syntax
+    quick_select_patterns = {
+        [[]],
+    },
+    quick_select_alphabet = ({ -- suggested alphabet for keyboard layout
+        qwerty =  "asdfqwerzxcvjklmiuopghtybn",
+        qwertz =  "asdfqweryxcvjkluiopmghtzbn",
+        azerty =  "qsdfazerwxcvjklmuiopghtybn",
+        dvorak =  "aoeuqjkxpyhtnsgcrlmwvzfidb",
+        colemak = "arstqwfpzxcvneioluymdhgjbk",
+    })['qwertz'],
+
+
+    -- https://wezfurlong.org/wezterm/hyperlinks.html
+    -- hyperlink_rules = {
+    --     {
+    --         -- github username/project
+    --         regex = [[['"]([\w\d][-\w\d]+)/([-\w\d\.]+)['"]{1}]],
+    --         format = 'https://www.github.com/$1/$2',
+    --     },
+    -- },
 
 --}}}
 
