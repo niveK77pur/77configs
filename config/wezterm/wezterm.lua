@@ -91,7 +91,7 @@ return {
 
         -- Scrollback Activation Table
         { mods = 'LEADER|CTRL', key = 's', action = act.ActivateKeyTable {
-            name = 'scrollback',
+            name = 'scrollback_table',
             one_shot = false,
             replace_current = false,
         } },
@@ -131,7 +131,7 @@ return {
 
         -- }}}
 
-        scrollback = {
+        scrollback_table = {
             { mods = 'CTRL', key = 'k', action = act.ScrollByPage(-0.5) },
             { mods = 'CTRL', key = 'j', action = act.ScrollByPage(0.5) },
 
