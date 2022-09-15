@@ -115,16 +115,22 @@ return {
             { mods = 'CTRL', key = 'h', action = act.SplitVertical },
             { mods = 'CTRL', key = 'v', action = act.SplitHorizontal },
             -- Pane Selection
-            { mods = 'CTRL', key = 's', action = act.PaneSelect },
+            { mods = 'CTRL', key = 's', action = act.PaneSelect{mode="Activate"} },
             -- Toggle Pane Zoom
             { mods = 'CTRL', key = 'z', action = act.TogglePaneZoomState },
+            -- move panes
+            { mods = 'CTRL', key = 'm', action = act.PaneSelect{mode="SwapWithActive"} },
         },
 
         panes_continuous = {
+            -- resize
             { mods = 'CTRL', key = 'h', action = act.AdjustPaneSize { 'Left',  5 } },
             { mods = 'CTRL', key = 'j', action = act.AdjustPaneSize { 'Down',  5 } },
             { mods = 'CTRL', key = 'k', action = act.AdjustPaneSize { 'Up',    5 } },
             { mods = 'CTRL', key = 'l', action = act.AdjustPaneSize { 'Right', 5 } },
+            -- rotate panes
+            { mods = 'CTRL', key = 'b', action = act.RotatePanes 'CounterClockwise', },
+            { mods = 'CTRL', key = 'n', action = act.RotatePanes 'Clockwise' },
             -- Cancel the mode by pressing escape
             { key = 'Escape', action = 'PopKeyTable' },
         },
