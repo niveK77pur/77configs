@@ -5,9 +5,9 @@ xclip -selection clipboard -o > "$TEMP"
 
 case "$1" in
     md) mv "$TEMP" "$TEMP.md" && TEMP="$TEMP.md" && marktext "$TEMP" ;;
-    py) $TERMINAL --class "floaty" --command nvim -b '+set ft=python' "$TEMP" ;;
-    "") $TERMINAL --class "floaty" --command nvim -b "+set ft=clipboard" "$TEMP" ;;
-    *)  $TERMINAL --class "floaty" --command nvim -b "+set ft=$1" "$TEMP" ;;
+    py) $TERMINAL start --class "floaty" nvim -b '+set ft=python' "$TEMP" ;;
+    "") $TERMINAL start --class "floaty" nvim -b "+set ft=clipboard" "$TEMP" ;;
+    *)  $TERMINAL start --class "floaty" nvim -b "+set ft=$1" "$TEMP" ;;
 esac
 
 xclip -selection clipboard "$TEMP"
