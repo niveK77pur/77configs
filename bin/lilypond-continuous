@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while inotifywait *.ly /tmp/*.ly~
+while inotifywait --event modify,close,attrib *.ly /tmp/*.ly~
 do
     python3 -c "print('=' * $(tput cols))"
     lilypond "$@"
