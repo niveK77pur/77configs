@@ -29,6 +29,11 @@ set scrolloff 10
 
 set icons
 
+# previewer
+set previewer ~/.config/77configs/config/lf/preview/lf_preview.sh
+# set previewer ~/.config/77configs/config/lf/preview/lf_kitty_preview
+# set cleaner ~/.config/77configs/config/lf/preview/lf_kitty_clean
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                   Mappings
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
