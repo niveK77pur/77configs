@@ -1,6 +1,8 @@
 #!/bin/bash
 
 TEMP="$(mktemp)"
+trap "rm '$TEMP'" EXIT
+
 xclip -selection clipboard -o > "$TEMP"
 
 case "$1" in
@@ -11,4 +13,4 @@ case "$1" in
 esac
 
 xclip -selection clipboard "$TEMP"
-rm "$TEMP"
+# rm "$TEMP"
