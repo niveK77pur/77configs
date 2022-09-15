@@ -105,8 +105,8 @@ return {
 
         manage_panes = {
             -- resize panes
-            { mods = 'CTRL', key = 'r', action = act.ActivateKeyTable {
-                name = 'resize_panes',
+            { mods = 'CTRL', key = 'p', action = act.ActivateKeyTable {
+                name = 'panes_continuous',
                 one_shot = false,
                 replace_current = false,
             } },
@@ -120,7 +120,7 @@ return {
             { mods = 'CTRL', key = 'z', action = act.TogglePaneZoomState },
         },
 
-        resize_panes = {
+        panes_continuous = {
             { mods = 'CTRL', key = 'h', action = act.AdjustPaneSize { 'Left',  5 } },
             { mods = 'CTRL', key = 'j', action = act.AdjustPaneSize { 'Down',  5 } },
             { mods = 'CTRL', key = 'k', action = act.AdjustPaneSize { 'Up',    5 } },
