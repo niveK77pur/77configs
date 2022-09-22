@@ -2,6 +2,7 @@
 # we - Watch Episode
 
 START="$1"
+shift
 
 MPV_FLAGS="
     --fs
@@ -12,15 +13,18 @@ MPV_FLAGS="
     --watch-later-directory=.
     "
 
+ENTRIES="$(ls -1b *.mp4 *.mkv | cat -n)"
+EXTENSION="${ENTRIES##*.}"
+
 if [ -n "$START" ];
 then
-    START_INDEX="$(ls -1b *.mp4 | cat -n | grep -P "ep0{0,3}""$START""_" | awk '{print $1 - 1}')"
+    START_INDEX="$(echo $ENTRIES | grep -P "ep0{0,3}${START}_|^\s*\d+\s+0+${START}\." | awk '{print $1 - 1}')"
     if [ -z $START_INDEX ]
     then
         echo Episode $START does not exist.
         exit 1
     fi
-    mpv $MPV_FLAGS --playlist-start="$START_INDEX" *.mp4
+    mpv "$@" $MPV_FLAGS --playlist-start="$START_INDEX" *.$EXTENSION
 else
-    mpv $MPV_FLAGS *.mp4
+    mpv "$@" $MPV_FLAGS *.$EXTENSION
 fi
