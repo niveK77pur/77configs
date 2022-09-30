@@ -1112,7 +1112,7 @@ awful.rules.rules = {
         class = "discord", instance = "discord",
     }, properties = { screen = 1, tag = tags_list[9] } },
     { rule = { -- thunderbird
-        class = "Thunderbird", instance = "Mail",
+        class = "thunderbird", instance = "Mail",
     }, properties = { screen = 1, tag = tags_list[8] } },
     { rule = { -- zoom
         class = "zoom",
@@ -1121,10 +1121,13 @@ awful.rules.rules = {
     -- Program specific rules {{{1
     -- Thunderbird {{{2
     { rule = {
-        class = "Thunderbird", role = "messageWindow"
+        class = "thunderbird", role = "messageWindow"
     }, properties = { floating = true } },
     { rule = {
-        class = "Thunderbird", role = "Msgcompose"
+        class = "thunderbird", role = "Msgcompose"
+    }, properties = { floating = true } },
+    { rule = {
+        class = "thunderbird", instance = "Mailnews"
     }, properties = { floating = true } },
     -- Firefox {{{2
     { rule = {
