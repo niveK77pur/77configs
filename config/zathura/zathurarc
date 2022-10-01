@@ -10,10 +10,12 @@ set statusbar-basename true
 # Recoloring
 set recolor-reverse-video true
 set recolor-keephue true
-set recolor-darkcolor "#d8caac"
-set recolor-lightcolor "#323d43"
+set recolor-darkcolor "#ced5e5"
+set recolor-lightcolor "#201f30"
+# set recolor-darkcolor "#d8caac"
+# set recolor-lightcolor "#323d43"
 # set default-bg "#2c343a"
-set default-bg "#262E33"
+# set default-bg "#262E33"
 # set default-bg "#222A2E"
 set recolor true
 
