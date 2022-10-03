@@ -1,8 +1,11 @@
 #!/usr/bin/bash
 # we - Watch Episode
 
-START="$1"
-shift
+if [[ "$1" =~ ^[0-9]+$ ]]
+then
+    START="$1"
+    shift
+fi
 
 MPV_FLAGS="
     --fs
@@ -18,7 +21,7 @@ EXTENSION="${ENTRIES##*.}"
 
 if [ -n "$START" ];
 then
-    START_INDEX="$(echo "$ENTRIES" | grep -P "ep0{0,3}${START}_|^\s*\d+\s+0+${START}\." | awk '{print $1 - 1}')"
+    START_INDEX="$(echo "$ENTRIES" | grep -P "ep0{0,3}${START}_|Episode.*?\d+|^\s*\d+\s+0+${START}\." | awk '{print $1 - 1}')"
     if [ -z $START_INDEX ]
     then
         echo Episode $START does not exist.
