@@ -76,6 +76,7 @@ alias mg='cd /home/kuni/University/Master/semester_3/GNSS-Theory-and-Application
 alias ml='cd /home/kuni/University/Master/semester_3/Machine-Learning-Space-Master && lfcd'
 alias ma='cd /home/kuni/University/Master/semester_3/Practical-Aspects-of-Entrepreneurship && lfcd'
 alias ms='cd /home/kuni/University/Master/semester_3/Scientific-Space-Project && lfcd'
+alias mr='cd /home/kuni/University/Master/semester_3/Robotic-Manipulation-in-Space/ && lfcd'
 
 # alias mj='cd /home/kuni/University/Master/SummerJob && lfcd'
 # alias mjn='cd /home/kuni/University/Master/SummerJob/notes && lfcd'
