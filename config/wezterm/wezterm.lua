@@ -258,7 +258,7 @@ return {
 
     -- uses rust regex: https://docs.rs/regex/1.3.9/regex/#syntax
     quick_select_patterns = {
-        [[]],
+        '\\b[[:alnum:][:punct:]]+\\b', -- "words"
     },
     quick_select_alphabet = ({ -- suggested alphabet for keyboard layout
         qwerty =  "asdfqwerzxcvjklmiuopghtybn",
