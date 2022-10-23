@@ -21,7 +21,7 @@ EXTENSION="${ENTRIES##*.}"
 
 if [ -n "$START" ];
 then
-    START_INDEX="$(echo "$ENTRIES" | grep -P "ep0{0,3}${START}_|Episode.*?${START}|^\s*\d+\s+0+${START}\." | awk '{print $1 - 1}')"
+    START_INDEX="$(echo "$ENTRIES" | grep -P "ep0{0,3}${START}_|Episode.*?${START}\.|^\s*\d+\s+0+${START}\." | awk '{print $1 - 1}')"
     if [ -z $START_INDEX ]
     then
         echo Episode $START does not exist.
