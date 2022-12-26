@@ -13,3 +13,9 @@ control-f: 'rifle "$(fzf)"\C-j'
 "\C-gc": "\C-agit commit -m \"\C-e\"\r"
 "\C-gp": "git push origin "
 "\C-gd": "\C-agit commit -m \"\C-e\"; git push origin "
+
+
+# Tuxedo OS inputrc ------------------------------------------------------------
+# alternate mappings for "page up" and "page down" to search the history
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
