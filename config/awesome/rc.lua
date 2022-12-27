@@ -4,6 +4,13 @@
 pcall(require, "luarocks.loader")
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                             System specifications
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local processor = ({ 'intel', 'amd' })[2]
+local audio_manager = ({ 'alsa', 'pipewire' })[2]
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                  Libraries
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -52,6 +59,7 @@ do
 end
 --}}}1
 
+-- awful.screen.set_auto_dpi_enabled(true)
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                            Variable definitions
@@ -288,7 +296,11 @@ mytextclock = wibox.widget.textclock()
 local mybrightness = wibox.widget.textbox()
 
 -- properties
-mybrightness.file = "/sys/class/backlight/intel_backlight/brightness"
+if processor == 'intel' then
+    mybrightness.file = "/sys/class/backlight/intel_backlight/brightness"
+elseif processor == 'amd' then
+    mybrightness.file = "/sys/class/backlight/amdgpu_bl0/brightness"
+end
 mybrightness.monitor = "inotifywait --monitor --event modify " .. mybrightness.file
 mybrightness.retrieve = "xbacklight -get"
 mybrightness.stepsize = 5
@@ -343,22 +355,22 @@ mybattery.strc = "%s%s%s %s%d%%%s (%s)"
 mybattery.icon = ''
 mybattery.domains = { --{{{
     {
-        val = 10,
+        val = 5,
         text = "Battery level critical!",
         preset = naughty.config.presets.critical,
         notified = false,
         colorspan = { '<span foreground="red">', '</span>' },
     },
     {
-        val = 30,
+        val = 10,
         text = "Battery is running low.",
         preset = naughty.config.presets.normal,
         notified = false,
         colorspan = { '<span foreground="orange">', '</span>' },
     },
     {
-        val = 50,
-        text = "Battery below 50%",
+        val = 20,
+        text = "Battery below 20%",
         preset = naughty.config.presets.low,
         notified = false,
         colorspan = { '<span foreground="yellow">', '</span>' },
@@ -1256,8 +1268,9 @@ do
     local commands = {
         --"xss-lock ~/bin/screenlock.sh",
         "initscreen.sh",
-        --"nm-applet",
-        --"clipmenud",
+        "nm-applet",
+        "setxkbmap -option caps:escape",
+        "clipmenud",
         -- "dunst", -- notifications already provided by 'naughty'
     }
 
