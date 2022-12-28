@@ -451,7 +451,26 @@ local myaudio = wibox.widget.textbox()
 
 -- properties
 myaudio.monitor = "pactl subscribe"
-myaudio.retrieve = "amixer sget Master"
+if audio_manager == 'alsa' then
+    myaudio.retrieve = "amixer sget Master"
+    myaudio.set_fmt  = "amixer sset Master %s"
+    myaudio.toggle   = "amixer sset Master toggle"
+    myaudio.volume_matches = {
+        "%[(%d+)%%%] %[(%l+)%]",
+    }
+    myaudio.mute_text   = "off"
+    myaudio.unmute_text = "on"
+elseif audio_manager == 'pipewire' then
+    myaudio.retrieve = "wpctl get-volume @DEFAULT_AUDIO_SINK@"
+    myaudio.set_fmt  = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ %s"
+    myaudio.toggle   = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    myaudio.volume_matches = {
+        "([0-9.]+) %[(%u+)%]",
+        "([0-9.]+)",
+    }
+    myaudio.mute_text   = "MUTED"
+    myaudio.unmute_text = nil
+end
 myaudio.stepsize = 5
 myaudio.str = "墳: %s"
 myaudio.prefix_str = "墳:"
@@ -476,11 +495,22 @@ myaudio.pidfile = TMPFILE:format("myaudio_pid")
 -- functions
 function myaudio:update() --{{{
     awful.spawn.easy_async(self.retrieve, function(stdout)
-        local volume, state = stdout:match("%[(%d+)%%%] %[(%l+)%]")
+        local volume, state
+        for _, matchpattern in ipairs(self.volume_matches) do
+            -- try out alternative patterns (because Lua does not have optional match groups)
+            volume, state = stdout:match(matchpattern)
+            if volume then break end
+        end
+
+        volume = tonumber(volume)
+        if audio_manager == 'pipewire' then
+            volume = volume * 100  -- turn into %
+        end
+
         local markup = self.prefix_str
 
         -- check special state of audio
-        if state == "on" then
+        if state == self.unmute_text then
             -- colors for high volume
             local v = tonumber(volume)
             local t = checkValueInDomain(v, self.domains)
@@ -489,23 +519,23 @@ function myaudio:update() --{{{
             else
                 markup = markup .. ' ' .. self.status_str:format('',volume .. '%','')
             end
-        elseif state == "off" then
+        elseif state == self.mute_text then
             markup = markup .. ' ' .. self.status_str:format('','MUTE','')
         else
             markup = markup .. ' ' .. self.status_str:format('','??','')
         end
 
         -- update widget
-        self.markup = markup or self.str:format(volume .. '%')
+        self.markup = markup or self.str:format(string(volume) .. '%')
     end)
 end --}}}
 function myaudio:inc(value) --{{{
     local sign, val = tostring(value):match('(-?)(%d+)')
     if sign ~= '-' then sign = '+' end
-    awful.spawn('amixer sset Master ' .. val .. '%' .. sign)
+    awful.spawn(self.set_fmt:format(val .. '%' .. sign))
 end --}}}
 function myaudio:toggle() --{{{
-    awful.spawn('amixer sset Master toggle')
+    awful.spawn(self.toggle)
 end --}}}
 
 -- buttons
