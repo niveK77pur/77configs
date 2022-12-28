@@ -452,18 +452,18 @@ local myaudio = wibox.widget.textbox()
 -- properties
 myaudio.monitor = "pactl subscribe"
 if audio_manager == 'alsa' then
-    myaudio.retrieve = "amixer sget Master"
-    myaudio.set_fmt  = "amixer sset Master %s"
-    myaudio.toggle   = "amixer sset Master toggle"
+    myaudio.retrieve   = "amixer sget Master"
+    myaudio.set_fmt    = "amixer sset Master %s"
+    myaudio.toggle_cmd = "amixer sset Master toggle"
     myaudio.volume_matches = {
         "%[(%d+)%%%] %[(%l+)%]",
     }
     myaudio.mute_text   = "off"
     myaudio.unmute_text = "on"
 elseif audio_manager == 'pipewire' then
-    myaudio.retrieve = "wpctl get-volume @DEFAULT_AUDIO_SINK@"
-    myaudio.set_fmt  = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ %s"
-    myaudio.toggle   = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    myaudio.retrieve   = "wpctl get-volume @DEFAULT_AUDIO_SINK@"
+    myaudio.set_fmt    = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ %s"
+    myaudio.toggle_cmd = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     myaudio.volume_matches = {
         "([0-9.]+) %[(%u+)%]",
         "([0-9.]+)",
@@ -535,7 +535,8 @@ function myaudio:inc(value) --{{{
     awful.spawn(self.set_fmt:format(val .. '%' .. sign))
 end --}}}
 function myaudio:toggle() --{{{
-    awful.spawn(self.toggle)
+    -- 'self' does not work here for some reason, use 'myaudio'
+    awful.spawn(myaudio.toggle_cmd)
 end --}}}
 
 -- buttons
