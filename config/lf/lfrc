@@ -100,7 +100,7 @@ cmd open ${{
         text/*)             $EDITOR $fx;;
         application/pdf)    zathura $fx &;;
         image/svg*)         inkscape $f &;;
-        image/*)            feh --scale-down $f &;;
+        image/*)            feh -Z --scale-down $f &;;
         video/*)            mpv $f & ;;
         *)                  for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
