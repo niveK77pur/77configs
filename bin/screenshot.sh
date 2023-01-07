@@ -47,7 +47,7 @@ else
             ;;
         r|resize)
             import $SCREENSHOT_FILE
-            magick "$SCREENSHOT_FILE" -resize "${2:-400x}" "$SCREENSHOT_FILE"
+            convert "$SCREENSHOT_FILE" -resize "${2:-400x}" "$SCREENSHOT_FILE"
             ;;
         h|help)     helpMessage ;;
         *)          echo "Wrong argumet: '$1'" ; helpMessage ;;
