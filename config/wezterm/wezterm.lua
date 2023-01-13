@@ -57,6 +57,9 @@ return {
         { mods = 'CTRL', key = '=', action = 'DisableDefaultAssignment' },
         { mods = 'CTRL|SHIFT', key = 'K', action = 'DisableDefaultAssignment' },
 
+        -- toggle full screen
+        { mods = 'ALT', key = 'Enter', action = 'DisableDefaultAssignment' },
+
         --}}}
 
         { mods = 'CTRL', key = '.', action = act.IncreaseFontSize },
