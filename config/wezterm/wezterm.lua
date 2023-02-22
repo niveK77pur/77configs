@@ -245,10 +245,9 @@ return {
             compose_cursor = 'white',
             ansi = {
                 'black',   -- 0 = black
-                '#f94b7d', -- 1 = red     (Midnight.Red)
+                '#ff38a2', -- 1 = red     ()
                 '#b8ee92', -- 2 = green   (Midnight.Green)
                 '#ddcf43', -- 3 = yellow  (Nova.Yellow)
-                -- '#00d5a7', -- 4 = blue (Midnight.Blue)
                 '#47b5d8', -- 4 = blue    (Twilight.Blue)
                 '#f95ce6', -- 5 = magenta (Night.Mangenta)
                 '#5cdfdf', -- 6 = cyan    (Midnight.Cyan)
@@ -256,7 +255,7 @@ return {
             },
             brights = {
                 'black',   -- 0 = black
-                '#ff38a2', -- 1 = red     ()
+                '#f94b7d', -- 1 = red     (Midnight.Red)
                 '#9cd162', -- 2 = green   ()
                 '#ffc85b', -- 3 = yellow  ()
                 '#007ed3', -- 4 = blue    (--)
