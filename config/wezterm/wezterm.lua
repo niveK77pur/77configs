@@ -191,7 +191,7 @@ return {
     hide_tab_bar_if_only_one_tab = true,
 
 
-    color_scheme = 'Nebulous Midnight',
+    color_scheme = 'Pinkmare',
 
     color_schemes = {
 
@@ -231,6 +231,38 @@ return {
                 '#f95ce6', -- 5 = magenta (Night.Mangenta)
                 '#5cdfdf', -- 6 = cyan    (Midnight.Cyan)
                 '#ced5e5', -- 7 = white   (Midnight.White)
+            },
+        }, -- }}}
+
+        ['Pinkmare'] = { -- {{{
+            -- https://github.com/Matsuuu/pinkmare
+            foreground = '#fae8b6', -- fg
+            background = '#202330', -- bg0
+            cursor_bg = '#f2448b',
+            cursor_border = '#e796ff',
+            cursor_fg = 'black',
+            selection_bg = '#472541',
+            compose_cursor = 'white',
+            ansi = {
+                'black',   -- 0 = black
+                '#f94b7d', -- 1 = red     (Midnight.Red)
+                '#b8ee92', -- 2 = green   (Midnight.Green)
+                '#ddcf43', -- 3 = yellow  (Nova.Yellow)
+                -- '#00d5a7', -- 4 = blue (Midnight.Blue)
+                '#47b5d8', -- 4 = blue    (Twilight.Blue)
+                '#f95ce6', -- 5 = magenta (Night.Mangenta)
+                '#5cdfdf', -- 6 = cyan    (Midnight.Cyan)
+                '#ced5e5', -- 7 = white   (Midnight.White)
+            },
+            brights = {
+                'black',   -- 0 = black
+                '#ff38a2', -- 1 = red     ()
+                '#9cd162', -- 2 = green   ()
+                '#ffc85b', -- 3 = yellow  ()
+                '#007ed3', -- 4 = blue    (--)
+                '#d9bcef', -- 5 = magenta (purple)
+                '#87c095', -- 6 = cyan    ()
+                '#fff0f5', -- 7 = white   (gold)
             },
         }, -- }}}
 
