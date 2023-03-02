@@ -155,18 +155,18 @@ keybinds  clear-defaults=true {
     shared_except "scroll" "locked" {
         bind "Ctrl s" { SwitchToMode "Scroll"; }
     }
-    shared_except "session" "locked" {
-        bind "Ctrl o" { SwitchToMode "Session"; }
-    }
+    // shared_except "session" "locked" {
+    //     bind "Ctrl o" { SwitchToMode "Session"; }
+    // }
     shared_except "tab" "locked" {
         bind "Ctrl t" { SwitchToMode "Tab"; }
     }
     shared_except "move" "locked" {
         bind "Ctrl h" { SwitchToMode "Move"; }
     }
-    shared_except "tmux" "locked" {
-        bind "Ctrl b" { SwitchToMode "Tmux"; }
-    }
+    // shared_except "tmux" "locked" {
+    //     bind "Ctrl b" { SwitchToMode "Tmux"; }
+    // }
 }
 
 plugins {
