@@ -238,7 +238,7 @@ return {
             -- https://github.com/Matsuuu/pinkmare
             foreground = '#fae8b6', -- fg
             background = '#202330', -- bg0
-            cursor_bg = '#f2448b',
+            -- cursor_bg = '#f2448b',
             cursor_border = '#e796ff',
             cursor_fg = 'black',
             selection_bg = '#472541',
