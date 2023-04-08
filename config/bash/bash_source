@@ -6,7 +6,8 @@ FZF="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/fzf.bash"
 LFCD="$HOME/.config/lf/lfcd.sh"
 [ -f "$LFCD" ] && source "$LFCD"
 
-ZLUA="$HOME/Downloads/Programs/z.lua/z.lua"
+# ZLUA="$HOME/Downloads/Programs/z.lua/z.lua"
+ZLUA="/usr/share/z.lua/z.lua"
 [ -f "$ZLUA" ] && eval "$(lua "$ZLUA" --init bash enhanced once fzf)"
 
 ZELLIJ_ALIAS="/home/kuni/.config/77configs/config/bash/zellij-completions.bash"
