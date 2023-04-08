@@ -1,0 +1,15 @@
+#!/bin/bash
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
+
+LFCD="$HOME/.config/lf/lfcd.sh"
+[ -f "$LFCD" ] && source "$LFCD"
+
+ZLUA="$HOME/Downloads/Programs/z.lua/z.lua"
+[ -f "$ZLUA" ] && eval "$(lua "$ZLUA" --init bash enhanced once fzf)"
+
+ZELLIJ_ALIAS="/home/kuni/.config/77configs/config/bash/zellij-completions.bash"
+[ -f "$ZELLIJ_ALIAS" ] && source "$ZELLIJ_ALIAS"
+
+FIND_THE_COMMAND="/usr/share/doc/find-the-command/ftc.bash"
+[ -f "$FIND_THE_COMMAND" ] && source "$FIND_THE_COMMAND"
