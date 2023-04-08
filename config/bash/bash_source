@@ -1,6 +1,7 @@
 #!/bin/bash
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.bash
+FZF="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/fzf.bash"
+[ -f "$FZF" ] && source "$FZF"
 
 LFCD="$HOME/.config/lf/lfcd.sh"
 [ -f "$LFCD" ] && source "$LFCD"
