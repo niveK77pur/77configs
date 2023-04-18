@@ -302,6 +302,7 @@ return {
         colemak = "arstqwfpzxcvneioluymdhgjbk",
     })['qwertz'],
 
+    audible_bell = "Disabled",
 
     -- https://wezfurlong.org/wezterm/hyperlinks.html
     -- hyperlink_rules = {
