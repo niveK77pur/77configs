@@ -16,7 +16,7 @@ MPV_FLAGS="
     --watch-later-directory=.
     "
 
-ENTRIES="$(ls -1b *.mp4 *.mkv | cat -n)"
+ENTRIES="$(ls -1vb *.mp4 *.mkv | cat -n)"
 EXTENSION="${ENTRIES##*.}"
 
 if [ -n "$START" ];
