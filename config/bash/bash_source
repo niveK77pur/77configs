@@ -10,7 +10,7 @@ LFCD="$HOME/.config/lf/lfcd.sh"
 ZLUA="/usr/share/z.lua/z.lua"
 [ -f "$ZLUA" ] && eval "$(lua "$ZLUA" --init bash enhanced once fzf)"
 
-ZELLIJ_ALIAS="/home/kuni/.config/77configs/config/bash/zellij-completions.bash"
+ZELLIJ_ALIAS="$HOME/.config/77configs/config/bash/zellij-completions.bash"
 [ -f "$ZELLIJ_ALIAS" ] && source "$ZELLIJ_ALIAS"
 
 FIND_THE_COMMAND="/usr/share/doc/find-the-command/ftc.bash"
