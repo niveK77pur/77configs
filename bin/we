@@ -16,18 +16,18 @@ MPV_FLAGS="
     --watch-later-directory=.
     "
 
-ENTRIES="$(ls -1vb *.mp4 *.mkv | cat -n)"
+ENTRIES="$(ls -1vb -- *.mp4 *.mkv | cat -n)"
 EXTENSION="${ENTRIES##*.}"
 
 if [ -n "$START" ];
 then
     START_INDEX="$(echo "$ENTRIES" | grep -P "ep0{0,3}${START}_|Episode.*?${START}\.|^\s*\d+\s+0+${START}\.|episode-${START}-" | awk '{print $1 - 1}')"
-    if [ -z $START_INDEX ]
+    if [ -z "$START_INDEX" ]
     then
-        echo Episode $START does not exist.
+        echo "Episode $START does not exist."
         exit 1
     fi
-    mpv "$@" $MPV_FLAGS --playlist-start="$START_INDEX" *.$EXTENSION
+    mpv "$@" $MPV_FLAGS --playlist-start="$START_INDEX" "*.$EXTENSION"
 else
-    mpv "$@" $MPV_FLAGS *.$EXTENSION
+    mpv "$@" $MPV_FLAGS "*.$EXTENSION"
 fi
