@@ -4,6 +4,13 @@
 pcall(require, "luarocks.loader")
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--                             System specifications
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+local processor = ({ 'intel', 'amd' })[2]
+local audio_manager = ({ 'alsa', 'pipewire' })[2]
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                                  Libraries
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -52,6 +59,7 @@ do
 end
 --}}}1
 
+-- awful.screen.set_auto_dpi_enabled(true)
 
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --                            Variable definitions
@@ -288,7 +296,11 @@ mytextclock = wibox.widget.textclock()
 local mybrightness = wibox.widget.textbox()
 
 -- properties
-mybrightness.file = "/sys/class/backlight/intel_backlight/brightness"
+if processor == 'intel' then
+    mybrightness.file = "/sys/class/backlight/intel_backlight/brightness"
+elseif processor == 'amd' then
+    mybrightness.file = "/sys/class/backlight/amdgpu_bl0/brightness"
+end
 mybrightness.monitor = "inotifywait --monitor --event modify " .. mybrightness.file
 mybrightness.retrieve = "xbacklight -get"
 mybrightness.stepsize = 5
@@ -343,22 +355,22 @@ mybattery.strc = "%s%s%s %s%d%%%s (%s)"
 mybattery.icon = ''
 mybattery.domains = { --{{{
     {
-        val = 10,
+        val = 5,
         text = "Battery level critical!",
         preset = naughty.config.presets.critical,
         notified = false,
         colorspan = { '<span foreground="red">', '</span>' },
     },
     {
-        val = 30,
+        val = 10,
         text = "Battery is running low.",
         preset = naughty.config.presets.normal,
         notified = false,
         colorspan = { '<span foreground="orange">', '</span>' },
     },
     {
-        val = 50,
-        text = "Battery below 50%",
+        val = 20,
+        text = "Battery below 20%",
         preset = naughty.config.presets.low,
         notified = false,
         colorspan = { '<span foreground="yellow">', '</span>' },
@@ -439,7 +451,26 @@ local myaudio = wibox.widget.textbox()
 
 -- properties
 myaudio.monitor = "pactl subscribe"
-myaudio.retrieve = "amixer sget Master"
+if audio_manager == 'alsa' then
+    myaudio.retrieve   = "amixer sget Master"
+    myaudio.set_fmt    = "amixer sset Master %s"
+    myaudio.toggle_cmd = "amixer sset Master toggle"
+    myaudio.volume_matches = {
+        "%[(%d+)%%%] %[(%l+)%]",
+    }
+    myaudio.mute_text   = "off"
+    myaudio.unmute_text = "on"
+elseif audio_manager == 'pipewire' then
+    myaudio.retrieve   = "wpctl get-volume @DEFAULT_AUDIO_SINK@"
+    myaudio.set_fmt    = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ %s"
+    myaudio.toggle_cmd = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    myaudio.volume_matches = {
+        "([0-9.]+) %[(%u+)%]",
+        "([0-9.]+)",
+    }
+    myaudio.mute_text   = "MUTED"
+    myaudio.unmute_text = nil
+end
 myaudio.stepsize = 5
 myaudio.str = "墳: %s"
 myaudio.prefix_str = "墳:"
@@ -464,11 +495,22 @@ myaudio.pidfile = TMPFILE:format("myaudio_pid")
 -- functions
 function myaudio:update() --{{{
     awful.spawn.easy_async(self.retrieve, function(stdout)
-        local volume, state = stdout:match("%[(%d+)%%%] %[(%l+)%]")
+        local volume, state
+        for _, matchpattern in ipairs(self.volume_matches) do
+            -- try out alternative patterns (because Lua does not have optional match groups)
+            volume, state = stdout:match(matchpattern)
+            if volume then break end
+        end
+
+        volume = tonumber(volume)
+        if audio_manager == 'pipewire' then
+            volume = volume * 100  -- turn into %
+        end
+
         local markup = self.prefix_str
 
         -- check special state of audio
-        if state == "on" then
+        if state == self.unmute_text then
             -- colors for high volume
             local v = tonumber(volume)
             local t = checkValueInDomain(v, self.domains)
@@ -477,23 +519,24 @@ function myaudio:update() --{{{
             else
                 markup = markup .. ' ' .. self.status_str:format('',volume .. '%','')
             end
-        elseif state == "off" then
+        elseif state == self.mute_text then
             markup = markup .. ' ' .. self.status_str:format('','MUTE','')
         else
             markup = markup .. ' ' .. self.status_str:format('','??','')
         end
 
         -- update widget
-        self.markup = markup or self.str:format(volume .. '%')
+        self.markup = markup or self.str:format(string(volume) .. '%')
     end)
 end --}}}
 function myaudio:inc(value) --{{{
     local sign, val = tostring(value):match('(-?)(%d+)')
     if sign ~= '-' then sign = '+' end
-    awful.spawn('amixer sset Master ' .. val .. '%' .. sign)
+    awful.spawn(self.set_fmt:format(val .. '%' .. sign))
 end --}}}
 function myaudio:toggle() --{{{
-    awful.spawn('amixer sset Master toggle')
+    -- 'self' does not work here for some reason, use 'myaudio'
+    awful.spawn(myaudio.toggle_cmd)
 end --}}}
 
 -- buttons
@@ -1256,8 +1299,9 @@ do
     local commands = {
         --"xss-lock ~/bin/screenlock.sh",
         "initscreen.sh",
-        --"nm-applet",
-        --"clipmenud",
+        "nm-applet",
+        "setxkbmap -option caps:escape",
+        "clipmenud",
         -- "dunst", -- notifications already provided by 'naughty'
     }
 
