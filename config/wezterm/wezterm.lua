@@ -18,10 +18,10 @@ return {
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --{{{
 
-    font_size = 10.0,
+    font_size = 11.1,
 
     font = wezterm.font {
-        family = 'Fira Code',
+        family = 'Fira Code Nerd Font',
         harfbuzz_features = { 'zero' }, -- 0 with dot instead of line through
         weight = 'Medium',
     },
