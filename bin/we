@@ -27,7 +27,7 @@ then
         echo "Episode $START does not exist."
         exit 1
     fi
-    mpv "$@" $MPV_FLAGS --playlist-start="$START_INDEX" "*.$EXTENSION"
+    mpv "$@" $MPV_FLAGS --playlist-start="$START_INDEX" *".$EXTENSION"
 else
-    mpv "$@" $MPV_FLAGS "*.$EXTENSION"
+    mpv "$@" $MPV_FLAGS *".$EXTENSION"
 fi
