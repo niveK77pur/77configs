@@ -71,7 +71,7 @@ mount-list() {
         | set-mount-status mtp
     # lsblk -o PATH,LABEL,SIZE \
     lsblk -o PATH,SIZE,LABEL \
-        | grep -E '/dev/sd[b-z][0-9]+|/dev/mmcblk0p[0-9]+' \
+        | grep -E '/dev/sd[a-z][0-9]+|/dev/mmcblk0p[0-9]+' \
         | sed 's#\(/[^ ]*[0-9]\+\) \+\([^ ]\+\) \+\(.*\)#USB(?)    \3 [\2] (\1)#' \
         | set-mount-status usb
 }
