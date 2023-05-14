@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+
+import os
+import re
+import sys
+from typing import List, Optional
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                      Setup
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EP_START: Optional[int] = None
+if len(sys.argv) > 1:
+    # -1 for 0 indexing
+    EP_START = int(sys.argv[1])
+
+
+MPV_FLAGS = [
+    "--fs",
+    "--resume-playback-check-mtime",
+    "--input-conf={}/.config/mpv/watch-episode-input.conf".format(os.environ["HOME"]),
+    "--save-position-on-quit",
+    "--write-filename-in-watch-later-config",
+    "--watch-later-directory=.",
+]
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Functions
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+def getEpisodeCount(filename: str) -> int:
+    """Get episode number from file name
+
+    Returns episode number given a regex pattern. Returns -1 if no episode
+    count was found; it may require implementing additional regex patterns.
+    """
+    if m := re.search(r"ep0{0,3}(\d+)", filename):
+        return int(m.group(1))
+    elif m := re.search(r"Episode.*?(\d+)", filename):
+        return int(m.group(1))
+    elif m := re.search(r"^\s*(\d+)\.", filename):
+        return int(m.group(1))
+    elif m := re.search(r"episode-(\d+)", filename):
+        return int(m.group(1))
+    elif m := re.search(r"EP\.(\d+)", filename):
+        return int(m.group(1))
+    elif m := re.search(r"- (\d+) ", filename):
+        return int(m.group(1))
+    return -1
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Sort files
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+episodes: List[tuple[str, int]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
+episodes = list(filter(lambda e: e[1] >= 0, episodes))
+episodes.sort(key=lambda e: e[1])
+
+for i, f in enumerate(episodes):
+    print(">>", i, f)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                           Get requeted episode index
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PLAYLIST_START = ""
+if EP_START:
+    try:
+        EP_INDEX = [e[1] for e in episodes].index(EP_START)
+        PLAYLIST_START = f"--playlist-start={EP_INDEX}"
+    except ValueError:
+        print(f"Episode {EP_START} does not exist.")
+        exit(1)
+
+os.system(
+    "mpv {} {} -- {}".format(
+        " ".join(MPV_FLAGS), PLAYLIST_START, " ".join((f'"{e[0]}"' for e in episodes))
+    )
+)
