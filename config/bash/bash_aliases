@@ -47,8 +47,9 @@ alias hc="herbstclient"
 
 # alias vagrant='~/BSP/Semester_1/Vagrant_VM/missaleneous/Vagrant_download/vagrant'
 
-# LazyGit ----------------------------------------------------------------------
+# Lazy -------------------------------------------------------------------------
 alias lg='lazygit'
+alias lzd='lazydocker'
 
 # git alias for dotfiles -------------------------------------------------------
 alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
