@@ -1193,6 +1193,25 @@ awful.rules.rules = {
         except = { instance = "chromium" },
         properties = { floating = false }
     },
+    -- Raven RSS {{{2
+    {
+        -- The main Raven window
+        rule = { class = "Raven Reader" },--[[  instance = "raven reader" }, ]]
+        properties = {
+            maximized = false,
+            fullscreen = false,
+            maximized_vertical = false,
+            maximized_horizontal = false,
+            size_hints_honor = false,
+        },
+    },
+    {
+        -- The built-in browser window has the name/title of the article
+        rule = { class = "Raven Reader" },--[[  instance = "raven reader" }, ]]
+        except = { name = "Raven Reader" },
+        properties = { floating = true },
+    },
+
     --}}}2
 
     --}}}1
