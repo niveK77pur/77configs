@@ -9,10 +9,10 @@ from typing import List, Optional
 #                                      Setup
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EP_START: Optional[int] = None
+EP_START: Optional[float] = None
 if len(sys.argv) > 1:
     # -1 for 0 indexing
-    EP_START = int(sys.argv[1])
+    EP_START = float(sys.argv[1])
 
 
 MPV_FLAGS = [
@@ -30,24 +30,24 @@ MPV_FLAGS = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-def getEpisodeCount(filename: str) -> int:
+def getEpisodeCount(filename: str) -> float:
     """Get episode number from file name
 
     Returns episode number given a regex pattern. Returns -1 if no episode
     count was found; it may require implementing additional regex patterns.
     """
-    if m := re.search(r"ep0{0,3}(\d+)", filename):
-        return int(m.group(1))
-    elif m := re.search(r"Episode.*?(\d+)", filename):
-        return int(m.group(1))
-    elif m := re.search(r"^\s*(\d+)\.", filename):
-        return int(m.group(1))
-    elif m := re.search(r"episode-(\d+)", filename):
-        return int(m.group(1))
-    elif m := re.search(r"EP\.(\d+)", filename):
-        return int(m.group(1))
-    elif m := re.search(r"- (\d+) ", filename):
-        return int(m.group(1))
+    if m := re.search(r"ep0{0,3}([0-9.]+)", filename):
+        return float(m.group(1))
+    elif m := re.search(r"Episode.*?([0-9.]+)", filename):
+        return float(m.group(1))
+    elif m := re.search(r"^\s*([0-9.]+)\.", filename):
+        return float(m.group(1))
+    elif m := re.search(r"episode-([0-9.]+)", filename):
+        return float(m.group(1))
+    elif m := re.search(r"EP\.([0-9.]+)", filename):
+        return float(m.group(1))
+    elif m := re.search(r"- ([0-9.]+) ", filename):
+        return float(m.group(1))
     return -1
 
 
@@ -56,7 +56,7 @@ def getEpisodeCount(filename: str) -> int:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-episodes: List[tuple[str, int]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
+episodes: List[tuple[str, float]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
 episodes = list(filter(lambda e: e[1] >= 0, episodes))
 episodes.sort(key=lambda e: e[1])
 
