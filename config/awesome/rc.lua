@@ -502,7 +502,7 @@ function myaudio:update() --{{{
             if volume then break end
         end
 
-        volume = tonumber(volume)
+        volume = tonumber(volume) or 0
         if audio_manager == 'pipewire' then
             volume = volume * 100  -- turn into %
         end
