@@ -37,7 +37,7 @@ modifyLineBreaks:
   condenseMultipleBlankLinesInto: 2
   textWrapOptions:
     columns: 70
-    # when: after  # seems to break things?
+    # when: after  # https://github.com/cmhughes/latexindent.pl/issues/450
     blocksFollow:
       headings: 0
       # commentOnPreviousLine: 1
