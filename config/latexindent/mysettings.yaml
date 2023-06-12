@@ -1,0 +1,49 @@
+defaultIndent: "  "
+
+indentAfterHeadings:
+  part:
+    indentAfterThisHeading: 1
+  chapter:
+    indentAfterThisHeading: 1
+  section:
+    indentAfterThisHeading: 1
+  subsection:
+    indentAfterThisHeading: 1
+  subsection*:
+    indentAfterThisHeading: 1
+  subsubsection:
+    indentAfterThisHeading: 1
+  paragraph:
+    indentAfterThisHeading: 1
+  subparagraph:
+    indentAfterThisHeading: 1
+
+onlyOneBackUp: 1
+maxNumberOfBackups: 3
+
+# verbatimCommands:
+#   verb: 1
+#   lstinline: 1
+#   mintinline:
+#     name: '\\mintinline\{\w+\}'
+#     lookForThis: 1
+
+verbatimCommands:
+  nameAsRegex:
+  name: ’\w+inline’
+  lookForThis: 1
+
+modifyLineBreaks:
+  condenseMultipleBlankLinesInto: 2
+  textWrapOptions:
+    columns: 70
+    # when: after  # seems to break things?
+    blocksFollow:
+      headings: 0
+      # commentOnPreviousLine: 1
+      # commentOnOwnLine: 0
+  environments:
+    BeginStartsOnOwnLine: 2
+    BodyStartsOnOwnLine: 1
+    EndStartsOnOwnLine: 3
+    EndFinishesWithLineBreak: 0
