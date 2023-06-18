@@ -7,6 +7,10 @@ set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT "1"
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+# https://github.com/fish-shell/fish-shell/issues/1819#issuecomment-63728658
+set -p fish_function_path (find ~/.config/77configs/config/fish/functions -mindepth 1 -type d)
+# set -p __fish_config_dir (find ~/.config/77configs/config/fish/conf.d -mindepth 1 -type d)
+
 ## Export variable need for qt-theme
 if type "qtile" >> /dev/null 2>&1
     set -x QT_QPA_PLATFORMTHEME "qt5ct"
