@@ -1,5 +1,5 @@
 # Defined via `source`
-function lt --wraps='exa -aT --color=always --group-directories-first --icons' --description 'alias lt=exa -aT --color=always --group-directories-first --icons'
+function lt --wraps='exa -aT --color=always --group-directories-first --icons' --description 'tree listing'
   exa -aT --color=always --group-directories-first --icons $argv
         
 end
