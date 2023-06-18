@@ -1,0 +1,4 @@
+# Defined in /home/kevinb/.config/fish/config.fish @ line 77
+function history
+    builtin history --show-time='%F %T '
+end
