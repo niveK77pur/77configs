@@ -156,6 +156,25 @@ alias jctl="journalctl -p 3 -xb"
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
+# vim shortcut
+alias v vim
+alias n nvim
+
+# tmux shortcut
+alias t 'tmux'
+alias tl 'tmux ls'
+alias ta 'tmux attach'
+alias tat 'tmux attach -t'
+alias tn 'tmux new -s'
+alias tk 'tmux kill-session -t'
+# alias tr='~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+
+# lazy
+alias lg lazygit
+alias lzd lazydocker
+
+# feh
+alias feh 'feh -Z --scale-down'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                    Run fastfetch if session is interactive
