@@ -1,5 +1,5 @@
 # Defined via `source`
-function feh --description 'alias feh feh -Z --scale-down'
+function feh --description 'aliased to feh -Z --scale-down'
  command feh -Z --scale-down $argv
         
 end
