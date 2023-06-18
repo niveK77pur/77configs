@@ -80,7 +80,7 @@ function history
 end
 
 function backup --argument filename
-    cp $filename $filename.bak
+    cp $filename $filename.(date +%F-%T).bak
 end
 
 # Copy DIR1 DIR2
