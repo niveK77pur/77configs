@@ -30,23 +30,17 @@ end
 
 # Add ~/.local/bin to PATH
 if test -d ~/.local/bin
-    if not contains -- ~/.local/bin $PATH
-        set -p PATH ~/.local/bin
-    end
+    fish_add_path ~/.local/bin
 end
 
 # Add ~/bin to PATH
 if test -d ~/bin
-    if not contains -- ~/bin $PATH
-        set -p PATH ~/bin
-    end
+    fish_add_path ~/bin
 end
 
 # Add depot_tools to PATH
 if test -d ~/Applications/depot_tools
-    if not contains -- ~/Applications/depot_tools $PATH
-        set -p PATH ~/Applications/depot_tools
-    end
+    fish_add_path ~/Applications/depot_tools
 end
 
 
