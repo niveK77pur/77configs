@@ -53,3 +53,13 @@ end
 if test -d ~/Applications/depot_tools
     fish_add_path ~/Applications/depot_tools
 end
+
+# TeX Live ---------------------------------------------------------------------
+# if installed using the install script `install-tl`
+# (https://tug.org/texlive/quickinstall.html)
+set -l texlive_path /usr/local/texlive/2023
+if [ -d $texlive_path ]
+    set -ax MANPATH $texlive_path/texmf-dist/doc/man
+    set -ax INFOPATH $texlive_path/texmf-dist/doc/info
+    fish_add_path $texlive_path/bin/x86_64-linux
+end
