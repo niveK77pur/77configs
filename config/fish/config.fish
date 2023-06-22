@@ -72,7 +72,7 @@ if status is-interactive
         fzf_configure_bindings --history=
     end
     if type -q atuin
-        atuin init fish | source
+        atuin init --disable-up-arrow fish | source
     end
     # fzf.fish will setup bindings automatically if plugin is installed
 end
