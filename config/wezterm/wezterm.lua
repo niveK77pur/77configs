@@ -81,15 +81,15 @@ return {
 
 
         -- Activate Tab
-        { mods = 'ALT', key = '1', action = act.ActivateTab(0) },
-        { mods = 'ALT', key = '2', action = act.ActivateTab(1) },
-        { mods = 'ALT', key = '3', action = act.ActivateTab(2) },
-        { mods = 'ALT', key = '4', action = act.ActivateTab(3) },
-        { mods = 'ALT', key = '5', action = act.ActivateTab(4) },
-        { mods = 'ALT', key = '6', action = act.ActivateTab(5) },
-        { mods = 'ALT', key = '7', action = act.ActivateTab(6) },
-        { mods = 'ALT', key = '8', action = act.ActivateTab(7) },
-        { mods = 'ALT', key = '9', action = act.ActivateTab(-1) },
+        { mods = 'CTRL|ALT', key = '1', action = act.ActivateTab(0) },
+        { mods = 'CTRL|ALT', key = '2', action = act.ActivateTab(1) },
+        { mods = 'CTRL|ALT', key = '3', action = act.ActivateTab(2) },
+        { mods = 'CTRL|ALT', key = '4', action = act.ActivateTab(3) },
+        { mods = 'CTRL|ALT', key = '5', action = act.ActivateTab(4) },
+        { mods = 'CTRL|ALT', key = '6', action = act.ActivateTab(5) },
+        { mods = 'CTRL|ALT', key = '7', action = act.ActivateTab(6) },
+        { mods = 'CTRL|ALT', key = '8', action = act.ActivateTab(7) },
+        { mods = 'CTRL|ALT', key = '9', action = act.ActivateTab(-1) },
 
 
         -- Scrollback Activation Table
