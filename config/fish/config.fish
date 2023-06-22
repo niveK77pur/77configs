@@ -64,3 +64,15 @@ if [ -d $texlive_path ]
     set -ax INFOPATH $texlive_path/texmf-dist/doc/info
     fish_add_path $texlive_path/bin/x86_64-linux
 end
+
+# fzf.fish ---------------------------------------------------------------------
+if status is-interactive
+    if type -q fzf_configure_bindings && type -q atuin
+        # prefer atuin's history
+        fzf_configure_bindings --history=
+    end
+    if type -q atuin
+        atuin init fish | source
+    end
+    # fzf.fish will setup bindings automatically if plugin is installed
+end
