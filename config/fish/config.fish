@@ -76,3 +76,7 @@ if status is-interactive
     end
     # fzf.fish will setup bindings automatically if plugin is installed
 end
+
+# NeoVim -----------------------------------------------------------------------
+# https://github.com/martineausimon/nvim-lilypond-suite/issues/19
+alias nvim "SHELL=/bin/bash $(which nvim)"
