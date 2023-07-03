@@ -47,3 +47,9 @@ modifyLineBreaks:
     BodyStartsOnOwnLine: 1
     EndStartsOnOwnLine: 3
     EndFinishesWithLineBreak: 0
+
+noIndentBlock:
+  mintinline:
+    begin: (?<!\\)\\mintinline\{
+    body: '[^}]*?\}\{[^}]*?' # quote to avoid LSP error
+    end: \}
