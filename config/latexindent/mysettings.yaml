@@ -37,7 +37,7 @@ modifyLineBreaks:
   condenseMultipleBlankLinesInto: 2
   textWrapOptions:
     columns: 70
-    # when: after  # https://github.com/cmhughes/latexindent.pl/issues/450
+    # when: after  # fixed in V 3.22.1 (2023-07-02) https://github.com/cmhughes/latexindent.pl/issues/450
     blocksFollow:
       headings: 0
       # commentOnPreviousLine: 1
