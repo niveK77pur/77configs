@@ -47,6 +47,10 @@ modifyLineBreaks:
     BodyStartsOnOwnLine: 1
     EndStartsOnOwnLine: 3
     EndFinishesWithLineBreak: 0
+    tabular:
+      EndStartsOnOwnLine: 0
+    tblr:
+      EndStartsOnOwnLine: 0
 
 noIndentBlock:
   mintinline:
