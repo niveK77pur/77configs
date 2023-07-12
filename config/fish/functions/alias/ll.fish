@@ -1,7 +1,7 @@
 # Defined via `source`
 function ll \
-    --wraps='exa -l --color=always --group-directories-first --icons' \
+    --wraps='exa -la --color=always --group-directories-first --icons' \
     --description 'list long format'
-  exa -l --color=always --group-directories-first --icons $argv
+  exa -la --color=always --group-directories-first --icons $argv
         
 end
