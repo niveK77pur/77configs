@@ -20,8 +20,8 @@ symbol = " "
 [directory]
 read_only = " 󰌾"
 # style = 'bold cyan'
+before_repo_root_style = 'dimmed cyan'
 repo_root_style = 'bold green'
-before_repo_root_style = 'gray'
 fish_style_pwd_dir_length = 1
 # truncation_symbol = '.../'
 
