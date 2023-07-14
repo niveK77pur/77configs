@@ -1,6 +1,6 @@
 add_newline = false
 # format = '$sudo$all'
-right_format = '$status'
+right_format = '$cmd_duration$status'
 
 [aws]
 symbol = "  "
