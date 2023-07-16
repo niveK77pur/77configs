@@ -69,12 +69,20 @@ for i, f in enumerate(episodes):
 
 PLAYLIST_START = ""
 if EP_START:
-    try:
-        EP_INDEX = [e[1] for e in episodes].index(EP_START)
-        PLAYLIST_START = f"--playlist-start={EP_INDEX}"
-    except ValueError:
-        print(f"Episode {EP_START} does not exist.")
-        exit(1)
+    if EP_START < 0:
+        assert int(EP_START) == EP_START, "Backward index was not an integer"
+        try:
+            EP_INDEX = episodes.index(episodes[int(EP_START)])
+        except IndexError:
+            print(f"Index {EP_START} out of range.")
+            exit(2)
+    else:
+        try:
+            EP_INDEX = [e[1] for e in episodes].index(EP_START)
+        except ValueError:
+            print(f"Episode {EP_START} does not exist.")
+            exit(1)
+    PLAYLIST_START = f"--playlist-start={EP_INDEX}"
 
 os.system(
     "mpv {} {} -- {}".format(
