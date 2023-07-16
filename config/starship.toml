@@ -1,5 +1,91 @@
 add_newline = false
-# format = '$sudo$all'
+# default format: https://starship.rs/config/#default-prompt-format
+# format {{{
+format = """
+┏ \
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$fossil_branch\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$line_break\
+┗ \
+$jobs\
+$battery\
+$time\
+$os\
+$container\
+$shell\
+$character""" #  }}}
 right_format = '$cmd_duration$status'
 
 [aws]
@@ -34,6 +120,9 @@ threshold = 80
 [c]
 symbol = " "
 
+[cmd_duration]
+format = '[󰔛 $duration]($style) '
+
 [conda]
 symbol = " "
 
@@ -67,7 +156,8 @@ symbol = " "
 ahead = "⇡${count}"
 behind = "⇣${count}"
 deleted = "x"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+# diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+diverged = "󱒓⇡${ahead_count}⇣${behind_count}"
 # style = "white"
 
 [golang]
@@ -194,6 +284,12 @@ symbol = "🅢 "
 [status]
 disabled = false
 format = '[$symbol$status]($style)'
+# symbol = '󰮐 '
+# symbol = ' '
+# symbol = '󰗖 '
+# symbol = '󰳧 '
+# symbol = '󱇏 '
+symbol = ' '
 
 [sudo]
 disabled = false
