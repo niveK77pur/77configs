@@ -8,6 +8,29 @@ symbol = "  "
 [buf]
 symbol = " "
 
+## SECOND LINE/ROW: Prompt
+# Somethere at the beginning
+[battery]
+charging_symbol = ""
+disabled = true
+discharging_symbol = ""
+full_symbol = ""
+
+[[battery.display]]  # "bold red" style when capacity is between 0% and 10%
+disabled = false
+style = "bold red"
+threshold = 15
+
+[[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
+disabled = false
+style = "bold yellow"
+threshold = 50
+
+[[battery.display]]  # "bold green" style when capacity is between 10% and 30%
+disabled = false
+style = "bold green"
+threshold = 80
+
 [c]
 symbol = " "
 
@@ -39,6 +62,13 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+
+[git_status]
+ahead = "⇡${count}"
+behind = "⇣${count}"
+deleted = "x"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+# style = "white"
 
 [golang]
 symbol = " "
@@ -128,6 +158,9 @@ Windows = "󰍲 "
 
 [package]
 symbol = "󰏗 "
+
+[php]
+symbol = " "
 
 [pijul_channel]
 symbol = "🪺 "
