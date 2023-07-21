@@ -27,12 +27,13 @@ return {
     },
 
     -- https://wezfurlong.org/wezterm/config/lua/config/font_rules.html
-    -- font_rules = {
-    --     {
-    --         italic = true,
-    --         font = wezterm.font('Fira Code', { italic=true, weight='Medium', })
-    --     }
-    -- },
+    font_rules = {
+        {
+            italic = true,
+            font = wezterm.font('VictorMono Nerd Font', { italic=true, weight='Medium', })
+            -- font = wezterm.font('Fira Code', { italic=true, weight='Medium', })
+        }
+    },
 
 --}}}
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
