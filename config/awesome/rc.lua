@@ -352,7 +352,7 @@ mybattery.status_str = "%s%s%s:"
 mybattery.percentage_str = "%s%d%%%s"
 mybattery.time_str = "%s(%s)%s"
 mybattery.strc = "%s%s%s %s%d%%%s (%s)"
-mybattery.icon = ''
+mybattery.icon = '󰂄' -- old symbol  (deprecated)
 mybattery.domains = { --{{{
     {
         val = 5,
