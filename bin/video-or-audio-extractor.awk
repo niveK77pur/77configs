@@ -7,18 +7,18 @@
 # name will be slightly adjusted: replacing white spaces with underscores (by
 # default) and converting everything into lowercase.
 
-#                      ███████
-#                  ████       ████
-#                ██   █       █   ██
-#                ██   ██      █   ██
-#              ██     █ █     █     ██
-#              ██     █  █    █     ██    NAHO
-#              ██     █   █   █     ██    GitLab: NOT CREATED YET
-#              ██     █    █  █     ██
-#                ██   █     █ █   ██
-#                ██   █      ██   ██
-#                  ████       ████
-#                      ███████
+#                ███████
+#            ████       ████
+#          ██   █       █   ██
+#          ██   ██      █   ██
+#        ██     █ █     █     ██
+#        ██     █  █    █     ██    NAHO
+#        ██     █   █   █     ██    GitHub: https://github.com/trueNAHO
+#        ██     █    █  █     ██
+#          ██   █     █ █   ██
+#          ██   █      ██   ██
+#            ████       ████
+#                ███████
 
 # This script takes three variables in: the 'input_file', the 'timestamps_file'
 # and the 'output_extension'.
