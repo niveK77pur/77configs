@@ -29,10 +29,37 @@ set scrolloff 10
 
 set icons
 
-# previewer
-set previewer ~/.config/77configs/config/lf/preview/lf_preview.sh
+# Previewer --------------------------------------------------------------------
+# https://github.com/gokcehan/lf/wiki/Previews
+
+# sandboxed
+# set sixel
+# set previewer ~/.config/77configs/config/lf/preview/lf_sandboxed_preview.sh
+
+# # custom
+# set previewer ~/.config/77configs/config/lf/preview/lf_preview_custom.sh
+set sixel
+set previewer ~/.config/77configs/config/lf/preview/preview.sh
+
+# # kitty + pistol
 # set previewer ~/.config/77configs/config/lf/preview/lf_kitty_preview
 # set cleaner ~/.config/77configs/config/lf/preview/lf_kitty_clean
+
+# # sixel
+# set sixel true
+# set previewer ~/.config/77configs/config/lf/preview/lf_sixel_preview
+
+# # stpv
+# set previewer stpv
+# set cleaner stpvimgclr
+# &stpvimg --listen $id
+# cmd on-quit $stpvimg --end $id
+
+# # ctpv
+# set previewer ctpv
+# set cleaner ctpvclear
+# &ctpv -s $id
+# &ctpvquit $id
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                   Mappings
