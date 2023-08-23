@@ -299,7 +299,7 @@ local mybrightness = wibox.widget.textbox()
 if processor == 'intel' then
     mybrightness.file = "/sys/class/backlight/intel_backlight/brightness"
 elseif processor == 'amd' then
-    mybrightness.file = "/sys/class/backlight/amdgpu_bl0/brightness"
+    mybrightness.file = "/sys/class/backlight/amdgpu_bl1/brightness"
 end
 mybrightness.monitor = "inotifywait --monitor --event modify " .. mybrightness.file
 mybrightness.retrieve = "xbacklight -get"
@@ -339,6 +339,7 @@ pid.kill(mybrightness.pidfile)
 mybrightness:update()
 mybrightness.pid = awful.spawn.with_line_callback(mybrightness.monitor, {
     stdout = function() mybrightness:update() end,
+    -- stderr = function(line) naughty.notify { title = "Brightness widget", text = line, preset = naughty.config.presets.low, } end,
 })
 -- write pid to file
 pid.write(mybrightness.pidfile, mybrightness.pid)
