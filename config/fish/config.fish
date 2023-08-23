@@ -6,7 +6,7 @@
 
 # Shell variables --------------------------------------------------------------
 set -gx EDITOR nvim
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANPAGER "less --use-color"
 set -gx TERMINAL wezterm
 
 set -gx LYEDITOR "nvr +:'call cursor(%(line)s,%(char)s)' %(file)s"
