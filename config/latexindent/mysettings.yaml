@@ -45,7 +45,7 @@ modifyLineBreaks:
   environments:
     BeginStartsOnOwnLine: 2
     BodyStartsOnOwnLine: 0
-    EndStartsOnOwnLine: 3
+    EndStartsOnOwnLine: 0
     EndFinishesWithLineBreak: 0
     tabular:
       EndStartsOnOwnLine: 0
