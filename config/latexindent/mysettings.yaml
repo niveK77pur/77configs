@@ -44,55 +44,13 @@ modifyLineBreaks:
       # commentOnOwnLine: 0
   environments:
     BeginStartsOnOwnLine: 2
-    BodyStartsOnOwnLine: 1
+    BodyStartsOnOwnLine: 0
     EndStartsOnOwnLine: 3
     EndFinishesWithLineBreak: 0
     tabular:
       EndStartsOnOwnLine: 0
     tblr:
       EndStartsOnOwnLine: 0
-    block: # beamer
-      BodyStartsOnOwnLine: 0
-    alertblock: # beamer
-      BodyStartsOnOwnLine: 0
-    exampleblock: # beamer
-      BodyStartsOnOwnLine: 0
-    theorem: # beamer
-      BodyStartsOnOwnLine: 0
-    definition: # beamer
-      BodyStartsOnOwnLine: 0
-    example: # beamer
-      BodyStartsOnOwnLine: 0
-    proof: # beamer
-      BodyStartsOnOwnLine: 0
-    beamercolorbox: # beamer
-      BodyStartsOnOwnLine: 0
-    beamerboxesrounded: # beamer
-      BodyStartsOnOwnLine: 0
-    columns: # beamer
-      BodyStartsOnOwnLine: 0
-    column: # beamer
-      BodyStartsOnOwnLine: 0
-    abstract: # beamer
-      BodyStartsOnOwnLine: 0
-    verse: # beamer
-      BodyStartsOnOwnLine: 0
-    quotation: # beamer
-      BodyStartsOnOwnLine: 0
-    quote: # beamer
-      BodyStartsOnOwnLine: 0
-    frame: # beamer
-      BodyStartsOnOwnLine: 0
-    onlyenv: # beamer
-      BodyStartsOnOwnLine: 0
-    altenv: # beamer
-      BodyStartsOnOwnLine: 0
-    visibleenv: # beamer
-      BodyStartsOnOwnLine: 0
-    uncoverenv: # beamer
-      BodyStartsOnOwnLine: 0
-    invisibleenv: # beamer
-      BodyStartsOnOwnLine: 0
 
 noIndentBlock:
   mintinline:
