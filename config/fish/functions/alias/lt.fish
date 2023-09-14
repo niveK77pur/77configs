@@ -1,7 +1,7 @@
 # Defined via `source`
 function lt \
-    --wraps='exa -aT --color=always --group-directories-first --icons' \
+    --wraps='eza -aT --color=always --group-directories-first --icons' \
     --description 'tree listing'
-  exa -aT --color=always --group-directories-first --icons $argv
+  eza -aT --color=always --group-directories-first --icons $argv
         
 end

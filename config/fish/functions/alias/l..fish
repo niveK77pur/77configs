@@ -1,7 +1,7 @@
 # Defined via `source`
 function l. \
-    --wraps='exa -ald --color=always --group-directories-first --icons .*' \
+    --wraps='eza -ald --color=always --group-directories-first --icons .*' \
     --description 'list only dotfiles'
-  exa -ald --color=always --group-directories-first --icons .* $argv
+  eza -ald --color=always --group-directories-first --icons .* $argv
         
 end
