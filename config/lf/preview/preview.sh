@@ -11,6 +11,14 @@ if [[ "$filetype" =~ ^image|.*/pdf$ ]]; then
     else
         file --brief "$file"
     fi
+elif [[ "$filetype" =~ ^video ]]; then
+    if type chafa > /dev/null && [[ $(lf --version) -gt 30 ]]; then
+        w="$2"
+        h="$3"
+        ffmpegthumbnailer -s0 -f -i "$file" -c jpeg -o- | chafa -f sixel -s "${w}x${h}"
+    else
+        file --brief "$file"
+    fi
 else
     if type pistol > /dev/null; then
         pistol "$file"
