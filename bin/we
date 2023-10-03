@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+from shutil import which as is_exec
 from typing import List, Optional
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -14,9 +15,13 @@ if len(sys.argv) > 1:
     # -1 for 0 indexing
     EP_START = float(sys.argv[1])
 
+MPV_PREFIX = []
+if is_exec('prime-run'):
+    MPV_PREFIX.append('prime-run')
 
 MPV_FLAGS = [
     "--fs",
+    "--profile=anime4k",
     "--resume-playback-check-mtime",
     "--input-conf={}/.config/mpv/watch-episode-input.conf".format(os.environ["HOME"]),
     "--save-position-on-quit",
@@ -85,7 +90,7 @@ if EP_START:
     PLAYLIST_START = f"--playlist-start={EP_INDEX}"
 
 os.system(
-    "mpv {} {} -- {}".format(
-        " ".join(MPV_FLAGS), PLAYLIST_START, " ".join((f'"{e[0]}"' for e in episodes))
+    "{} mpv {} {} -- {}".format(
+        " ".join(MPV_PREFIX), " ".join(MPV_FLAGS), PLAYLIST_START, " ".join((f'"{e[0]}"' for e in episodes))
     )
 )
