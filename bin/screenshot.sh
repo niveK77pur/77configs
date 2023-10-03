@@ -27,7 +27,12 @@ Where:
 [ -z $SCREENSHOT_FILE ] && SCREENSHOT_FILE="$HOME/Pictures/VinLudensScreenshot.png"
 
 if [ -z "$1" ]; then
-    import $SCREENSHOT_FILE
+    if type flameshot >/dev/null; then
+        flameshot gui
+        exit
+    else
+        import $SCREENSHOT_FILE
+    fi
 else
     case "$1" in
         a|area)     import $SCREENSHOT_FILE ;;
