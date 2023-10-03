@@ -5,7 +5,7 @@ file=$1
 filetype="$(file -Lb --mime-type "$file")"
 script_path_prefix=~/.config/77configs/config/lf/preview
 
-if [[ "$filetype" =~ ^image|.*/pdf$ ]]; then
+if [[ "$filetype" =~ ^image ]]; then
     if type chafa > /dev/null && [[ $(lf --version) -gt 30 ]]; then
         "$script_path_prefix/lf_sixel_preview" "$@"
     else
