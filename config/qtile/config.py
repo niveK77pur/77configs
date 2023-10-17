@@ -40,13 +40,15 @@ from typing import List  # noqa: F401
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # {{{
 
-lazy.spawn('initscreen.sh')
+# lazy.spawn('initscreen.sh')
 #  lazy.spawn(os.path.join(os.path.expanduser('~'), 'bin', 'initscreen.sh'))
 
-#  @hook.subscribe.startup
-#  def autostart():
-#      home = os.path.expanduser('~')
-#      subprocess.call([home + '/.config/qtile/autostart.sh'])
+
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
+
 
 # }}}
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
