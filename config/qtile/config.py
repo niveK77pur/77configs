@@ -98,6 +98,7 @@ keys = [
     # Run commands
     #  Key([mod], "d", lazy.spawncmd(prompt="Run command")),
     Key([mod], 'd', lazy.spawn("dmenu_run -l 20 -p 'Run command:'")),
+    Key([mod], 'c', lazy.spawn('clipmenu')),
     # toggle dunst notifications
     Key([mod], 'F1', lazy.spawn('dunst-toggle.sh')),
     Key([mod], 'F2', lazy.spawn('dunstctl history-pop')),
