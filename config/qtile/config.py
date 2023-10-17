@@ -84,8 +84,8 @@ keys = [
     # multiple stack panes
     #  Key([mod], "s", lazy.layout.toggle_split()),
     #  Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("alacritty")),
-    Key([mod], "g", lazy.spawn("alacritty --command nvim +GhostStart")),
+    Key([mod], "Return", lazy.spawn("wezterm")),
+    Key([mod], "g", lazy.spawn("wezterm start nvim +GhostTextStart")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
