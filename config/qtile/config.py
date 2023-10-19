@@ -267,12 +267,13 @@ widget_list = [
     widget.Battery(
         mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('sysinfo.sh')}
     ),
-    widget.Sep(),
+    widget.Sep(padding=20),
     # widget.Backlight(backlight_name='intel_backlight', fmt=':{}'),
     widget.Backlight(backlight_name='amdgpu_bl1', fmt=':{}'),
     widget.Volume(fmt='墳:{}'),
-    widget.Sep(),
+    widget.Sep(padding=20),
     widget.Systray(),
+    widget.Sep(padding=20),
     widget.Clock(
         format=' %d-%m-%Y %a  %T %z/%Z',
         mouse_callbacks={
