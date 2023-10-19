@@ -251,7 +251,7 @@ layouts = [
 # {{{
 
 widget_defaults = dict(
-    font='victor mono',
+    font='fira code nerd font',
     fontsize=12,
     padding=3,
 )
@@ -269,7 +269,7 @@ widget_list = [
     widget.Sep(),
     # widget.Backlight(backlight_name='intel_backlight', fmt=':{}'),
     widget.Backlight(backlight_name='amdgpu_bl1', fmt=':{}'),
-    widget.Volume(fmt='墳 :{}'),
+    widget.Volume(fmt='墳:{}'),
     widget.Sep(),
     widget.Systray(),
     widget.Clock(
