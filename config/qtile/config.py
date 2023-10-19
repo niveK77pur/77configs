@@ -115,7 +115,7 @@ keys = [
     # Take Screenshots
     KeyChord(
         [mod],
-        's',
+        'x',
         [
             Key([mod], 's', lazy.spawn('screenshot.sh')),
             Key([mod], 'w', lazy.spawn('screenshot.sh window')),
@@ -124,7 +124,8 @@ keys = [
             Key([mod], 'e', lazy.spawn('screenshot.sh edit')),
             Key([mod], 'r', lazy.spawn('screenshot.sh resize')),
         ],
-        mode='Screenshot',
+        mode=False,
+        name='Screenshot',
     ),
     # System Operations
     KeyChord(
@@ -168,7 +169,8 @@ keys = [
             Key(['control'], 's', lazy.spawn('systemctl suspend')),
             Key(['control'], 'h', lazy.spawn('i3lock && systemctl hibernate')),
         ],
-        mode='System Operations',
+        mode=True,
+        name='System Operations',
     ),
 ]
 
