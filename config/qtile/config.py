@@ -258,6 +258,7 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 widget_list = [
+    widget.Chord(foreground='#ff99ff'),
     widget.CurrentLayout(),
     widget.GroupBox(),
     widget.Prompt(),
