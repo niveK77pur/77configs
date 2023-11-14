@@ -55,6 +55,11 @@ if test -d ~/Applications/depot_tools
     fish_add_path ~/Applications/depot_tools
 end
 
+# Binaries in GOPATH
+if test -d ~/go/bin
+    fish_add_path ~/go/bin
+end
+
 # TeX Live ---------------------------------------------------------------------
 # if installed using the install script `install-tl`
 # (https://tug.org/texlive/quickinstall.html)
