@@ -310,6 +310,9 @@ colors: # https://github.com/Matsuuu/pinkmare
     magenta: '#d9bcef' # 5 (purple)
     cyan: '#87c095'    # 6 ()
     white: '#fff0f5'   # 7 (gold)
+  cursor:
+    # text: '#333333'
+    cursor: '#f2448b'
 
 # Visual Bell
 #
