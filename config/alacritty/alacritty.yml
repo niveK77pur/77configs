@@ -260,13 +260,13 @@ font:
   #   `- { index: 16, color: '0xff00ff' }`
   #
   #indexed_colors: []
-# Colors (Vim Forest Night)
-colors:
-  primary:
-    # background: '0x2b3339' # hard
-    background: '0x2f383e' # medium
-    # background: '0x323d43' # soft
-    foreground: '0xd3c6aa'
+# # Colors (Vim Forest Night)
+# colors:
+#   primary:
+#     # background: '0x2b3339' # hard
+#     background: '0x2f383e' # medium
+#     # background: '0x323d43' # soft
+#     foreground: '0xd3c6aa'
 
   # normal:
   #   black:   '0x868d80'
@@ -287,6 +287,29 @@ colors:
   #   magenta: '0xd3a0bc'
   #   cyan:    '0x87c095'
   #   white:   '0xd8caac'
+
+colors: # https://github.com/Matsuuu/pinkmare
+  primary:
+    foreground: '#fae8b6'
+    background: '#202330'
+  normal:
+    black: '#333333'   # 0
+    red: '#ff38a2'     # 1 ()
+    green: '#b8ee92'   # 2 (Midnight.Green)
+    yellow: '#ddcf43'  # 3 (Nova.Yellow)
+    blue: '#47b5d8'    # 4 (Twilight.Blue)
+    magenta: '#f95ce6' # 5 (Night.Mangenta)
+    cyan: '#5cdfdf'    # 6 (Midnight.Cyan)
+    white: '#ced5e5'   # 7 (Midnight.White)
+  bright:
+    black: '#333333'   # 0
+    red: '#f94b7d'     # 1 (Midnight.Red)
+    green: '#9cd162'   # 2 ()
+    yellow: '#ffc85b'  # 3 ()
+    blue: '#007ed3'    # 4 (--)
+    magenta: '#d9bcef' # 5 (purple)
+    cyan: '#87c095'    # 6 ()
+    white: '#fff0f5'   # 7 (gold)
 
 # Visual Bell
 #
