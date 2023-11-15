@@ -1,5 +1,17 @@
+:f-install: link:./install.sh
+:f-nvim: link:./config/nvim
+:u-nvim: https://github.com/niveK77pur/nvim
+
 = 77configs
 
 == About
 
-My configuration files. Installed by placing symlinks.
+My configuration files. Installed by {f-install}[placing symlinks].
+
+* `bin` contains my user created scripts to go under `~/bin`
+* `config` contains the config files to go under `~/.config`
+* `home` contains config files which live under `$HOME`
+
+== NeoVim
+
+There is a {f-nvim}[config directory for Neovim] in this repository, but it does not reflect my {u-nvim}[main Neovim configuration]. The directory found here merely provides a fallback vimscript config which reads the `~/.vim` Vim configuration. That way, you have the same configuration also directly work in Neovim. Be sure to rename the file to as `init.vim` (i.e. remove the leading `.`) for it to take effect.
