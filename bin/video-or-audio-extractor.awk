@@ -2,23 +2,23 @@
 # vim: foldmethod=marker
 
 # {{{ HELP PAGE
-# This script allows to extract sections from a video or audio file and can 
-# also change the output file's extension format. Note that the output file's 
-# name will be slightly adjusted: replacing white spaces with underscores (by 
+# This script allows to extract sections from a video or audio file and can
+# also change the output file's extension format. Note that the output file's
+# name will be slightly adjusted: replacing white spaces with underscores (by
 # default) and converting everything into lowercase.
 
-#                      ███████
-#                  ████       ████
-#                ██   █       █   ██
-#                ██   ██      █   ██
-#              ██     █ █     █     ██
-#              ██     █  █    █     ██    NAHO
-#              ██     █   █   █     ██    GitLab: NOT CREATED YET
-#              ██     █    █  █     ██
-#                ██   █     █ █   ██
-#                ██   █      ██   ██
-#                  ████       ████
-#                      ███████
+#                ███████
+#            ████       ████
+#          ██   █       █   ██
+#          ██   ██      █   ██
+#        ██     █ █     █     ██
+#        ██     █  █    █     ██    NAHO
+#        ██     █   █   █     ██    GitHub: https://github.com/trueNAHO
+#        ██     █    █  █     ██
+#          ██   █     █ █   ██
+#          ██   █      ██   ██
+#            ████       ████
+#                ███████
 
 # This script takes three variables in: the 'input_file', the 'timestamps_file'
 # and the 'output_extension'.
