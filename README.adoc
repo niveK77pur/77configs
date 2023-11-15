@@ -1,5 +1,5 @@
-# 77configs
+= 77configs
 
-## About
+== About
 
 My configuration files. Installed by placing symlinks.
