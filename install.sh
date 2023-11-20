@@ -35,13 +35,8 @@ install-files() {
     done
 }
 
-# $HOME/bin/ {{{1
 install-files "bin" "$HOME/bin"
 
-# $HOME/.config/ {{{1
 install-files "config" "$HOME/.config"
 
-# $HOME/ {{{1
 install-files "home" "$HOME"
-
-#}}}1
