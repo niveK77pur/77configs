@@ -20,13 +20,15 @@ if is_exec('prime-run'):
     MPV_PREFIX.append('prime-run')
 
 MPV_FLAGS = [
-    "--fs",
-    "--profile=anime4k",
-    "--resume-playback-check-mtime",
-    "--input-conf={}/.config/mpv/watch-episode-input.conf".format(os.environ["HOME"]),
-    "--save-position-on-quit",
-    "--write-filename-in-watch-later-config",
-    "--watch-later-directory=.",
+    '--fs',
+    '--profile=anime4k',
+    '--resume-playback-check-mtime',
+    '--input-conf={}/.config/mpv/watch-episode-input.conf'.format(
+        os.environ['HOME']
+    ),
+    '--save-position-on-quit',
+    '--write-filename-in-watch-later-config',
+    '--watch-later-directory=.',
 ]
 
 
@@ -41,17 +43,17 @@ def getEpisodeCount(filename: str) -> float:
     Returns episode number given a regex pattern. Returns -1 if no episode
     count was found; it may require implementing additional regex patterns.
     """
-    if m := re.search(r"ep0{0,3}([0-9.]+)(?<!\.)", filename):
+    if m := re.search(r'ep0{0,3}([0-9.]+)(?<!\.)', filename):
         return float(m.group(1))
-    elif m := re.search(r"Episode.*?([0-9.]+)(?<!\.)", filename):
+    elif m := re.search(r'Episode.*?([0-9.]+)(?<!\.)', filename):
         return float(m.group(1))
-    elif m := re.search(r"^\s*([0-9.]+)\.", filename):
+    elif m := re.search(r'^\s*([0-9.]+)\.', filename):
         return float(m.group(1))
-    elif m := re.search(r"episode-([0-9.]+)(?<!\.)", filename):
+    elif m := re.search(r'episode-([0-9.]+)(?<!\.)', filename):
         return float(m.group(1))
-    elif m := re.search(r"EP\.([0-9.]+)(?<!\.)", filename):
+    elif m := re.search(r'EP\.([0-9.]+)(?<!\.)', filename):
         return float(m.group(1))
-    elif m := re.search(r"- ([0-9.]+)(?<!\.) ", filename):
+    elif m := re.search(r'- ([0-9.]+)(?<!\.) ', filename):
         return float(m.group(1))
     return -1
 
@@ -61,36 +63,41 @@ def getEpisodeCount(filename: str) -> float:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-episodes: List[tuple[str, float]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
+episodes: List[tuple[str, float]] = [
+    (f, getEpisodeCount(f)) for f in os.listdir()
+]
 episodes = list(filter(lambda e: e[1] >= 0, episodes))
 episodes.sort(key=lambda e: e[1])
 
 for i, f in enumerate(episodes):
-    print(">>", i, f)
+    print('>>', i, f)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                           Get requeted episode index
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PLAYLIST_START = ""
+PLAYLIST_START = ''
 if EP_START:
     if EP_START < 0:
-        assert int(EP_START) == EP_START, "Backward index was not an integer"
+        assert int(EP_START) == EP_START, 'Backward index was not an integer'
         try:
             EP_INDEX = episodes.index(episodes[int(EP_START)])
         except IndexError:
-            print(f"Index {EP_START} out of range.")
+            print(f'Index {EP_START} out of range.')
             exit(2)
     else:
         try:
             EP_INDEX = [e[1] for e in episodes].index(EP_START)
         except ValueError:
-            print(f"Episode {EP_START} does not exist.")
+            print(f'Episode {EP_START} does not exist.')
             exit(1)
-    PLAYLIST_START = f"--playlist-start={EP_INDEX}"
+    PLAYLIST_START = f'--playlist-start={EP_INDEX}'
 
 os.system(
-    "{} mpv {} {} -- {}".format(
-        " ".join(MPV_PREFIX), " ".join(MPV_FLAGS), PLAYLIST_START, " ".join((f'"{e[0]}"' for e in episodes))
+    '{} mpv {} {} -- {}'.format(
+        ' '.join(MPV_PREFIX),
+        ' '.join(MPV_FLAGS),
+        PLAYLIST_START,
+        ' '.join((f'"{e[0]}"' for e in episodes)),
     )
 )
