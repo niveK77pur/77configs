@@ -1,0 +1,15 @@
+= FFMPEG Timestamp Cutting
+
+Go rewrite of the AWK rewrite of the lost initial Lua implementation; with some fancy additions.
+
+== TODO
+
+* [x] Cut using time stamps
+* [ ] Read time stamps from a file
+* [ ] Single time stamp (no range) takes previous time stamp as start
+* [ ] Read input file name from
+** [ ] Command argument
+** [ ] First line in time stamps file
+* [ ] Read output file extension from
+** [ ] Command argument
+** [ ] First line in time stamps file
