@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -58,6 +60,46 @@ func NewTimerange(name string, start Timestamp, end Timestamp) Timerange {
 	return Timerange{n, start, end}
 }
 
+func TimerangesFromFile(filename string) []Timerange {
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	var line_regex = regexp.MustCompile(`([0-9:.]+)\s+([0-9:.]+(?:\s+))?(.*)`)
+	parseLine := func(line string) (start, end, name string) {
+		match := line_regex.FindStringSubmatch(line)
+
+		start = match[1]
+		end = match[2]
+		name = match[3]
+
+		return
+	}
+
+	scanner := bufio.NewScanner(file)
+	var ranges []Timerange
+
+	scanner.Scan()
+	var prev_start, prev_end, prev_name string
+	var next_start, next_end, next_name string
+	prev_start, prev_end, prev_name = parseLine(scanner.Text())
+	for scanner.Scan() {
+		next_start, next_end, next_name = parseLine(scanner.Text())
+
+		if prev_end == "" {
+			prev_end = next_start
+		}
+
+		ranges = append(ranges, NewTimerange(prev_name, NewTimestamp(prev_start), NewTimestamp(prev_end)))
+		prev_start, prev_end, prev_name = next_start, next_end, next_name
+	}
+	ranges = append(ranges, NewTimerange(next_name, NewTimestamp(next_start), NewTimestamp(next_end)))
+
+	return ranges
+}
+
 // VideoRanges encodes the file name of the video to be cut, as well as all the ranges which should be extracted.
 type VideoRanges struct {
 	file      string
@@ -106,35 +148,10 @@ func (vr VideoRanges) Cut() {
 }
 
 func main() {
-	vr := VideoRanges{
-		"/tmp/tlg.mkv",
+	VideoRanges{
+		"/home/kevinb/Desktop/test/tlg.mkv",
 		// "/tmp/tlg2.mkv",
-		"mp3",
-		[]Timerange{
-			NewTimerange("Overture: Lore", NewTimestamp("00:00"), NewTimestamp("03:05")),
-			NewTimerange("Panorama", NewTimestamp("03:05"), NewTimestamp("03:43")),
-			NewTimerange("Forest", NewTimestamp("03:43"), NewTimestamp("05:49")),
-			NewTimerange("Sentinel I", NewTimestamp("05:49"), NewTimestamp("08:40")),
-			NewTimerange("The Tower", NewTimestamp("08:40"), NewTimestamp("09:32")),
-			NewTimerange("Falling Bridge", NewTimestamp("09:32"), NewTimestamp("13:13")),
-			NewTimerange("Hanging Gardens", NewTimestamp("13:13"), NewTimestamp("15:33")),
-			NewTimerange("Sentinel II", NewTimestamp("15:33"), NewTimestamp("18:04")),
-			NewTimerange("Victorious", NewTimestamp("18:04"), NewTimestamp("20:30")),
-			NewTimerange("Alone", NewTimestamp("20:30"), NewTimestamp("22:27")),
-			NewTimerange("The Nest", NewTimestamp("22:27"), NewTimestamp("25:49 ")),
-			NewTimerange("Flashback", NewTimestamp("25:49 "), NewTimestamp("29:19")),
-			NewTimerange("Sanctuary", NewTimestamp("29:19"), NewTimestamp("31:53")),
-			NewTimerange("Condor Clash", NewTimestamp("31:53"), NewTimestamp("36:20")),
-			NewTimerange("Wounded", NewTimestamp("36:20"), NewTimestamp("39:26")),
-			NewTimerange("Finale I: Apex", NewTimestamp("39:26"), NewTimestamp("45:54")),
-			NewTimerange("Finale II: Escape", NewTimestamp("45:54"), NewTimestamp("52:32")),
-			NewTimerange(
-				"End Titles: The Last Guardian Suite",
-				NewTimestamp("52:32"),
-				NewTimestamp("01:00:20"),
-			),
-			NewTimerange("Epilogue", NewTimestamp("01:00:20"), NewTimestamp("01:02:11")),
-		},
-	}
-	vr.Cut()
+		"aac",
+		TimerangesFromFile("/home/kevinb/Desktop/test/times.txt"),
+	}.Cut()
 }
