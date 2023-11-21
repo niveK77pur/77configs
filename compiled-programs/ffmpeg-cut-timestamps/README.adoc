@@ -7,9 +7,9 @@ Go rewrite of the AWK rewrite of the lost initial Lua implementation; with some 
 * [x] Cut using time stamps
 * [x] Read time stamps from a file
 * [x] Single time stamp (no range) takes previous time stamp as start
-* [ ] Read input file name from
-** [ ] Command argument
+* [x] Read input file name from
+** [x] Command argument
 ** [ ] First line in time stamps file
-* [ ] Read output file extension from
-** [ ] Command argument
+* [x] Read output file extension from
+** [x] Command argument
 ** [ ] First line in time stamps file

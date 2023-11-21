@@ -148,10 +148,31 @@ func (vr VideoRanges) Cut() {
 }
 
 func main() {
-	VideoRanges{
-		"/home/kevinb/Desktop/test/tlg.mkv",
-		// "/tmp/tlg2.mkv",
-		"aac",
-		TimerangesFromFile("/home/kevinb/Desktop/test/times.txt"),
-	}.Cut()
+	progName := os.Args[0]
+	args := os.Args[1:]
+
+	var input_file, timestamps_file, output_extension string
+	switch len(args) {
+	case 2:
+		input_file = args[0]
+		timestamps_file = args[1]
+		VideoRanges{
+			input_file,
+			"aac",
+			TimerangesFromFile(timestamps_file),
+		}.Cut()
+	case 3:
+		input_file = args[0]
+		timestamps_file = args[1]
+		output_extension = args[2]
+		VideoRanges{
+			input_file,
+			output_extension,
+			TimerangesFromFile(timestamps_file),
+		}.Cut()
+	default:
+		fmt.Println("Invalid number of arguments. Use as follows:")
+		fmt.Println("  ", progName, "<input_file> <timestamps_file> [<output_extension>]")
+		os.Exit(1)
+	}
 }
