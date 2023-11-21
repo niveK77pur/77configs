@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -12,18 +13,21 @@ import (
 )
 
 // Timestamp in seconds
-type Timestamp int
+type Timestamp float64
 
 func NewTimestamp(timestamp string) Timestamp {
-	strtonum := func(s string) int {
-		i, err := strconv.Atoi(strings.TrimSpace(s))
+	if timestamp == "" {
+		return Timestamp(math.Inf(1))
+	}
+	strtonum := func(s string) float64 {
+		i, err := strconv.ParseFloat(strings.TrimSpace(s), 64)
 		if err != nil {
 			panic(err)
 		}
 		return i
 	}
 	fields := strings.Split(timestamp, ":")
-	var hour, minute, seconds int = 0, 0, 0
+	var hour, minute, seconds float64 = 0, 0, 0
 	switch len(fields) {
 	case 1:
 		seconds = strtonum(fields[0])
@@ -78,8 +82,13 @@ func (vr VideoRanges) Cut() {
 		output_name := fmt.Sprintf(output_path, dirname, counter, r.name, vr.extension)
 
 		if _, err := os.Stat(output_name); err != nil {
+			output_args := make(ffmpeg.KwArgs)
+			// do not include `-t` if timestamp is infinitiy (go until end of file)
+			if !math.IsInf(float64(r.end), 1) {
+				output_args["t"] = r.end - r.start
+			}
 			f := ffmpeg.Input(vr.file, ffmpeg.KwArgs{"ss": r.start}).
-				Output(output_name, ffmpeg.KwArgs{"t": r.end})
+				Output(output_name, output_args)
 			if err := f.Run(); err != nil {
 				panic(err)
 			}
