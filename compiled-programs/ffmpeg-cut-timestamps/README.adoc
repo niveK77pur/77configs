@@ -1,6 +1,8 @@
 = FFMPEG Timestamp Cutting
 
-Go rewrite of the AWK rewrite of the lost initial Lua implementation; with some fancy additions.
+https://go.dev[Go] rewrite of the
+link:../../bin/video-or-audio-extractor.awk[AWK rewrite] of the lost initial Lua
+implementation; with some fancy additions.
 
 == TODO
 
