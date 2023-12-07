@@ -30,7 +30,7 @@ return {
     font_rules = {
         {
             italic = true,
-            font = wezterm.font('VictorMono Nerd Font', { italic=true, weight='Medium', })
+            font = wezterm.font('VictorMono NF', { italic=true, weight='Medium', })
             -- font = wezterm.font('Fira Code', { italic=true, weight='Medium', })
         }
     },
