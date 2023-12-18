@@ -60,6 +60,11 @@ if test -d ~/go/bin
     fish_add_path ~/go/bin
 end
 
+# CARGO binaries
+if test -d ~/.cargo/bin
+    fish_add_path ~/.cargo/bin
+end
+
 # TeX Live ---------------------------------------------------------------------
 # if installed using the install script `install-tl`
 # (https://tug.org/texlive/quickinstall.html)
