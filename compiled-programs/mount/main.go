@@ -19,4 +19,5 @@ func main() {
 		slog.Error(err.Error())
 	}
 	env.TERMINAL.Choose(devices)
+	env.X11.Choose(devices)
 }
