@@ -2,6 +2,7 @@ package device
 
 import (
 	"encoding/json"
+	"fmt"
 	"os/exec"
 )
 
@@ -28,6 +29,17 @@ type Device struct {
 	Label       string
 	Mountpoints []string
 	Kind        devicetype
+}
+
+func (device Device) As_string() string {
+	return fmt.Sprintf(
+		"%v[%v] %s [%s] (%s)",
+		device.Kind,
+		len(device.Mountpoints) > 0,
+		device.Label,
+		device.Size,
+		device.Path,
+	)
 }
 
 func GetDevices() ([]Device, error) {

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	dev "niveK77pur/mount/internal/device"
 	env "niveK77pur/mount/internal/environment"
@@ -19,7 +18,5 @@ func main() {
 	if err != nil {
 		slog.Error(err.Error())
 	}
-	for _, device := range devices {
-		fmt.Println("device:", device)
-	}
+	env.TERMINAL.Choose(devices)
 }
