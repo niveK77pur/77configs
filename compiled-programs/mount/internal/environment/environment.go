@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log/slog"
 	dev "niveK77pur/mount/internal/device"
+	"os"
+
+	"github.com/gen2brain/beeep"
 )
 
 type evironment int
@@ -15,17 +18,20 @@ const (
 	WAYLAND
 )
 
-// TODO: present a notification to the user
 func (env evironment) Notify(message string) {
 	switch env {
-	case TTY:
-		fmt.Println(message)
-	case TERMINAL:
+	case TTY, TERMINAL:
 		fmt.Println(message)
 	case X11:
-		fmt.Println("TODO", "use notify-send", message)
+		exec_name, err := os.Executable()
+		if err != nil {
+			slog.Error("Failed to get executable name", "err", err.Error())
+		}
+		if err := beeep.Notify(exec_name, message, ""); err != nil {
+			slog.Error("Failed to show notification", "err", err.Error())
+		}
 	case WAYLAND:
-		fmt.Println("TODO", "use notify-send", "test")
+		slog.Error("TODO: implement wayland notifications")
 	default:
 		slog.Error("Unhandled environment", "env", env)
 	}
