@@ -3,6 +3,7 @@ package device
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os/exec"
 )
 
@@ -43,10 +44,12 @@ type Device struct {
 }
 
 func (device Device) As_string() string {
-	var is_mounted rune = 'u'
-	if len(device.Mountpoints) > 0 {
-		// TODO: even if not mounted, this condition is triggered
-		is_mounted = 'm'
+	var is_mounted rune = 'm'
+	if len(device.Mountpoints) == 1 && device.Mountpoints[0] == "" {
+		// https://stackoverflow.com/q/35866221
+		// An empty []string is not actually empty.
+		// There will be a single empty string ("") inside.
+		is_mounted = 'u'
 	}
 
 	var name string
@@ -92,6 +95,7 @@ func getBlocks() ([]Device, error) {
 		for _, device := range blockdevice.Children {
 			device.Kind = USB
 			devices = append(devices, device)
+			slog.Debug("Block device parsed", "device", device)
 		}
 	}
 
