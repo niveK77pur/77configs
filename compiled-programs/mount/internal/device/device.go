@@ -13,6 +13,17 @@ const (
 	MTP
 )
 
+func (dt devicetype) As_string() string {
+	switch dt {
+	case USB:
+		return "USB"
+	case MTP:
+		return "MTP"
+	default:
+		return "???"
+	}
+}
+
 // The high level block device
 type BlockDevice struct {
 	Path        string
@@ -32,14 +43,20 @@ type Device struct {
 }
 
 func (device Device) As_string() string {
-	return fmt.Sprintf(
-		"%v[%v] %s [%s] (%s)",
-		device.Kind,
-		len(device.Mountpoints) > 0,
-		device.Label,
-		device.Size,
-		device.Path,
-	)
+	var is_mounted rune = 'u'
+	if len(device.Mountpoints) > 0 {
+		// TODO: even if not mounted, this condition is triggered
+		is_mounted = 'm'
+	}
+
+	var name string
+	if label := device.Label; label != "" {
+		name = fmt.Sprintf("%s (%s)", label, device.Path)
+	} else {
+		name = fmt.Sprintf("%s", device.Path)
+	}
+
+	return fmt.Sprintf("%s[%c] %s [%s]", device.Kind.As_string(), is_mounted, name, device.Size)
 }
 
 func GetDevices() ([]Device, error) {
