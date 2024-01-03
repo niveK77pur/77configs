@@ -1,5 +1,10 @@
 package device
 
+import (
+	"encoding/json"
+	"os/exec"
+)
+
 type devicetype int
 
 const (
@@ -7,14 +12,67 @@ const (
 	MTP
 )
 
-type Device struct {
-	name    string
-	mounted bool
-	kind    devicetype
+// The high level block device
+type BlockDevice struct {
+	Path        string
+	Size        string
+	Label       string
+	Mountpoints []string
+	Children    []Device
 }
 
-// TODO: get list of all available devices
-func GetDevices() []Device { return []Device{} }
+// The actual mountable device (i.e. partition)
+type Device struct {
+	Path        string
+	Size        string
+	Label       string
+	Mountpoints []string
+	Kind        devicetype
+}
+
+func GetDevices() ([]Device, error) {
+	blocks, err := getBlocks()
+	if err != nil {
+		return nil, err
+	}
+	mtp, err := getMTP()
+	if err != nil {
+		return nil, err
+	}
+	return append(blocks, mtp...), nil
+}
+
+func getBlocks() ([]Device, error) {
+	cmd := exec.Command(
+		"lsblk",
+		"--json",
+		"--tree",
+		"--output", "PATH,SIZE,LABEL,MOUNTPOINTS",
+	)
+	output, err := cmd.Output()
+	if err != nil {
+		return nil, err
+	}
+
+	var data map[string][]BlockDevice
+	if err := json.Unmarshal(output, &data); err != nil {
+		return nil, err
+	}
+	devices := []Device{}
+	for _, blockdevice := range data["blockdevices"] {
+		for _, device := range blockdevice.Children {
+			device.Kind = USB
+			devices = append(devices, device)
+		}
+	}
+
+	return devices, nil
+}
+
+// TODO: get list of all available MTP devices
+func getMTP() ([]Device, error) {
+	return []Device{}, nil
+}
 
 // TODO: mount the device
 func (device Device) Mount() int { return 0 }
