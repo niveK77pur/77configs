@@ -119,7 +119,7 @@ func (device Device) Mount() (string, error) {
 		slog.Error("An error occurred while mounting device", "error", err, "device", device)
 		return "", err
 	}
-	r, err := regexp.Compile(fmt.Sprintf("Mounted %s at (.*)", device.Path))
+	r := regexp.MustCompile(fmt.Sprintf("Mounted %s at (.*)", device.Path))
 	matches := r.FindStringSubmatch(string(output))
 	if matches == nil || len(matches) != 2 {
 		slog.Error("Could not obtain mount path", "output", output, "device", device)
@@ -130,5 +130,27 @@ func (device Device) Mount() (string, error) {
 	return path, nil
 }
 
-// TODO: unmount the device
-func (device Device) Unmount() error { return nil }
+func (device Device) Unmount() error {
+	// TODO: check if device is already mounted?
+	slog.Debug("Unmounting", "device", device)
+	cmd := exec.Command("udisksctl", "unmount", "-b", device.Path)
+	output, err := cmd.Output()
+	if err != nil {
+		slog.Error("An error occurred while unmounting device", "error", err, "device", device)
+		return err
+	}
+	r := regexp.MustCompile("Unmounted (.*)\\.")
+	matches := r.FindStringSubmatch(string(output))
+	slog.Debug("Unmount regex matches", "matches", matches)
+	if matches == nil || len(matches) != 2 {
+		slog.Error("Could not obtain unmounted device path", "output", output, "device", device)
+		return errors.New("Could not obtain unmounted device path")
+	}
+	path := matches[1]
+	if path != device.Path {
+		slog.Error("Mistmatch between device paths", "obtained", path, "expected", device.Path)
+		return errors.New("Unmounted device path does not match what was expected")
+	}
+	slog.Info("Unmounted device", "target", device.Path)
+	return nil
+}
