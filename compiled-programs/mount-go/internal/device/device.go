@@ -45,13 +45,20 @@ type Device struct {
 	Kind        devicetype
 }
 
-func (device Device) As_string() string {
-	var is_mounted rune = 'm'
+func (device Device) is_mounted() bool {
 	if len(device.Mountpoints) == 1 && device.Mountpoints[0] == "" {
 		// https://stackoverflow.com/q/35866221
 		// An empty []string is not actually empty.
 		// There will be a single empty string ("") inside.
-		is_mounted = 'u'
+		return false
+	}
+	return true
+}
+
+func (device Device) As_string() string {
+	var is_mounted rune = 'u'
+	if device.is_mounted() {
+		is_mounted = 'm'
 	}
 
 	var name string
