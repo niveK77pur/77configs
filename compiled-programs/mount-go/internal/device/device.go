@@ -45,7 +45,7 @@ type Device struct {
 	Kind        devicetype
 }
 
-func (device Device) is_mounted() bool {
+func (device Device) Is_mounted() bool {
 	if len(device.Mountpoints) == 1 && device.Mountpoints[0] == "" {
 		// https://stackoverflow.com/q/35866221
 		// An empty []string is not actually empty.
@@ -57,7 +57,7 @@ func (device Device) is_mounted() bool {
 
 func (device Device) As_string() string {
 	var is_mounted rune = 'u'
-	if device.is_mounted() {
+	if device.Is_mounted() {
 		is_mounted = 'm'
 	}
 
@@ -118,7 +118,7 @@ func getMTP() ([]Device, error) {
 
 // Mount a given device. Returns the path it was mounted on.
 func (device Device) Mount() (string, error) {
-	if device.is_mounted() {
+	if device.Is_mounted() {
 		slog.Error("Device is already mounted", "device", device.Path)
 		return "", errors.New("device is already mounted")
 	}
@@ -141,7 +141,7 @@ func (device Device) Mount() (string, error) {
 }
 
 func (device Device) Unmount() error {
-	if !device.is_mounted() {
+	if !device.Is_mounted() {
 		slog.Error("Device is not mounted", "device", device.Path)
 		return errors.New("device is not mounted")
 	}
