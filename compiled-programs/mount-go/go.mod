@@ -1,4 +1,4 @@
-module niveK77pur/mount
+module niveK77pur/mount-go
 
 go 1.21.5
 

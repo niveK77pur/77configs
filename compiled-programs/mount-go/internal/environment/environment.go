@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
-	dev "niveK77pur/mount/internal/device"
+	dev "niveK77pur/mount-go/internal/device"
 	"os"
 	"os/exec"
 	"strings"

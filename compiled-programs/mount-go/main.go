@@ -2,8 +2,8 @@ package main
 
 import (
 	"log/slog"
-	dev "niveK77pur/mount/internal/device"
-	env "niveK77pur/mount/internal/environment"
+	dev "niveK77pur/mount-go/internal/device"
+	env "niveK77pur/mount-go/internal/environment"
 
 	"github.com/pterm/pterm"
 )
