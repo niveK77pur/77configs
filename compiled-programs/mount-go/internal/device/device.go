@@ -118,7 +118,10 @@ func getMTP() ([]Device, error) {
 
 // Mount a given device. Returns the path it was mounted on.
 func (device Device) Mount() (string, error) {
-	// TODO: check if device is already mounted?
+	if device.is_mounted() {
+		slog.Error("Device is already mounted", "device", device.Path)
+		return "", errors.New("device is already mounted")
+	}
 	slog.Debug("Mounting", "device", device)
 	cmd := exec.Command("udisksctl", "mount", "-b", device.Path)
 	output, err := cmd.Output()
@@ -138,7 +141,10 @@ func (device Device) Mount() (string, error) {
 }
 
 func (device Device) Unmount() error {
-	// TODO: check if device is already mounted?
+	if !device.is_mounted() {
+		slog.Error("Device is not mounted", "device", device.Path)
+		return errors.New("device is not mounted")
+	}
 	slog.Debug("Unmounting", "device", device)
 	cmd := exec.Command("udisksctl", "unmount", "-b", device.Path)
 	output, err := cmd.Output()

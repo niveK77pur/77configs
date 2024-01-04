@@ -25,11 +25,6 @@ func main() {
 		return
 	}
 	_, err = device.Mount()
-	if err != nil {
-		return
-	}
-	if err := device.Unmount(); err != nil {
-		return
-	}
+	device.Unmount()
 	// env.X11.Choose(devices)
 }
