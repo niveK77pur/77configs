@@ -2,9 +2,11 @@ package device
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"os/exec"
+	"regexp"
 )
 
 type devicetype int
@@ -107,8 +109,26 @@ func getMTP() ([]Device, error) {
 	return []Device{}, nil
 }
 
-// TODO: mount the device
-func (device Device) Mount() int { return 0 }
+// Mount a given device. Returns the path it was mounted on.
+func (device Device) Mount() (string, error) {
+	// TODO: check if device is already mounted?
+	slog.Debug("Mounting", "device", device)
+	cmd := exec.Command("udisksctl", "mount", "-b", device.Path)
+	output, err := cmd.Output()
+	if err != nil {
+		slog.Error("An error occurred while mounting device", "error", err, "device", device)
+		return "", err
+	}
+	r, err := regexp.Compile(fmt.Sprintf("Mounted %s at (.*)", device.Path))
+	matches := r.FindStringSubmatch(string(output))
+	if matches == nil || len(matches) != 2 {
+		slog.Error("Could not obtain mount path", "output", output, "device", device)
+		return "", errors.New("Could not obtain mount path")
+	}
+	path := matches[1]
+	slog.Info("Mounted device", "target", device.Path, "destination", path)
+	return path, nil
+}
 
 // TODO: unmount the device
-func (device Device) Unmount() int { return 0 }
+func (device Device) Unmount() error { return nil }

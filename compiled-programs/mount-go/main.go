@@ -17,7 +17,19 @@ func main() {
 	devices, err := dev.GetDevices()
 	if err != nil {
 		slog.Error(err.Error())
+		return
 	}
-	env.TERMINAL.Choose(devices)
-	env.X11.Choose(devices)
+	device, err := env.TERMINAL.Choose(devices)
+	if err != nil {
+		slog.Error(err.Error())
+		return
+	}
+	_, err = device.Mount()
+	if err != nil {
+		return
+	}
+	if err := device.Unmount(); err != nil {
+		return
+	}
+	// env.X11.Choose(devices)
 }
