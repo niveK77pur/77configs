@@ -57,6 +57,7 @@ func (env evironment) Choose(devices []dev.Device) (dev.Device, error) {
 	}
 }
 
+// TODO: return error if device could not be chosen
 func (env evironment) choose_terminal(devices []dev.Device) dev.Device {
 	options := devices_to_strings(&devices)
 	selection, err := pterm.DefaultInteractiveSelect.
