@@ -1,0 +1,20 @@
+:mount-sh: https://github.com/niveK77pur/77configs/blob/main/bin/mount.sh
+:golang: https://go.dev/
+:dmenu: https://tools.suckless.org/dmenu/
+:udisksctl-man: https://man.archlinux.org/man/udisksctl.1
+
+= Helper utility to (un)mount devices
+
+This tool is a rewrite of {mount-sh}[this old bash script] for purposes of getting more familiar with {golang}[Go].
+
+Running the code in the terminal will prompt to select one device to (un)mount. If not run in a terminal, it asks the user to select a device using {dmenu}[dmenu] on X11.
+
+NOTE: The wayland side has not been tackled yet.
+
+== Mounting
+
+USB devices are mounted using {udisksctl-man}[`udisksctl`].
+
+NOTE: MTP is not implemented yet.
+
+CAUTION: The devices mounted as your root, home and so on are also listed.
