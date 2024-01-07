@@ -8,14 +8,15 @@ import (
 	"os"
 
 	"github.com/pterm/pterm"
+	"golang.org/x/term"
 )
-
-var env = environment.TERMINAL
 
 func main() {
 	logger := slog.New(pterm.NewSlogHandler(&pterm.DefaultLogger))
 	pterm.DefaultLogger.Level = getLogLevel()
 	slog.SetDefault(logger)
+
+	env := getEnvironment()
 
 	devices, err := dev.GetDevices()
 	if err != nil {
@@ -73,5 +74,21 @@ func getLogLevel() pterm.LogLevel {
 		return pterm.LogLevelPrint
 	default:
 		return pterm.LogLevelError
+	}
+}
+
+func getEnvironment() environment.Environment {
+	if term.IsTerminal(int(os.Stdout.Fd())) {
+		slog.Info("Found environment: TERMINAL")
+		return environment.TERMINAL
+	} else if os.Getenv("WAYLAND_DISPLAY") != "" {
+		slog.Info("Found environment: WAYLAND")
+		return environment.WAYLAND
+	} else if os.Getenv("DISPLAY") != "" {
+		slog.Info("Found environment: X11")
+		return environment.X11
+	} else {
+		slog.Warn("Could not determine environment. Using TTY.")
+		return environment.TTY
 	}
 }

@@ -15,16 +15,16 @@ import (
 
 const MOUNT_PROMPT = "Choose device to (un)mount"
 
-type evironment int
+type Environment int
 
 const (
-	TTY evironment = iota
+	TTY Environment = iota
 	TERMINAL
 	X11
 	WAYLAND
 )
 
-func (env evironment) Notify(message string) {
+func (env Environment) Notify(message string) {
 	switch env {
 	case TTY, TERMINAL:
 		fmt.Println(message)
@@ -44,7 +44,7 @@ func (env evironment) Notify(message string) {
 }
 
 // TODO: present user with list to pick from
-func (env evironment) Choose(devices []dev.Device) (dev.Device, error) {
+func (env Environment) Choose(devices []dev.Device) (dev.Device, error) {
 	switch env {
 	case TTY, TERMINAL:
 		return env.choose_terminal(devices), nil
@@ -58,7 +58,7 @@ func (env evironment) Choose(devices []dev.Device) (dev.Device, error) {
 }
 
 // TODO: return error if device could not be chosen
-func (env evironment) choose_terminal(devices []dev.Device) dev.Device {
+func (env Environment) choose_terminal(devices []dev.Device) dev.Device {
 	options := devices_to_strings(&devices)
 	selection, err := pterm.DefaultInteractiveSelect.
 		WithDefaultText(MOUNT_PROMPT).
@@ -72,7 +72,7 @@ func (env evironment) choose_terminal(devices []dev.Device) dev.Device {
 	return device
 }
 
-func (env evironment) choose_dmenu(devices []dev.Device) (dev.Device, error) {
+func (env Environment) choose_dmenu(devices []dev.Device) (dev.Device, error) {
 	slog.Info("Launching dmenu for selection")
 	cmd := exec.Command("dmenu", "-i", "-l", "20", "-p", MOUNT_PROMPT)
 	stdin, err := cmd.StdinPipe()
