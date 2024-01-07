@@ -16,5 +16,3 @@ NOTE: The wayland side has not been tackled yet.
 USB devices are mounted using {udisksctl-man}[`udisksctl`].
 
 NOTE: MTP is not implemented yet.
-
-CAUTION: The devices mounted as your root, home and so on are also listed.

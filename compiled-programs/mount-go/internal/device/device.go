@@ -42,6 +42,7 @@ type Device struct {
 	Size        string
 	Label       string
 	Mountpoints []string
+	Hotplug     bool
 	Kind        devicetype
 }
 
@@ -88,7 +89,7 @@ func getBlocks() ([]Device, error) {
 		"lsblk",
 		"--json",
 		"--tree",
-		"--output", "PATH,SIZE,LABEL,MOUNTPOINTS",
+		"--output", "PATH,SIZE,LABEL,MOUNTPOINTS,HOTPLUG",
 	)
 	output, err := cmd.Output()
 	if err != nil {
@@ -103,8 +104,10 @@ func getBlocks() ([]Device, error) {
 	for _, blockdevice := range data["blockdevices"] {
 		for _, device := range blockdevice.Children {
 			device.Kind = USB
-			devices = append(devices, device)
-			slog.Debug("Block device parsed", "device", device)
+			slog.Debug("Block device parsed", "device", device, "added", device.Hotplug)
+			if device.Hotplug {
+				devices = append(devices, device)
+			}
 		}
 	}
 
