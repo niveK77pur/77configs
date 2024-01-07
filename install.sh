@@ -3,7 +3,7 @@
 
 # Some info about this script {{{
 # This script 'installs' all the files to their corresponding locations
-# 
+#
 # What does it do:
 #   - Directories will be created if nonexistent
 #   - Files will be SYMLINKED if nonexistent
@@ -19,12 +19,10 @@
 install-files() {
     SRC="$1"
     DEST="$2"
-    for f in $(find "$SRC" -type f -printf '%P\n')
-    do
+    for f in $(find "$SRC" -type f -printf '%P\n'); do
         DIR="$(dirname "$DEST/$f")"
         [ -d "$DIR" ] || mkdir -p "$DIR"
-        if [ -f "$DEST/$f" ]
-        then
+        if [ -f "$DEST/$f" ]; then
             :
             #echo "$DEST/$f already exists. Skipping."
             #rsync -PUt "$SRC/$f" "$DEST/$f"
