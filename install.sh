@@ -33,8 +33,23 @@ install-files() {
     done
 }
 
+install-go() {
+    PROG_NAME="$1"
+    SRC="compiled-programs/$PROG_NAME"
+    DEST="${2:-$HOME/go/bin}"
+    [ -d "$DEST" ] || mkdir -p "$DEST"
+    if [ ! -f "$DEST/$PROG_NAME" ]; then
+        (cd "$SRC" && go build) &&
+            ln -vs "$(realpath "$SRC/$PROG_NAME")" "$DEST/$PROG_NAME"
+    fi
+}
+
 install-files "bin" "$HOME/bin"
 
 install-files "config" "$HOME/.config"
 
 install-files "home" "$HOME"
+
+install-go "mount-go"
+
+install-go "ffmpeg-cut-timestamps"
