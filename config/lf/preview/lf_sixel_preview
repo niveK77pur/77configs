@@ -6,11 +6,11 @@ h="$3"
 # y=$5
 
 case "$(file -Lb --mime-type -- "$file")" in
-    image/*)
-        chafa -f sixel -s "${w}x${h}" --animate false -- "$file"
-        exit 1
-        ;;
-    *)
-        cat "$file"
-        ;;
+image/*)
+    chafa -f sixel -s "${w}x${h}" --animate false -- "$file"
+    exit 1
+    ;;
+*)
+    cat "$file"
+    ;;
 esac
