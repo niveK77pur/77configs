@@ -7,7 +7,7 @@ h="$3"
 
 case "$(file -Lb --mime-type -- "$file")" in
 image/*)
-    chafa -f sixel -s "${w}x${h}" --animate false -- "$file"
+    chafa -f sixel -s "${w}x${h}" --animate off --polite on -- "$file"
     exit 1
     ;;
 *)

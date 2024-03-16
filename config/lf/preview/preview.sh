@@ -15,7 +15,7 @@ elif [[ $filetype =~ ^video ]]; then
     if type chafa >/dev/null && [[ $(lf --version) -gt 30 ]]; then
         w="$2"
         h="$3"
-        ffmpegthumbnailer -s0 -m -f -i "$file" -c jpeg -o- | chafa -f sixel -s "${w}x${h}"
+        ffmpegthumbnailer -s0 -m -f -i "$file" -c jpeg -o- | chafa -f sixel -s "${w}x${h}" --animate off --polite on
     else
         file --brief "$file"
     fi
