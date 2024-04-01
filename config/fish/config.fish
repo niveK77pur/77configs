@@ -65,6 +65,11 @@ if test -d ~/.cargo/bin
     fish_add_path ~/.cargo/bin
 end
 
+# Ruby gem binaries
+if test -d ~/.local/share/gem/ruby/3.0.0/bin
+    fish_add_path ~/.local/share/gem/ruby/3.0.0/bin
+end
+
 # TeX Live ---------------------------------------------------------------------
 # if installed using the install script `install-tl`
 # (https://tug.org/texlive/quickinstall.html)
