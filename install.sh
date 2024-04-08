@@ -19,7 +19,7 @@
 install-files() {
     SRC="$1"
     DEST="$2"
-    find "$SRC" -type f -print0 | while read -rd $'\0' f; do
+    find "$SRC" -type f -printf '%P\0' | while read -rd $'\0' f; do
         DIR="$(dirname "$DEST/$f")"
         [ -d "$DIR" ] || mkdir -p "$DIR"
         if [ -f "$DEST/$f" ]; then
