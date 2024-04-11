@@ -8,11 +8,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     nixpkgs,
     home-manager,
+    alejandra,
     ...
   }: let
     system = "x86_64-linux";
@@ -25,10 +30,12 @@
       # the path to your home.nix.
       modules = [
         ./nix/home.nix
+        ./nix/coding.nix
       ];
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
+      extraSpecialArgs = {inherit alejandra system;};
     };
   };
 }
