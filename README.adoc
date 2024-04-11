@@ -6,11 +6,16 @@
 
 == About
 
-My configuration files. Installed by {f-install}[placing symlinks].
+My configuration files. Installed by {f-install}[placing symlinks] or using <<home-manager>> with nix.
 
 * `bin` contains my user created scripts to go under `~/bin`
 * `config` contains the config files to go under `~/.config`
 * `home` contains config files which live under `$HOME`
+
+[#home-manager]
+== Home Manager
+
+#TODO#
 
 == NeoVim
 
