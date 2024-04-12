@@ -32,6 +32,7 @@
         ./nix/home.nix
         ./nix/coding.nix
         ./nix/handy-tools.nix
+        ./nix/terminal.nix
       ];
 
       # Optionally use extraSpecialArgs
