@@ -31,6 +31,7 @@
       modules = [
         ./nix/home.nix
         ./nix/coding.nix
+        ./nix/handy-tools.nix
       ];
 
       # Optionally use extraSpecialArgs
