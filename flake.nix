@@ -30,9 +30,9 @@
       # the path to your home.nix.
       modules = [
         ./nix/home.nix
-        ./nix/coding.nix
-        ./nix/handy-tools.nix
-        ./nix/terminal.nix
+        ./nix/coding
+        ./nix/handy-tools
+        ./nix/terminal
       ];
 
       # Optionally use extraSpecialArgs

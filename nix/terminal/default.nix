@@ -5,10 +5,7 @@
 
     programs.wezterm.enable = true;
 
-    programs.fish = {
-      enable = true;
-      # plugins = [ "TODO" ];
-    };
+    programs.fish.enable = true;
 
     programs.starship = {
       enable = true;
