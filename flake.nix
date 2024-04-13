@@ -39,6 +39,7 @@
         ./nix/coding
         ./nix/handy-tools
         ./nix/terminal
+        ./nix/media
       ];
 
       # Optionally use extraSpecialArgs
