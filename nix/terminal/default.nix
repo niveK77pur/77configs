@@ -2,6 +2,7 @@
   imports = [
     ./fish.nix
     ./wezterm.nix
+    ./pistol.nix
   ];
   config = {
     programs.starship = {
