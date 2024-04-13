@@ -1,13 +1,13 @@
 {pkgs, ...}: {
   imports = [
     ./aria2.nix
+    ./lf.nix
   ];
   config = {
     home.packages = [
       pkgs.fd
     ];
 
-    programs.lf.enable = true;
     programs.lazygit.enable = true;
     programs.bat.enable = true;
     programs.ripgrep.enable = true;
