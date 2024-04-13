@@ -2,6 +2,7 @@
   imports = [
     ./aria2.nix
     ./lf.nix
+    ./kde-connect.nix
   ];
   config = {
     home.packages = [
