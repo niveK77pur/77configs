@@ -1,10 +1,9 @@
 {pkgs, ...}: {
   imports = [
     ./fish.nix
+    ./wezterm.nix
   ];
   config = {
-    programs.wezterm.enable = true;
-
     programs.starship = {
       enable = true;
       enableFishIntegration = true;
