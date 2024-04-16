@@ -40,6 +40,7 @@
         ./nix/handy-tools
         ./nix/terminal
         ./nix/media
+        ./nix/fonts
       ];
 
       # Optionally use extraSpecialArgs
