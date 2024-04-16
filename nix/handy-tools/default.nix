@@ -3,6 +3,7 @@
     ./aria2.nix
     ./lf.nix
     ./kde-connect.nix
+    ./direnv.nix
   ];
   config = {
     home.packages = [
