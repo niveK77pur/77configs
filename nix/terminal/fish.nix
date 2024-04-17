@@ -1,11 +1,121 @@
 {
   pkgs,
   lib,
-  setConfigsRecursive,
+  config,
   ...
 }: {
-  config = {
-    home.packages = [pkgs.fish];
-    xdg.configFile = setConfigsRecursive ../../config/fish;
+  config = let
+    makeAlias = args:
+      args
+      // {
+        wraps = args.body;
+        description =
+          "alias: "
+          + (
+            if args ? description
+            then args.description
+            else args.body
+          );
+      };
+  in {
+    programs.fish = {
+      enable = true;
+
+      shellInit = ''
+        # lfcd
+        bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+
+        if [ "$fish_key_bindings" = fish_vi_key_bindings ];
+            bind -Minsert ! __history_previous_command
+            bind -Minsert '$' __history_previous_command_arguments
+        else
+            bind ! __history_previous_command
+            bind '$' __history_previous_command_arguments
+        end
+      '';
+
+      functions = lib.mkMerge [
+        {
+          backup = {
+            body = "${pkgs.coreutils}/bin/cp -r $filename $filename.(${pkgs.coreutils}/bin/date +%F-%T).bak";
+            argumentNames = "filename";
+            description = "Make a backup copy of the given file/directory";
+          };
+        }
+
+        {
+          # see: https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
+          lfcd = {
+            body = ''cd "$(command ${pkgs.lf}/bin/lf -print-last-dir $argv)"'';
+            wraps = "${pkgs.lf}/bin/lf";
+            description = "lf - Terminal file manager (changing directory on exit)";
+          };
+        }
+
+        (lib.mkIf config.programs.neovim.enable {
+          n = makeAlias {
+            body = "nvim $argv";
+          };
+          v = makeAlias {
+            body = "nvim $argv";
+          };
+        })
+
+        (lib.mkIf config.programs.feh.enable {
+          feh = makeAlias {
+            body = "feh -Z --scale-down $argv";
+          };
+        })
+
+        (lib.mkIf config.programs.lazygit.enable {
+          lg = makeAlias {
+            body = "lazygit $argv";
+          };
+        })
+
+        (lib.mkIf config.programs.tmux.enable {
+          t = makeAlias {
+            body = "tmux $argv";
+          };
+          ta = makeAlias {
+            body = "tmux attach $argv";
+          };
+          tat = makeAlias {
+            body = "tmux attach -t $argv";
+          };
+          tk = makeAlias {
+            body = "tmux kill-session -t $argv";
+          };
+          tl = makeAlias {
+            body = "tmux ls $argv";
+          };
+          tn = makeAlias {
+            body = "tmux new -s $argv";
+          };
+        })
+      ];
+
+      plugins = [
+        {
+          name = "fzf";
+          src = pkgs.fetchFromGitHub {
+            owner = "PatrickF1";
+            repo = "fzf.fish";
+            rev = "v10.3";
+            sha512 = "sha512-PsX3/F4fHO2JCxsws14noGyQ9HMMRMQ2LWqy172Qm9kN+HMndK8NFyz6UDTaD9Zi2D1JTIZeEbQz4ARvTRBmoA==";
+          };
+        }
+
+        {
+          name = "done";
+          src = pkgs.fetchFromGitHub {
+            owner = "franciscolourenco";
+            repo = "done";
+            rev = "1.19.3";
+            sha512 = "sha512-OnrdZY4VVofo0h9KAyktmhw4xDi3UE2uA5c2HSx9u6+ts3OuixTdmSQd2/DqNYGzB/a4IVoKa8Wm2Xi9oCrx5A==";
+          };
+        }
+      ];
+    };
   };
 }
