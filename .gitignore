@@ -1,2 +1,3 @@
 compiled-programs/ffmpeg-cut-timestamps/ffmpeg-cut-timestamps
 compiled-programs/mount-go/mount-go
+.direnv/
