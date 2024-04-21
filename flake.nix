@@ -41,6 +41,7 @@
         ./nix/terminal
         ./nix/media
         ./nix/fonts
+        ./nix/myscripts
       ];
 
       # Optionally use extraSpecialArgs
