@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # copy text to the clipboard. Either from stdin or as given by command
 # arguments. For example:
