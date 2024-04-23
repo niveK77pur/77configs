@@ -1,9 +1,7 @@
 {pkgs, ...}: {
-  imports = [
-    ./we.nix
-  ];
   config = {
     home.packages = [
+      (pkgs.callPackage ./we.nix {})
       (pkgs.callPackage ./ccopy.nix {})
     ];
   };
