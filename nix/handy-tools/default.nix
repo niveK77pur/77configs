@@ -4,12 +4,9 @@
     ./lf.nix
     ./kde-connect.nix
     ./direnv.nix
+    ./fd.nix
   ];
   config = {
-    home.packages = [
-      pkgs.fd
-    ];
-
     programs.lazygit.enable = true;
     programs.bat.enable = true;
     programs.ripgrep.enable = true;
