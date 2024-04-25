@@ -42,6 +42,7 @@
         ./nix/media
         ./nix/fonts
         ./nix/myscripts
+        ./nix/gaming
       ];
 
       # Optionally use extraSpecialArgs
