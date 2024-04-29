@@ -5,6 +5,7 @@
     ./kde-connect.nix
     ./direnv.nix
     ./fd.nix
+    ./atuin.nix
   ];
   config = {
     programs.lazygit.enable = true;
@@ -18,10 +19,6 @@
     };
 
     programs.zellij = {
-      enable = true;
-    };
-
-    programs.atuin = {
       enable = true;
     };
 
