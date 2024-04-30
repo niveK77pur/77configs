@@ -27,7 +27,7 @@
         uosc
         mpris
         thumbfast
-        cutter
+        (callPackage ./mpv/sub-cut.nix {})
       ];
       config = {
         fs = "yes";
