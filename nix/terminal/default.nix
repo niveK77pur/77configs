@@ -1,13 +1,8 @@
-{pkgs, ...}: {
+{...}: {
   imports = [
     ./fish.nix
     ./wezterm.nix
     ./pistol.nix
+    ./starship.nix
   ];
-  config = {
-    programs.starship = {
-      enable = true;
-      # enableTransience = true;
-    };
-  };
 }
