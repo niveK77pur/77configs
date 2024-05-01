@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./ani-cli.nix
-    ./mpv.nix
+    ./mpv
     ./yt-dlp.nix
   ];
 }
