@@ -4,6 +4,9 @@
   system,
   ...
 }: {
+  imports = [
+    ./latex.nix
+  ];
   config = {
     home.packages = with pkgs; [
       alejandra.defaultPackage.${system}
