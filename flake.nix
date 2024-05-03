@@ -43,6 +43,9 @@
         ./nix/fonts
         ./nix/myscripts
         ./nix/gaming
+        {
+          config.wezterm.overrides.window_background_opacity = 0.97;
+        }
       ];
 
       # Optionally use extraSpecialArgs
