@@ -48,6 +48,10 @@
             window_background_opacity = 0.97;
             font_size = 11.1;
           };
+          config.git = {
+            userEmail = "kevinbiewesch@yahoo.fr";
+            userName = "Kevin Laurent Biewesch";
+          };
         }
       ];
 

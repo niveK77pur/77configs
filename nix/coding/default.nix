@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./latex.nix
+    ./git.nix
   ];
   config = {
     home.packages = with pkgs; [
@@ -14,15 +15,6 @@
 
     programs.lazygit.enable = true;
     programs.ripgrep.enable = true;
-
-    programs.git = {
-      enable = true;
-      userEmail = "kevinbiewesch@yahoo.fr";
-      userName = "Kevin Laurent Biewesch";
-      # delta.enable = true;
-      diff-so-fancy.enable = true;
-      # difftastic.enable = true;
-    };
 
     programs.neovim = {
       enable = true;
