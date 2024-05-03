@@ -80,5 +80,6 @@
     builtins.elem (lib.getName pkg) [
       "steam"
       "steam-original"
+      "discord"
     ];
 }

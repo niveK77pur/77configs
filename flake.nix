@@ -45,6 +45,7 @@
         ./nix/gaming
         ./nix/browsing
         ./nix/system
+        ./nix/messaging
         {
           config.wezterm.overrides = {
             window_background_opacity = 0.97;
