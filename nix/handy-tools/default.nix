@@ -7,6 +7,7 @@
     ./fd.nix
     ./atuin.nix
     ./viddy.nix
+    ./zellij.nix
   ];
   config = {
     programs.lazygit.enable = true;
@@ -17,10 +18,6 @@
     programs.z-lua = {
       enable = true;
       enableAliases = true;
-    };
-
-    programs.zellij = {
-      enable = true;
     };
 
     programs.eza = {
