@@ -43,6 +43,7 @@
         ./nix/fonts
         ./nix/myscripts
         ./nix/gaming
+        ./nix/browsing
         {
           config.wezterm.overrides = {
             window_background_opacity = 0.97;
