@@ -1,4 +1,4 @@
-{lib, ...}: {
+{...}: {
   imports = [
     ./steam.nix
     ./lutris.nix
@@ -13,11 +13,4 @@
     ./vulkan.nix
     ./glx.nix
   ];
-  config = {
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-original"
-      ];
-  };
 }
