@@ -24,16 +24,17 @@ in {
       wezterm
       (nerdfonts.override {fonts = ["FiraCode" "VictorMono"];})
     ];
-    xdg.configFile."wezterm/wezterm.lua".text =
-      builtins.replaceStrings
-      [
-        "window_background_opacity = 1.0"
-        "font_size = 12.0"
-      ]
-      [
-        "window_background_opacity = ${builtins.toString cfg.window_background_opacity}"
-        "font_size = ${builtins.toString cfg.font_size}"
-      ]
-      (builtins.readFile ../../config/wezterm/wezterm.lua);
+    xdg.configFile."wezterm/wezterm.lua".source = pkgs.stdenvNoCC.mkDerivation {
+      pname = "wezterm.lua";
+      version = "latest";
+      src = ../../../config/wezterm;
+      patches = [
+        (pkgs.substituteAll {
+          src = ./wezterm.patch;
+          inherit (cfg) window_background_opacity font_size;
+        })
+      ];
+      installPhase = "install -Dm311 wezterm.lua $out";
+    };
   };
 }

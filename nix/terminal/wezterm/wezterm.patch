@@ -1,0 +1,20 @@
+--- a/wezterm.lua
++++ b/wezterm.lua
+@@ -18,7 +18,7 @@ return {
+ --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ --{{{
+ 
+-    font_size = 12.0,
++    font_size = @font_size@,
+ 
+     font = wezterm.font {
+         family = 'Fira Code Nerd Font',
+@@ -269,7 +269,7 @@ return {
+     },
+ 
+ 
+-    window_background_opacity = 1.0,
++    window_background_opacity = @window_background_opacity@,
+ 
+     window_padding = {
+         left   = 10,
