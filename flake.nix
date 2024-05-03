@@ -44,7 +44,10 @@
         ./nix/myscripts
         ./nix/gaming
         {
-          config.wezterm.overrides.window_background_opacity = 0.97;
+          config.wezterm.overrides = {
+            window_background_opacity = 0.97;
+            font_size = 11.1;
+          };
         }
       ];
 

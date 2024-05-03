@@ -12,6 +12,11 @@ in {
       default = 1.0;
       description = "Background opacity for wezterm";
     };
+    font_size = lib.mkOption {
+      type = lib.types.float;
+      default = 12.0;
+      description = "Font size for wezterm";
+    };
   };
 
   config = {
@@ -21,8 +26,14 @@ in {
     ];
     xdg.configFile."wezterm/wezterm.lua".text =
       builtins.replaceStrings
-      ["window_background_opacity = 1.0"]
-      ["window_background_opacity = ${builtins.toString cfg.window_background_opacity}"]
+      [
+        "window_background_opacity = 1.0"
+        "font_size = 12.0"
+      ]
+      [
+        "window_background_opacity = ${builtins.toString cfg.window_background_opacity}"
+        "font_size = ${builtins.toString cfg.font_size}"
+      ]
       (builtins.readFile ../../config/wezterm/wezterm.lua);
   };
 }

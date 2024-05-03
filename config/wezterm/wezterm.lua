@@ -18,7 +18,7 @@ return {
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --{{{
 
-    font_size = 11.1,
+    font_size = 12.0,
 
     font = wezterm.font {
         family = 'Fira Code Nerd Font',
