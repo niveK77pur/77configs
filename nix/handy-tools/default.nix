@@ -6,6 +6,7 @@
     ./direnv.nix
     ./fd.nix
     ./atuin.nix
+    ./viddy.nix
   ];
   config = {
     programs.lazygit.enable = true;
