@@ -28,6 +28,13 @@
 
       functions = lib.mkMerge [
         {
+          fish_greeting = {
+            body = "";
+            description = "the greeting message printed on startup";
+          };
+        }
+
+        {
           backup = {
             body = "${pkgs.coreutils}/bin/cp -r $filename $filename.(${pkgs.coreutils}/bin/date +%F-%T).bak";
             argumentNames = "filename";
