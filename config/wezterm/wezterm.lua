@@ -245,7 +245,7 @@ return {
             selection_bg = '#472541',
             compose_cursor = 'white',
             ansi = {
-                'black',   -- 0 = black
+                '#4e5676',   -- 0 = black
                 '#ff38a2', -- 1 = red     ()
                 '#b8ee92', -- 2 = green   (Midnight.Green)
                 '#ddcf43', -- 3 = yellow  (Nova.Yellow)
@@ -255,7 +255,7 @@ return {
                 '#ced5e5', -- 7 = white   (Midnight.White)
             },
             brights = {
-                'black',   -- 0 = black
+                '#4e5676',   -- 0 = black
                 '#f94b7d', -- 1 = red     (Midnight.Red)
                 '#9cd162', -- 2 = green   ()
                 '#ffc85b', -- 3 = yellow  ()
