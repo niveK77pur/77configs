@@ -1,7 +1,7 @@
 {...}: {
   imports = [
     ./fish.nix
-    ./wezterm.nix
+    ./wezterm
     ./pistol.nix
     ./starship.nix
   ];
