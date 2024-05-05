@@ -1,10 +1,9 @@
-{
-  pkgs,
-  setConfigsRecursive,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     home.packages = [pkgs.zathura];
-    xdg.configFile = setConfigsRecursive ../../config/zathura;
+    xdg.configFile.zathura = {
+      source = ../../config/zathura;
+      recursive = true;
+    };
   };
 }

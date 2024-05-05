@@ -1,10 +1,9 @@
-{
-  pkgs,
-  setConfigsRecursive,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     home.packages = [pkgs.zellij];
-    xdg.configFile = setConfigsRecursive ../../config/zellij;
+    xdg.configFile.zellij = {
+      source = ../../config/zellij;
+      recursive = true;
+    };
   };
 }

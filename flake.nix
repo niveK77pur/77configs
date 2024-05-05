@@ -22,12 +22,6 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    setConfigsRecursive = path:
-      nixpkgs.lib.mkMerge (nixpkgs.lib.forEach (nixpkgs.lib.filesystem.listFilesRecursive path) (f: let
-        fname = builtins.head (builtins.match ".*/config/(.*)" (toString f));
-      in {
-        "${fname}".source = f;
-      }));
   in {
     homeConfigurations."kevin" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -62,7 +56,6 @@
       # to pass through arguments to home.nix
       extraSpecialArgs = {
         inherit alejandra system;
-        inherit setConfigsRecursive;
       };
     };
 

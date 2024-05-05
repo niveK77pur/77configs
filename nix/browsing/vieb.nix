@@ -1,10 +1,9 @@
-{
-  pkgs,
-  setConfigsRecursive,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     home.packages = [pkgs.vieb];
-    xdg.configFile = setConfigsRecursive ../../config/Vieb;
+    xdg.configFile.Vieb = {
+      source = ../../config/Vieb;
+      recursive = true;
+    };
   };
 }

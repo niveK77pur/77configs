@@ -1,8 +1,4 @@
-{
-  pkgs,
-  setConfigsRecursive,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     home.packages = with pkgs;
       [lf]
@@ -15,6 +11,9 @@
         lazygit
       ];
 
-    xdg.configFile = setConfigsRecursive ../../config/lf;
+    xdg.configFile.lf = {
+      source = ../../config/lf;
+      recursive = true;
+    };
   };
 }
