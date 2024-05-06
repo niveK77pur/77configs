@@ -12,5 +12,7 @@
 
     ./vulkan.nix
     ./glx.nix
+
+    ./devices
   ];
 }

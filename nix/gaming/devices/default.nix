@@ -1,0 +1,5 @@
+{...}: {
+  imports = [
+    ./playstation.nix
+  ];
+}
