@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./neovim.nix
     ./latex.nix
     ./git.nix
     ./lazygit.nix
@@ -16,12 +17,5 @@
     ];
 
     programs.ripgrep.enable = true;
-
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      # withNodeJs = true;
-      # withPython3 = true;
-    };
   };
 }
