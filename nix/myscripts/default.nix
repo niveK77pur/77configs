@@ -9,6 +9,7 @@
       (pkgs.callPackage ./ccopy.nix {})
       (pkgs.callPackage ./cedit.nix {})
       (pkgs.callPackage ./mount.nix {})
+      (pkgs.callPackage ./randomcase.nix {})
       # (pkgs.callPackage ./mount-go.nix {})
     ];
   };
