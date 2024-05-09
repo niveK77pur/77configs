@@ -19,7 +19,8 @@ stdenvNoCC.mkDerivation rec {
   pname = "mount.sh";
   version = "1.0.0";
 
-  src = ../../bin;
+  src = ../../bin/${pname};
+  unpackPhase = "ln -s $src $(stripHash $src)";
 
   runtimeDependencies = [
     libnotify

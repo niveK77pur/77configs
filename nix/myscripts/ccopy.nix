@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
   pname = "ccopy";
   version = "1.0.0";
 
-  src = ../../bin;
+  src = ../../bin/${pname};
+  unpackPhase = "ln -s $src $(stripHash $src)";
 
   runtimeDependencies = [
     bash

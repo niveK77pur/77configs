@@ -9,7 +9,8 @@ stdenvNoCC.mkDerivation rec {
   pname = "we";
   version = "1.0.0";
 
-  src = ../../bin;
+  src = ../../bin/${pname};
+  unpackPhase = "ln -s $src $(stripHash $src)";
 
   runtimeDependencies = [
     mpv
