@@ -8,6 +8,7 @@
     ./neovim.nix
     ./latex.nix
     ./git.nix
+    ./gh.nix
     ./lazygit.nix
   ];
   config = {
