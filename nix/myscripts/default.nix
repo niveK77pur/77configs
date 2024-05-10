@@ -10,6 +10,7 @@
       (pkgs.callPackage ./cedit.nix {})
       (pkgs.callPackage ./mount.nix {})
       (pkgs.callPackage ./randomcase.nix {})
+      (pkgs.callPackage ./new-lilypond-project.nix {useGh = true;})
       # (pkgs.callPackage ./mount-go.nix {})
     ];
   };
