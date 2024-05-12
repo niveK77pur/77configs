@@ -8,6 +8,7 @@
     ./atuin.nix
     ./viddy.nix
     ./zellij.nix
+    ./vidir.nix
   ];
   config = {
     programs.lazygit.enable = true;
