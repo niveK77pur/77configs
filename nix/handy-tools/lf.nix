@@ -9,6 +9,7 @@
         file
         ffmpegthumbnailer
         lazygit
+        feh
       ];
 
     xdg.configFile.lf = {
