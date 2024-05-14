@@ -56,6 +56,7 @@
       # to pass through arguments to home.nix
       extraSpecialArgs = {
         inherit alejandra system;
+        username = "kevin";
       };
     };
 
