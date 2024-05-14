@@ -60,6 +60,37 @@
       };
     };
 
+    homeConfigurations."kuni" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./nix/home.nix
+        ./nix/coding
+        ./nix/handy-tools
+        ./nix/terminal
+        ./nix/media
+        ./nix/fonts
+        ./nix/myscripts
+        ./nix/browsing
+        ./nix/system
+        ./nix/messaging
+        {
+          config.wezterm.overrides = {
+            font_size = 9.5;
+          };
+          config.git = {
+            userEmail = "kevinbiewesch@yahoo.fr";
+            userName = "Kevin Laurent Biewesch";
+          };
+        }
+      ];
+
+      extraSpecialArgs = {
+        inherit alejandra system;
+        username = "kuni";
+      };
+    };
+
     devShells.${system}.default = pkgs.mkShell {
       packages = [
         # python
