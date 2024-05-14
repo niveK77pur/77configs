@@ -60,13 +60,14 @@
     };
 
     devShells.${system}.default = pkgs.mkShell {
-      packages = with pkgs; [
+      packages = [
         # python
-        ruff
-        isort
+        pkgs.ruff
+        pkgs.isort
 
         # nix
-        nixd
+        pkgs.nixd
+        alejandra.defaultPackage.${system}
       ];
     };
   };
