@@ -1,8 +1,15 @@
 {
   pkgs,
   lib,
+  config,
   ...
-}: {
+}: let
+  cfg = config.mpv;
+in {
+  options.mpv = {
+    withAnime4k = lib.mkEnableOption {};
+  };
+
   config = let
     anime4k = pkgs.anime4k;
     anime4Kbindings = {
@@ -16,11 +23,6 @@
       "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
     };
   in {
-    home.packages = with pkgs; [
-      ffmpeg # for cutter
-      anime4k
-    ];
-
     programs.mpv = {
       enable = true;
       scripts = with pkgs.mpvScripts; [
@@ -36,18 +38,20 @@
         # TODO: border = "no"; # usoc
       };
       defaultProfiles = ["gpu-hq"];
-      bindings = anime4Kbindings;
-      profiles = {
-        anime4k = {
-          glsl-shaders = "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl";
-        };
-      };
+      bindings = lib.mkIf cfg.withAnime4k anime4Kbindings;
+      profiles = lib.mkMerge [
+        (lib.mkIf cfg.withAnime4k {
+          anime4k = {
+            glsl-shaders = "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl";
+          };
+        })
+      ];
       scriptOpts = {
         # TODO: usoc?
       };
     };
 
-    xdg.configFile."mpv/watch-episode-input.conf".text =
+    xdg.configFile."mpv/watch-episode-input.conf".text = lib.strings.concatStrings [
       ''
         q                   quit-watch-later
         q {encode}          quit-watch-later
@@ -59,6 +63,10 @@
         CLOSE_WIN {encode}  quit-watch-later
         ctrl+c              quit-watch-later
       ''
-      + lib.strings.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (name: value: name + " " + value) anime4Kbindings);
+
+      (lib.strings.optionalString cfg.withAnime4k (
+        lib.strings.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (name: value: name + " " + value) anime4Kbindings)
+      ))
+    ];
   };
 }

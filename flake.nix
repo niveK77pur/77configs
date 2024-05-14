@@ -41,6 +41,7 @@
         ./nix/system
         ./nix/messaging
         {
+          config.mpv.withAnime4k = true;
           config.wezterm.overrides = {
             window_background_opacity = 0.97;
             font_size = 11.1;
