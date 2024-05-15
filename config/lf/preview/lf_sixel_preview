@@ -10,6 +10,10 @@ image/*)
     chafa -f sixel -s "${w}x${h}" --animate off --polite on -- "$file"
     exit 1
     ;;
+application/pdf)
+    magick "${file}[0]" qoi:- | chafa -f sixel -s "${w}x${h}" --animate off --polite on --threshold 1 --bg white
+    exit 0
+    ;;
 *)
     cat "$file"
     ;;

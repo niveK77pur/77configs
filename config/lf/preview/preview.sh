@@ -15,6 +15,12 @@ if [[ $filetype =~ ^image ]]; then
     else
         file --brief "$file"
     fi
+elif [[ $filetype == application/pdf ]]; then
+    if type magick >/dev/null && type chafa >/dev/null && [ "$valid_lf_version" -eq 0 ]; then
+        "$script_path_prefix/lf_sixel_preview" "$@"
+    else
+        file --brief "$file"
+    fi
 elif [[ $filetype =~ ^video ]]; then
     if type chafa >/dev/null && [ "$valid_lf_version" -eq 0 ]; then
         w="$2"
