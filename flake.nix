@@ -81,6 +81,11 @@
         ./nix/system
         ./nix/messaging
         {
+          config.home.withNixGL = rec {
+            enable = true;
+            package = pkgs.nixgl.nixGLIntel;
+            command = "${package}/bin/nixGLIntel";
+          };
           config.wezterm.overrides = {
             font_size = 9.5;
           };
