@@ -12,16 +12,21 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl.url = "github:nix-community/nixGL";
   };
 
   outputs = {
     nixpkgs,
     home-manager,
     alejandra,
+    nixgl,
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      system = system;
+      overlays = [nixgl.overlay];
+    };
   in {
     homeConfigurations."kevin" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;

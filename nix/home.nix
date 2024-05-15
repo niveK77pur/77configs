@@ -5,6 +5,26 @@
   username,
   ...
 }: {
+  options.home = {
+    withNixGL = {
+      enable = lib.mkEnableOption {
+        default = false;
+        description = "Whether to use NixGL";
+      };
+      package = lib.mkOption {
+        # IMPORTANT: The `.auto` will require an `--impure` evaluation
+        default = pkgs.nixgl.auto.nixGLDefault;
+        type = lib.types.package;
+        description = "Which NixGL package to include for working with OpenGL applications";
+      };
+      command = lib.mkOption {
+        default = "${config.home.withNixGL.package}/bin/nixGL";
+        type = lib.types.str;
+        description = "Path to the NixGL Command, needed to create wrappers for applications";
+      };
+    };
+  };
+
   config = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
@@ -22,24 +42,7 @@
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    home.packages = [
-      # # Adds the 'hello' command to your environment. It prints a friendly
-      # # "Hello, world!" when run.
-      # pkgs.hello
-
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
-    ];
+    home.packages = lib.lists.optional (config.home.withNixGL.enable) config.home.withNixGL.package;
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
