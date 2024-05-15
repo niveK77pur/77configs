@@ -5,6 +5,13 @@
   ...
 }: let
   cfg = config.wezterm.overrides;
+  wezterm =
+    if config.home.withNixGL.enable
+    then
+      pkgs.writeShellScriptBin "wezterm" ''
+        ${config.home.withNixGL.command} ${pkgs.wezterm}/bin/wezterm "$@"
+      ''
+    else pkgs.wezterm;
 in {
   options.wezterm.overrides = {
     window_background_opacity = lib.mkOption {
@@ -20,9 +27,9 @@ in {
   };
 
   config = {
-    home.packages = with pkgs; [
+    home.packages = [
       wezterm
-      (nerdfonts.override {fonts = ["FiraCode" "VictorMono"];})
+      (pkgs.nerdfonts.override {fonts = ["FiraCode" "VictorMono"];})
     ];
     xdg.configFile."wezterm/wezterm.lua".source = pkgs.stdenvNoCC.mkDerivation {
       pname = "wezterm.lua";
