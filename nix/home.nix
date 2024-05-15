@@ -81,6 +81,13 @@
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    # Let 'myrepos' handle this repository as well
+    programs.mr.settings = {
+      ".config/home-manager" = {
+        checkout = "git clone git@github.com:niveK77pur/77configs.git home-manager";
+      };
+    };
+
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "steam"
