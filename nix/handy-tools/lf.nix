@@ -10,6 +10,8 @@
         ffmpegthumbnailer
         lazygit
         feh
+        imagemagick
+        ghostscript
       ];
 
     xdg.configFile.lf = {
