@@ -9,6 +9,7 @@
     ./viddy.nix
     ./zellij.nix
     ./vidir.nix
+    # ./pdfarranger.nix
   ];
   config = {
     programs.lazygit.enable = true;
