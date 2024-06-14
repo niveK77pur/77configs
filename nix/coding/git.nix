@@ -17,8 +17,7 @@ in {
   config = {
     programs.git = {
       enable = true;
-      userEmail = cfg.userEmail;
-      userName = cfg.userName;
+      inherit (cfg) userEmail userName;
       # delta.enable = true;
       diff-so-fancy.enable = true;
       # difftastic.enable = true;
