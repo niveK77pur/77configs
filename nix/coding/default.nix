@@ -12,9 +12,9 @@
     ./lazygit.nix
   ];
   config = {
-    home.packages = with pkgs; [
+    home.packages = [
       alejandra.defaultPackage.${system}
-      nixd
+      pkgs.nixd
     ];
 
     programs.ripgrep.enable = true;
