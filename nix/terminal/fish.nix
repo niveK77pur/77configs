@@ -11,11 +11,7 @@
         wraps = args.body;
         description =
           "alias: "
-          + (
-            if args ? description
-            then args.description
-            else args.body
-          );
+          + (args.description or args.body);
       };
   in {
     programs.fish = {
