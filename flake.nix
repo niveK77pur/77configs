@@ -24,7 +24,7 @@
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
-      system = system;
+      inherit system;
       overlays = [nixgl.overlay];
     };
   in {
@@ -46,14 +46,16 @@
         ./nix/system
         ./nix/messaging
         {
-          config.mpv.withAnime4k = true;
-          config.wezterm.overrides = {
-            window_background_opacity = 0.97;
-            font_size = 11.1;
-          };
-          config.git = {
-            userEmail = "kevinbiewesch@yahoo.fr";
-            userName = "Kevin Laurent Biewesch";
+          config = {
+            mpv.withAnime4k = true;
+            wezterm.overrides = {
+              window_background_opacity = 0.97;
+              font_size = 11.1;
+            };
+            git = {
+              userEmail = "kevinbiewesch@yahoo.fr";
+              userName = "Kevin Laurent Biewesch";
+            };
           };
         }
       ];
@@ -81,17 +83,19 @@
         ./nix/system
         ./nix/messaging
         {
-          config.home.withNixGL = rec {
-            enable = true;
-            package = pkgs.nixgl.nixGLIntel;
-            command = "${package}/bin/nixGLIntel";
-          };
-          config.wezterm.overrides = {
-            font_size = 9.5;
-          };
-          config.git = {
-            userEmail = "kevinbiewesch@yahoo.fr";
-            userName = "Kevin Laurent Biewesch";
+          config = {
+            home.withNixGL = rec {
+              enable = true;
+              package = pkgs.nixgl.nixGLIntel;
+              command = "${package}/bin/nixGLIntel";
+            };
+            wezterm.overrides = {
+              font_size = 9.5;
+            };
+            git = {
+              userEmail = "kevinbiewesch@yahoo.fr";
+              userName = "Kevin Laurent Biewesch";
+            };
           };
         }
       ];
