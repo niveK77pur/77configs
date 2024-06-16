@@ -1,4 +1,4 @@
-{...}: {
+_: {
   imports = [
     ./aria2.nix
     ./lf.nix
@@ -10,26 +10,11 @@
     ./zellij.nix
     ./vidir.nix
     # ./pdfarranger.nix
+    ../coding/lazygit.nix
+    ./bat.nix
+    ../coding/ripgrep.nix
+    ./z-lua.nix
+    ./eza.nix
+    ./fzf.nix
   ];
-  config = {
-    programs.lazygit.enable = true;
-    programs.bat.enable = true;
-    programs.ripgrep.enable = true;
-
-    # TODO: replace with 'zoxide'?
-    programs.z-lua = {
-      enable = true;
-      enableAliases = true;
-    };
-
-    programs.eza = {
-      enable = true;
-      git = true;
-      icons = true;
-    };
-
-    programs.fzf = {
-      enable = true;
-    };
-  };
 }
