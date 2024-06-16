@@ -10,6 +10,7 @@
     ./git.nix
     ./gh.nix
     ./lazygit.nix
+    ./ripgrep.nix
   ];
   config = {
     home.packages = [
@@ -17,7 +18,5 @@
       pkgs.nixd
       pkgs.statix
     ];
-
-    programs.ripgrep.enable = true;
   };
 }
