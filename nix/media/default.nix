@@ -4,5 +4,6 @@
     ./mpv
     ./yt-dlp.nix
     ./zathura.nix
+    ./flameshot.nix
   ];
 }
