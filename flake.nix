@@ -107,6 +107,7 @@
     };
 
     devShells.${system}.default = pkgs.mkShell {
+      name = "home-manager";
       packages = [
         # python
         pkgs.ruff
