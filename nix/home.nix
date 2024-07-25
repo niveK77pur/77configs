@@ -85,8 +85,15 @@
 
     # Let 'myrepos' handle this repository as well
     programs.mr.settings = {
-      ".config/home-manager" = {
-        checkout = "git clone git@github.com:niveK77pur/77configs.git home-manager";
+      ".config/home-manager" = let
+        url =
+          {
+            "ssh" = "git@github.com:niveK77pur/77configs.git";
+            "https" = "https://github.com/niveK77pur/77configs.git";
+          }
+          ."${config.myrepos.cloneMode}";
+      in {
+        checkout = "git clone ${url} home-manager";
       };
     };
 

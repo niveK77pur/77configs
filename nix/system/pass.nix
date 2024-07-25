@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   config = {
     programs = {
       gpg.enable = true;
@@ -9,8 +13,15 @@
         };
       };
       mr.settings = {
-        ".password-store" = {
-          checkout = "git clone git@github.com:niveK77pur/super-octo-succotash.git .password-store";
+        ".password-store" = let
+          url =
+            {
+              "ssh" = "git@github.com:niveK77pur/super-octo-succotash.git";
+              "https" = "https://github.com/niveK77pur/super-octo-succotash.git";
+            }
+            ."${config.myrepos.cloneMode}";
+        in {
+          checkout = "git clone ${url} .password-store";
         };
       };
     };

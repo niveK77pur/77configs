@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   config = {
     programs.neovim = {
       enable = true;
@@ -8,8 +12,15 @@
       ];
     };
     programs.mr.settings = {
-      ".config/nvim" = {
-        checkout = "git clone git@github.com:niveK77pur/nvim.git nvim";
+      ".config/nvim" = let
+        url =
+          {
+            "ssh" = "git@github.com:niveK77pur/nvim.git";
+            "https" = "https://github.com/niveK77pur/nvim";
+          }
+          ."${config.myrepos.cloneMode}";
+      in {
+        checkout = "git clone ${url} nvim";
       };
     };
   };
