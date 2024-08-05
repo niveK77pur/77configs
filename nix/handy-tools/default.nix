@@ -16,5 +16,6 @@ _: {
     ./z-lua.nix
     ./eza.nix
     ./fzf.nix
+    ./taskwarrior.nix
   ];
 }
