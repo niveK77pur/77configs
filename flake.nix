@@ -115,6 +115,7 @@
 
         # nix
         pkgs.nixd
+        pkgs.nil
         alejandra.defaultPackage.${system}
         pkgs.statix
       ];
