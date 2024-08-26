@@ -13,6 +13,7 @@
       ''
     else pkgs.wezterm;
 in {
+  options.wezterm.enable = lib.mkEnableOption "wezterm" // {default = true;};
   options.wezterm.overrides = {
     window_background_opacity = lib.mkOption {
       type = lib.types.float;
@@ -26,7 +27,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf config.wezterm.enable {
     home.packages = [
       wezterm
       (pkgs.nerdfonts.override {fonts = ["FiraCode" "VictorMono"];})

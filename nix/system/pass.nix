@@ -1,9 +1,11 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: {
-  config = {
+  options.pass.enable = lib.mkEnableOption "pass" // {default = true;};
+  config = lib.mkIf config.pass.enable {
     programs = {
       gpg.enable = true;
       password-store = {

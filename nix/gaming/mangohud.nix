@@ -1,5 +1,10 @@
-{...}: {
-  config = {
+{
+  lib,
+  config,
+  ...
+}: {
+  options.mangohud.enable = lib.mkEnableOption "mangohud" // {default = true;};
+  config = lib.mkIf config.mangohud.enable {
     programs.mangohud = {
       enable = true;
       enableSessionWide = true;

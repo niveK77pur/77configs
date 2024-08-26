@@ -1,4 +1,9 @@
-{lib, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
+  options.myrepos.enable = lib.mkEnableOption "myrepos" // {default = true;};
   options.myrepos = {
     cloneMode = lib.mkOption {
       default = "ssh";
@@ -7,7 +12,7 @@
     };
   };
 
-  config = {
+  config = lib.mkIf config.myrepos.enable {
     programs.mr.enable = true;
     # settings are specfied elsewhere along their respective tools
   };

@@ -1,11 +1,12 @@
 {
-  config,
   lib,
+  config,
   ...
 }: let
   cfg = config.git;
 in {
   options.git = {
+    enable = lib.mkEnableOption "git" // {default = true;};
     userEmail = lib.mkOption {
       type = lib.types.str;
     };
@@ -14,7 +15,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf config.git.enable {
     programs.git = {
       enable = true;
       inherit (cfg) userEmail userName;

@@ -1,5 +1,10 @@
-{...}: {
-  config = {
+{
+  lib,
+  config,
+  ...
+}: {
+  options.topgrade.enable = lib.mkEnableOption "topgrade" // {default = true;};
+  config = lib.mkIf config.topgrade.enable {
     programs.topgrade = {
       enable = true;
       settings = {

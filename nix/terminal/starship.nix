@@ -1,8 +1,15 @@
-{...}: {
-  programs.starship = {
-    enable = true;
-    # enableTransience = true;
-  };
+{
+  lib,
+  config,
+  ...
+}: {
+  options.starship.enable = lib.mkEnableOption "starship" // {default = true;};
+  config = {
+    programs.starship = lib.mkIf config.starship.enable {
+      enable = true;
+      # enableTransience = true;
+    };
 
-  xdg.configFile."starship.toml".source = ../../config/starship.toml;
+    xdg.configFile."starship.toml".source = ../../config/starship.toml;
+  };
 }

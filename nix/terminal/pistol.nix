@@ -1,5 +1,11 @@
-{pkgs, ...}: {
-  config = {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  options.pistol.enable = lib.mkEnableOption "pistol" // {default = true;};
+  config = lib.mkIf config.pistol.enable {
     programs.pistol = {
       enable = true;
       associations = let
