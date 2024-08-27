@@ -96,7 +96,7 @@
               userEmail = "kevinbiewesch@yahoo.fr";
               userName = "Kevin Laurent Biewesch";
             };
-            mrandr = {
+            myscripts.mrandr = {
               SCREEN = "eDP";
               OUTPUT = "DisplayPort-0";
             };
