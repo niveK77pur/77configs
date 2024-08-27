@@ -96,6 +96,10 @@
               userEmail = "kevinbiewesch@yahoo.fr";
               userName = "Kevin Laurent Biewesch";
             };
+            mrandr = {
+              SCREEN = "eDP";
+              OUTPUT = "DisplayPort-0";
+            };
           };
         }
       ];
