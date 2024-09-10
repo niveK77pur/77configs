@@ -284,6 +284,8 @@ return {
 --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --{{{
 
+    front_end = "WebGpu",
+
     warn_about_missing_glyphs = false,
 
     check_for_updates = false,
