@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.thunderbird.enable = lib.mkEnableOption "thunderbird" // {default = true;};
+  options.thunderbird.enable = lib.mkEnableOption "thunderbird";
   config = lib.mkIf config.thunderbird.enable {
     home.packages = [pkgs.thunderbird];
   };
