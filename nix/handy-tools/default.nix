@@ -21,6 +21,7 @@
     ./eza.nix
     ./fzf.nix
     ./taskwarrior.nix
+    ./parallel.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -43,5 +44,6 @@
     eza.enable = lib.mkDefault true;
     fzf.enable = lib.mkDefault true;
     taskwarrior.enable = lib.mkDefault true;
+    parallel.enable = lib.mkDefault true;
   };
 }
