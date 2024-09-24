@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.lf.enable = lib.mkEnableOption "lf" // {default = true;};
+  options.lf.enable = lib.mkEnableOption "lf";
   config = lib.mkIf config.lf.enable {
     home.packages = with pkgs;
       [lf]

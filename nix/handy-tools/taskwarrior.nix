@@ -7,7 +7,7 @@
   cfg = config.taskwarrior;
 in {
   options.taskwarrior = {
-    enable = lib.mkEnableOption "taskwarrior" // {default = true;};
+    enable = lib.mkEnableOption "taskwarrior";
     extraConfig = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = {};

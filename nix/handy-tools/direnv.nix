@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.direnv.enable = lib.mkEnableOption "direnv" // {default = true;};
+  options.direnv.enable = lib.mkEnableOption "direnv";
   config = lib.mkIf config.direnv.enable {
     programs.direnv = {
       enable = true;

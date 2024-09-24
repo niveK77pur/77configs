@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.viddy.enable = lib.mkEnableOption "viddy" // {default = true;};
+  options.viddy.enable = lib.mkEnableOption "viddy";
   config = lib.mkIf config.viddy.enable {
     home.packages = with pkgs; [
       viddy

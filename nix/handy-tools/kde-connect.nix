@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.kdeconnect.enable = lib.mkEnableOption "kdeconnect" // {default = true;};
+  options.kdeconnect.enable = lib.mkEnableOption "kdeconnect";
   config = lib.mkIf config.kdeconnect.enable {
     services.kdeconnect = {
       enable = true;

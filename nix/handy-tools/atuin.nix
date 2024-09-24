@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.atuin.enable = lib.mkEnableOption "atuin" // {default = true;};
+  options.atuin.enable = lib.mkEnableOption "atuin";
   config = lib.mkIf config.atuin.enable {
     programs.atuin = {
       enable = true;
