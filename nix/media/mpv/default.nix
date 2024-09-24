@@ -7,7 +7,7 @@
   cfg = config.mpv;
 in {
   options.mpv = {
-    enable = lib.mkEnableOption "mpv" // {default = true;};
+    enable = lib.mkEnableOption "mpv";
     withAnime4k = lib.mkEnableOption {};
   };
 

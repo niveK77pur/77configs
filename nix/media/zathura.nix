@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.zathura.enable = lib.mkEnableOption "zathura" // {default = true;};
+  options.zathura.enable = lib.mkEnableOption "zathura";
   config = lib.mkIf config.zathura.enable {
     home.packages = [pkgs.zathura];
     xdg.configFile.zathura = {

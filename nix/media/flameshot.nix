@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.flameshot.enable = lib.mkEnableOption "flameshot" // {default = true;};
+  options.flameshot.enable = lib.mkEnableOption "flameshot";
   config = lib.mkIf config.flameshot.enable {
     services.flameshot.enable = true;
   };
