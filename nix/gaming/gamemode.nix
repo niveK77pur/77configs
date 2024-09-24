@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  options.gamemode.enable = lib.mkEnableOption "gamemode" // {default = true;};
+  options.gamemode.enable = lib.mkEnableOption "gamemode";
   config = lib.mkIf config.gamemode.enable {
     home.packages = with pkgs; [gamemode];
   };

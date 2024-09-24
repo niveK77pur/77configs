@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.steam.enable = lib.mkEnableOption "steam" // {default = true;};
+  options.steam.enable = lib.mkEnableOption "steam";
   config = lib.mkIf config.steam.enable {
     home.packages = with pkgs; [
       (steam.override {

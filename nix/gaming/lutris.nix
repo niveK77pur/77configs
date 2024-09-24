@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.lutris.enable = lib.mkEnableOption "lutris" // {default = true;};
+  options.lutris.enable = lib.mkEnableOption "lutris";
   config = lib.mkIf config.lutris.enable {
     home.packages = with pkgs; [
       (lutris.override {

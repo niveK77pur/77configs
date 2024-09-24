@@ -1,4 +1,8 @@
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./steam.nix
     ./lutris.nix
@@ -16,4 +20,24 @@
 
     ./devices
   ];
+
+  options.gaming.enableAll = lib.mkEnableOption "gaming";
+
+  config = lib.mkIf config.gaming.enableAll {
+    steam.enable = lib.mkDefault true;
+    lutris.enable = lib.mkDefault true;
+    heroic.enable = lib.mkDefault true;
+
+    mangohud.enable = lib.mkDefault true;
+    gamemode.enable = lib.mkDefault true;
+    gamescope.enable = lib.mkDefault true;
+
+    gpu-screen-recorder.enable = lib.mkDefault true;
+    ludusavi.enable = lib.mkDefault true;
+
+    vulkan.enable = lib.mkDefault true;
+    glx.enable = lib.mkDefault true;
+
+    gaming.devices.enableAll = lib.mkDefault true;
+  };
 }

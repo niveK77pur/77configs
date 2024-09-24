@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.glx.enable = lib.mkEnableOption "glx" // {default = true;};
+  options.glx.enable = lib.mkEnableOption "glx";
   config = lib.mkIf config.glx.enable {
     home.packages = with pkgs; [glxinfo];
   };

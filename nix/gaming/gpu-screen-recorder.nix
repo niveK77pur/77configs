@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  options.gpu-screen-recorder.enable = lib.mkEnableOption "gpu-screen-recorder" // {default = true;};
+  options.gpu-screen-recorder.enable = lib.mkEnableOption "gpu-screen-recorder";
   config = lib.mkIf config.gpu-screen-recorder.enable {
     home.packages = with pkgs; [
       gpu-screen-recorder

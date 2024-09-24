@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.mangohud.enable = lib.mkEnableOption "mangohud" // {default = true;};
+  options.mangohud.enable = lib.mkEnableOption "mangohud";
   config = lib.mkIf config.mangohud.enable {
     programs.mangohud = {
       enable = true;
