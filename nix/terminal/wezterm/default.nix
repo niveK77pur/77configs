@@ -13,7 +13,7 @@
       ''
     else pkgs.wezterm;
 in {
-  options.wezterm.enable = lib.mkEnableOption "wezterm" // {default = true;};
+  options.wezterm.enable = lib.mkEnableOption "wezterm";
   options.wezterm.overrides = {
     window_background_opacity = lib.mkOption {
       type = lib.types.float;

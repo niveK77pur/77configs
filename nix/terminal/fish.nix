@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.fish.enable = lib.mkEnableOption "fish" // {default = true;};
+  options.fish.enable = lib.mkEnableOption "fish";
   config = let
     makeAlias = args:
       args

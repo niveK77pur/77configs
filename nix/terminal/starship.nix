@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.starship.enable = lib.mkEnableOption "starship" // {default = true;};
+  options.starship.enable = lib.mkEnableOption "starship";
   config = {
     programs.starship = lib.mkIf config.starship.enable {
       enable = true;
