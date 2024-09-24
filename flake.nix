@@ -35,18 +35,10 @@
       # the path to your home.nix.
       modules = [
         ./nix/home.nix
-        ./nix/coding
-        ./nix/handy-tools
-        ./nix/terminal
-        ./nix/media
-        ./nix/fonts
-        ./nix/myscripts
-        ./nix/gaming
-        ./nix/browsing
-        ./nix/system
-        ./nix/messaging
+        ./nix/categories.nix
         {
           config = {
+            categories.enableAll = true;
             mpv.withAnime4k = true;
             wezterm.overrides = {
               window_background_opacity = 0.97;
@@ -73,17 +65,11 @@
 
       modules = [
         ./nix/home.nix
-        ./nix/coding
-        ./nix/handy-tools
-        ./nix/terminal
-        ./nix/media
-        ./nix/fonts
-        ./nix/myscripts
-        ./nix/browsing
-        ./nix/system
-        ./nix/messaging
+        ./nix/categories.nix
         {
           config = {
+            categories.enableAll = true;
+            gaming.enableAll = false;
             home.withNixGL = rec {
               enable = true;
               package = pkgs.nixgl.nixGLIntel;
