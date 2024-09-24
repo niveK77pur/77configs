@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.pass.enable = lib.mkEnableOption "pass" // {default = true;};
+  options.pass.enable = lib.mkEnableOption "pass";
   config = lib.mkIf config.pass.enable {
     programs = {
       gpg.enable = true;

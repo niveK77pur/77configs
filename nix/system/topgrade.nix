@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.topgrade.enable = lib.mkEnableOption "topgrade" // {default = true;};
+  options.topgrade.enable = lib.mkEnableOption "topgrade";
   config = lib.mkIf config.topgrade.enable {
     programs.topgrade = {
       enable = true;

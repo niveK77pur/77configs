@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.myrepos.enable = lib.mkEnableOption "myrepos" // {default = true;};
+  options.myrepos.enable = lib.mkEnableOption "myrepos";
   options.myrepos = {
     cloneMode = lib.mkOption {
       default = "ssh";
