@@ -1,9 +1,11 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
-  config = {
+  options.neovim.enable = lib.mkEnableOption "neovim";
+  config = lib.mkIf config.neovim.enable {
     programs.neovim = {
       enable = true;
       defaultEditor = true;

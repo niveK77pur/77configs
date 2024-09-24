@@ -6,7 +6,7 @@
   cfg = config.git;
 in {
   options.git = {
-    enable = lib.mkEnableOption "git" // {default = true;};
+    enable = lib.mkEnableOption "git";
     userEmail = lib.mkOption {
       type = lib.types.str;
     };

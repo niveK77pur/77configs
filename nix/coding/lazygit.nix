@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.lazygit.enable = lib.mkEnableOption "lazygit" // {default = true;};
+  options.lazygit.enable = lib.mkEnableOption "lazygit";
   config = lib.mkIf config.lazygit.enable {
     home.packages = with pkgs; [
       commitizen
