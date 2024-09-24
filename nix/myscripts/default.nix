@@ -7,6 +7,7 @@
   cfg = config.myscripts;
 in {
   options.myscripts = {
+    enableAll = lib.mkEnableOption "myscripts";
     mrandr = {
       enable = lib.mkEnableOption "mrandr.sh" // {default = true;};
       OUTPUT = lib.mkOption {
@@ -19,7 +20,7 @@ in {
       };
     };
   };
-  config = {
+  config = lib.mkIf config.myscripts.enableAll {
     home.packages =
       [
         (pkgs.callPackage ./we.nix {mpv = config.programs.mpv.finalPackage;})
