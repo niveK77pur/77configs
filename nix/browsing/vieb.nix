@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.vieb.enable = lib.mkEnableOption "vieb" // {default = true;};
+  options.vieb.enable = lib.mkEnableOption "vieb";
 
   config = lib.mkIf config.vieb.enable {
     home.packages = [pkgs.vieb];
