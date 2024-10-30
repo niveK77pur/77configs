@@ -100,6 +100,33 @@
       };
     };
 
+    homeConfigurations."ubuntu" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      modules = [
+        ./nix/home.nix
+        ./nix/categories.nix
+        {
+          config = {
+            coding.enableAll = true;
+            handy-tools.enableAll = true;
+            system.enableAll = true;
+            terminal.enableAll = true;
+            latex.enable = true;
+            git = {
+              userEmail = "kevinbiewesch@yahoo.fr";
+              userName = "Kevin Laurent Biewesch";
+            };
+          };
+        }
+      ];
+
+      extraSpecialArgs = {
+        inherit alejandra system;
+        username = "ubuntu";
+      };
+    };
+
     devShells.${system}.default = pkgs.mkShell {
       name = "home-manager";
       packages = [
