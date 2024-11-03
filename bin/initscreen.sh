@@ -5,7 +5,7 @@ WALLPAPER_DIR=~/Pictures/i3wallpapers/active
 
 ps -u $USER | grep redshift >/dev/null || {
     echo "Starting redshift ..."
-    redshift -l 49:6 -t 6000:2000 &
+    redshift -l geoclue2 -t 6000:2000 &
 }
 
 ps -u $USER | grep picom >/dev/null || {
