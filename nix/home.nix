@@ -101,6 +101,7 @@
       builtins.elem (lib.getName pkg) [
         "steam"
         "steam-original"
+        "steam-unwrapped"
         "discord"
       ];
   };

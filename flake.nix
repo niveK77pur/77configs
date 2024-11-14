@@ -48,6 +48,10 @@
               userEmail = "kevinbiewesch@yahoo.fr";
               userName = "Kevin Laurent Biewesch";
             };
+            myscripts.mrandr = {
+              SCREEN = "eDP-2";
+              OUTPUT = "DP-1";
+            };
           };
         }
       ];
