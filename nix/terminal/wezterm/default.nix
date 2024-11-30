@@ -30,7 +30,8 @@ in {
   config = lib.mkIf config.wezterm.enable {
     home.packages = [
       wezterm
-      (pkgs.nerdfonts.override {fonts = ["FiraCode" "VictorMono"];})
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.victor-mono
     ];
     xdg.configFile."wezterm/wezterm.lua".source = pkgs.stdenvNoCC.mkDerivation {
       pname = "wezterm.lua";
