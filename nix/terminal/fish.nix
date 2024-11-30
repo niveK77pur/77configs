@@ -30,6 +30,10 @@
               body = "";
               description = "the greeting message printed on startup";
             };
+            fish_command_not_found = {
+              body = "nix run nixpkgs#$argv[1] -- $argv[2..]";
+              description = "Try reverting to nixpkgs to run missing command";
+            };
           }
 
           {
