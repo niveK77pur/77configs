@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./neovim.nix
-    ./nix.nix
+    ./nix-tools.nix
     ./latex.nix
     ./git.nix
     ./gh.nix
@@ -17,7 +17,7 @@
 
   config = lib.mkIf config.coding.enableAll {
     neovim.enable = lib.mkDefault true;
-    nix.enable = lib.mkDefault true;
+    nix-tools.enable = lib.mkDefault true;
     latex.enable = lib.mkDefault true;
     git.enable = lib.mkDefault true;
     gh.enable = lib.mkDefault true;
