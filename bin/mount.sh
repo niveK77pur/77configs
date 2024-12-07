@@ -66,8 +66,8 @@ set-mount-status() {
 mount-list() {
     # get a list of USB and MTP devices
     lsusb \
-        | grep '(MTP)' \
-        | sed 's#Bus \(...\) Device \(...\).*:.... \(.*\) (MTP)#MTP(?)    \3 (\1:\2)#' \
+        | grep '(MTP.*)' \
+        | sed 's#Bus \(...\) Device \(...\).*:.... \(.*\) (MTP.*)#MTP(?)    \3 (\1:\2)#' \
         | set-mount-status mtp
     # lsblk -o PATH,LABEL,SIZE \
     lsblk -o PATH,SIZE,LABEL \
