@@ -22,6 +22,7 @@
     ./fzf.nix
     ./taskwarrior.nix
     ./parallel.nix
+    ./dua.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -45,5 +46,6 @@
     fzf.enable = lib.mkDefault true;
     taskwarrior.enable = lib.mkDefault true;
     parallel.enable = lib.mkDefault true;
+    dua.enable = lib.mkDefault true;
   };
 }
