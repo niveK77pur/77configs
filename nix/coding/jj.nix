@@ -25,7 +25,5 @@ in {
         };
       };
     };
-    # TODO: Enable shell integrations/completions?
-    # See: https://jj-vcs.github.io/jj/latest/install-and-setup/#command-line-completion
   };
 }
