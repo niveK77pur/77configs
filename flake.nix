@@ -27,6 +27,10 @@
       inherit system;
       overlays = [nixgl.overlay];
     };
+    git = {
+      userEmail = "kevinbiewesch@yahoo.fr";
+      userName = "Kevin Laurent Biewesch";
+    };
   in {
     homeConfigurations."kevin" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
@@ -44,10 +48,7 @@
               window_background_opacity = 0.97;
               font_size = 11.1;
             };
-            git = {
-              userEmail = "kevinbiewesch@yahoo.fr";
-              userName = "Kevin Laurent Biewesch";
-            };
+            git = {inherit (git) userName userEmail;};
             myscripts.mrandr = {
               SCREEN = "eDP-2";
               OUTPUT = "DP-1";
@@ -82,10 +83,7 @@
             wezterm.overrides = {
               font_size = 9.5;
             };
-            git = {
-              userEmail = "kevinbiewesch@yahoo.fr";
-              userName = "Kevin Laurent Biewesch";
-            };
+            git = {inherit (git) userName userEmail;};
             myscripts.mrandr = {
               SCREEN = "eDP";
               OUTPUT = "DisplayPort-0";
@@ -113,10 +111,7 @@
             system.enableAll = true;
             terminal.enableAll = true;
             latex.enable = true;
-            git = {
-              userEmail = "kevinbiewesch@yahoo.fr";
-              userName = "Kevin Laurent Biewesch";
-            };
+            git = {inherit (git) userName userEmail;};
           };
         }
       ];
