@@ -49,6 +49,7 @@
               font_size = 11.1;
             };
             git = {inherit (git) userName userEmail;};
+            jj = {inherit (git) userName userEmail;};
             myscripts.mrandr = {
               SCREEN = "eDP-2";
               OUTPUT = "DP-1";
@@ -84,6 +85,7 @@
               font_size = 9.5;
             };
             git = {inherit (git) userName userEmail;};
+            jj = {inherit (git) userName userEmail;};
             myscripts.mrandr = {
               SCREEN = "eDP";
               OUTPUT = "DisplayPort-0";
@@ -112,6 +114,7 @@
             terminal.enableAll = true;
             latex.enable = true;
             git = {inherit (git) userName userEmail;};
+            jj = {inherit (git) userName userEmail;};
           };
         }
       ];
