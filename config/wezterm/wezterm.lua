@@ -21,7 +21,7 @@ return {
     font_size = 12.0,
 
     font = wezterm.font {
-        family = 'Fira Code Nerd Font',
+        family = 'FiraCode Nerd Font',
         harfbuzz_features = { 'zero' }, -- 0 with dot instead of line through
         weight = 'Medium',
     },
@@ -31,7 +31,7 @@ return {
         {
             italic = true,
             font = wezterm.font('VictorMono NF', { italic=true, weight='Medium', })
-            -- font = wezterm.font('Fira Code', { italic=true, weight='Medium', })
+            -- font = wezterm.font('FiraCode', { italic=true, weight='Medium', })
         }
     },
 

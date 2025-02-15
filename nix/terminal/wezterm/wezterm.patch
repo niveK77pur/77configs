@@ -8,7 +8,7 @@
 +    font_size = @font_size@,
  
      font = wezterm.font {
-         family = 'Fira Code Nerd Font',
+         family = 'FiraCode Nerd Font',
 @@ -269,7 +269,7 @@ return {
      },
  
