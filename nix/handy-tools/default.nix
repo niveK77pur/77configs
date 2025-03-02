@@ -23,6 +23,7 @@
     ./taskwarrior.nix
     ./parallel.nix
     ./dua.nix
+    ./comma.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -47,5 +48,6 @@
     taskwarrior.enable = lib.mkDefault true;
     parallel.enable = lib.mkDefault true;
     dua.enable = lib.mkDefault true;
+    comma.enable = lib.mkDefault true;
   };
 }

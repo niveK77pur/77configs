@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixgl.url = "github:nix-community/nixGL";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +24,7 @@
     home-manager,
     alejandra,
     nixgl,
+    nix-index-database,
     ...
   }: let
     system = "x86_64-linux";
@@ -38,6 +43,7 @@
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
       modules = [
+        nix-index-database.hmModules.nix-index
         ./nix/home.nix
         ./nix/categories.nix
         {
@@ -70,6 +76,7 @@
       inherit pkgs;
 
       modules = [
+        nix-index-database.hmModules.nix-index
         ./nix/home.nix
         ./nix/categories.nix
         {
@@ -104,6 +111,7 @@
       inherit pkgs;
 
       modules = [
+        nix-index-database.hmModules.nix-index
         ./nix/home.nix
         ./nix/categories.nix
         {
