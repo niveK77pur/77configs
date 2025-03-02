@@ -24,6 +24,7 @@
     ./parallel.nix
     ./dua.nix
     ./comma.nix
+    ./pay-respects.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -49,5 +50,6 @@
     parallel.enable = lib.mkDefault true;
     dua.enable = lib.mkDefault true;
     comma.enable = lib.mkDefault true;
+    pay-respects.enable = lib.mkDefault true;
   };
 }
