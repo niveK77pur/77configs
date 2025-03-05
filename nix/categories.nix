@@ -14,6 +14,7 @@
     ./myscripts
     ./system
     ./terminal
+    ./window-managers
   ];
 
   options.categories.enableAll = lib.mkEnableOption "categories";
@@ -29,5 +30,6 @@
     myscripts.enableAll = lib.mkDefault true;
     system.enableAll = lib.mkDefault true;
     terminal.enableAll = lib.mkDefault true;
+    window-managers.enableAll = lib.mkDefault true;
   };
 }
