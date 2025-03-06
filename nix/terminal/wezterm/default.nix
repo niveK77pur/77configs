@@ -5,15 +5,19 @@
   ...
 }: let
   cfg = config.wezterm.overrides;
-  wezterm =
-    if config.home.withNixGL.enable
-    then
-      pkgs.writeShellScriptBin "wezterm" ''
-        ${config.home.withNixGL.command} ${pkgs.wezterm}/bin/wezterm "$@"
-      ''
-    else pkgs.wezterm;
 in {
   options.wezterm.enable = lib.mkEnableOption "wezterm";
+  options.wezterm.package = lib.mkOption {
+    type = lib.types.package;
+    default =
+      if config.home.withNixGL.enable
+      then
+        pkgs.writeShellScriptBin "wezterm" ''
+          ${config.home.withNixGL.command} ${pkgs.wezterm}/bin/wezterm "$@"
+        ''
+      else pkgs.wezterm;
+    description = "The wezterm package to be used";
+  };
   options.wezterm.overrides = {
     window_background_opacity = lib.mkOption {
       type = lib.types.float;
@@ -29,7 +33,7 @@ in {
 
   config = lib.mkIf config.wezterm.enable {
     home.packages = [
-      wezterm
+      config.wezterm.package
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.victor-mono
     ];
