@@ -4,6 +4,21 @@
   ...
 }: let
   cfg = config.hyprland;
+  envVars = {
+    # Hint Electron apps to use Wayland:
+    NIXOS_OZONE_WL = "1";
+    XCURSOR_SIZE = "24";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland";
+    CLUTTER_BACKEND = "wayland";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+  };
   mkSubMap = {
     name,
     settings,
@@ -56,20 +71,11 @@ in {
           # exec-once = "~/.config/77configs/config/hypr/autostart.sh"; # TODO: Add startup script
 
           #  {{{1
-          env = [
-            "XCURSOR_SIZE,24"
-            "XDG_CURRENT_DESKTOP,Hyprland"
-            "XDG_SESSION_TYPE,wayland"
-            "XDG_SESSION_DESKTOP,Hyprland"
-            "GDK_BACKEND,wayland,x11"
-            "QT_QPA_PLATFORM,wayland;xcb"
-            "SDL_VIDEODRIVER,wayland"
-            "CLUTTER_BACKEND,wayland"
-            "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-            "QT_QPA_PLATFORM,wayland;xcb"
-            "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-            "QT_QPA_PLATFORMTHEME,qt5ct"
-          ];
+          env =
+            lib.attrsets.mapAttrsToList (
+              name: value: "${name},${value}"
+            )
+            envVars;
 
           # Settings {{{1
           #  {{{2
@@ -312,8 +318,7 @@ in {
         ];
       };
 
-      # Optional, hint Electron apps to use Wayland:
-      # home.sessionVariables.NIXOS_OZONE_WL = "1";
+      home.sessionVariables = envVars;
     };
 }
 # vim: foldmethod=marker
