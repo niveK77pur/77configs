@@ -139,6 +139,7 @@
         # python
         pkgs.ruff
         pkgs.isort
+        pkgs.basedpyright
 
         # nix
         pkgs.nixd
