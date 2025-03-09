@@ -23,7 +23,12 @@ in {
   config = lib.mkIf config.myscripts.enableAll {
     home.packages =
       [
-        (pkgs.callPackage ./we.nix {mpv = config.programs.mpv.finalPackage;})
+        (
+          pkgs.callPackage ./we.nix (
+            {mpv = config.programs.mpv.finalPackage;}
+            // (lib.attrsets.optionalAttrs config.mpv.withAnime4k {inherit (config.mpv) anime4kProfileName;})
+          )
+        )
         (pkgs.callPackage ./ccopy.nix {})
         (pkgs.callPackage ./cedit.nix {})
         (pkgs.callPackage ./mount.nix {})
