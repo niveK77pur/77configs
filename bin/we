@@ -29,9 +29,7 @@ MPV_FLAGS = [
     '--fs',
     '--profile=anime4k',
     '--resume-playback-check-mtime',
-    '--input-conf={}/.config/mpv/watch-episode-input.conf'.format(
-        os.environ['HOME']
-    ),
+    '--input-conf={}/.config/mpv/watch-episode-input.conf'.format(os.environ['HOME']),
     '--save-position-on-quit',
     '--write-filename-in-watch-later-config',
     '--watch-later-directory=.',
@@ -69,9 +67,7 @@ def getEpisodeCount(filename: str) -> float:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-episodes: List[tuple[str, float]] = [
-    (f, getEpisodeCount(f)) for f in os.listdir()
-]
+episodes: List[tuple[str, float]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
 episodes = list(filter(lambda e: e[1] >= 0, episodes))
 episodes.sort(key=lambda e: e[1])
 

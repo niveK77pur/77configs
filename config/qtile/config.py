@@ -46,8 +46,8 @@ from typing import List  # noqa: F401
 
 @hook.subscribe.startup
 def autostart():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    home = os.path.expanduser("~")
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 
 # }}}
@@ -55,122 +55,122 @@ def autostart():
 #                                   Mappings
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # {{{
-mod = 'mod4'
+mod = "mod4"
 
 keys = [
     # Monad Layout
-    Key([mod], 'h', lazy.layout.left()),
-    Key([mod], 'l', lazy.layout.right()),
-    Key([mod], 'j', lazy.layout.down()),
-    Key([mod], 'k', lazy.layout.up()),
-    Key([mod, 'shift'], 'h', lazy.layout.swap_left()),
-    Key([mod, 'shift'], 'l', lazy.layout.swap_right()),
-    Key([mod, 'shift'], 'j', lazy.layout.shuffle_down()),
-    Key([mod, 'shift'], 'k', lazy.layout.shuffle_up()),
-    Key([mod], 'i', lazy.layout.grow()),
-    Key([mod], 'm', lazy.layout.shrink()),
-    Key([mod], 'n', lazy.layout.normalize()),
-    Key([mod, 'shift'], 'i', lazy.layout.maximize()),
-    Key([mod, 'control'], 'space', lazy.layout.flip()),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "l", lazy.layout.right()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod, "shift"], "h", lazy.layout.swap_left()),
+    Key([mod, "shift"], "l", lazy.layout.swap_right()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([mod], "i", lazy.layout.grow()),
+    Key([mod], "m", lazy.layout.shrink()),
+    Key([mod], "n", lazy.layout.normalize()),
+    Key([mod, "shift"], "i", lazy.layout.maximize()),
+    Key([mod, "control"], "space", lazy.layout.flip()),
     # Switch window focus to other pane(s) of stack
-    Key([mod], 'space', lazy.layout.next()),
+    Key([mod], "space", lazy.layout.next()),
     # Swap panes of split stack
-    Key([mod, 'shift'], 'space', lazy.layout.rotate()),
+    Key([mod, "shift"], "space", lazy.layout.rotate()),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     #  Key([mod], "s", lazy.layout.toggle_split()),
     #  Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], 'Return', lazy.spawn('wezterm')),
-    Key([mod], 'g', lazy.spawn('wezterm start nvim +GhostTextStart')),
+    Key([mod], "Return", lazy.spawn("wezterm")),
+    Key([mod], "g", lazy.spawn("wezterm start nvim +GhostTextStart")),
     # Toggle between different layouts as defined below
-    Key([mod], 'Tab', lazy.next_layout()),
-    Key([mod, 'shift'], 'Tab', lazy.prev_layout()),
-    Key([mod, 'shift'], 'q', lazy.window.kill()),
+    Key([mod], "Tab", lazy.next_layout()),
+    Key([mod, "shift"], "Tab", lazy.prev_layout()),
+    Key([mod, "shift"], "q", lazy.window.kill()),
     # Toggle fullscreen on window
-    Key([mod], 'f', lazy.window.toggle_fullscreen()),
+    Key([mod], "f", lazy.window.toggle_fullscreen()),
     # Toggle floating on window
-    Key([mod, 'shift'], 'f', lazy.window.toggle_floating()),
+    Key([mod, "shift"], "f", lazy.window.toggle_floating()),
     # Restart and close qtile
-    Key([mod, 'control'], 'r', lazy.restart()),
-    Key([mod, 'control'], 'q', lazy.shutdown()),
+    Key([mod, "control"], "r", lazy.restart()),
+    Key([mod, "control"], "q", lazy.shutdown()),
     # Run commands
     #  Key([mod], "d", lazy.spawncmd(prompt="Run command")),
-    Key([mod], 'd', lazy.spawn("dmenu_run -l 20 -p 'Run command:'")),
+    Key([mod], "d", lazy.spawn("dmenu_run -l 20 -p 'Run command:'")),
     Key(
         [mod],
-        'p',
+        "p",
         lazy.spawn(
             'passmenu -i -nb "#000000" -nf "#aaaaaa" -sb "#555555" -sf "#ffffff"'
         ),
     ),
-    Key([mod], 'c', lazy.spawn('clipmenu')),
+    Key([mod], "c", lazy.spawn("clipmenu")),
     # toggle dunst notifications
-    Key([mod], 'F1', lazy.spawn('dunst-toggle.sh')),
-    Key([mod], 'F2', lazy.spawn('dunstctl history-pop')),
-    Key([mod], 'F3', lazy.spawn('dunstctl close')),
-    Key([mod, 'shift'], 'F3', lazy.spawn('dunstctl close-all')),
+    Key([mod], "F1", lazy.spawn("dunst-toggle.sh")),
+    Key([mod], "F2", lazy.spawn("dunstctl history-pop")),
+    Key([mod], "F3", lazy.spawn("dunstctl close")),
+    Key([mod, "shift"], "F3", lazy.spawn("dunstctl close-all")),
     #  Key Chords --------------------------------------------------------------
     # Take Screenshots
     KeyChord(
         [mod],
-        'x',
+        "x",
         [
-            Key([mod], 's', lazy.spawn('screenshot.sh')),
-            Key([mod], 'w', lazy.spawn('screenshot.sh window')),
-            Key([mod], 'f', lazy.spawn('screenshot.sh full')),
-            Key([mod], 'v', lazy.spawn('screenshot.sh view')),
-            Key([mod], 'e', lazy.spawn('screenshot.sh edit')),
-            Key([mod], 'r', lazy.spawn('screenshot.sh resize')),
+            Key([mod], "s", lazy.spawn("screenshot.sh")),
+            Key([mod], "w", lazy.spawn("screenshot.sh window")),
+            Key([mod], "f", lazy.spawn("screenshot.sh full")),
+            Key([mod], "v", lazy.spawn("screenshot.sh view")),
+            Key([mod], "e", lazy.spawn("screenshot.sh edit")),
+            Key([mod], "r", lazy.spawn("screenshot.sh resize")),
         ],
         mode=False,
-        name='Screenshot',
+        name="Screenshot",
     ),
     # System Operations
     KeyChord(
         [mod],
-        'o',
+        "o",
         [
-            Key([mod], 'q', lazy.shutdown()),
+            Key([mod], "q", lazy.shutdown()),
             # screen brightness
-            Key([], '1', lazy.spawn('xbacklight -set  10')),
-            Key([], '2', lazy.spawn('xbacklight -set  20')),
-            Key([], '3', lazy.spawn('xbacklight -set  30')),
-            Key([], '4', lazy.spawn('xbacklight -set  40')),
-            Key([], '5', lazy.spawn('xbacklight -set  50')),
-            Key([], '6', lazy.spawn('xbacklight -set  60')),
-            Key([], '7', lazy.spawn('xbacklight -set  70')),
-            Key([], '8', lazy.spawn('xbacklight -set  80')),
-            Key([], '9', lazy.spawn('xbacklight -set  90')),
-            Key([], '0', lazy.spawn('xbacklight -set 100')),
+            Key([], "1", lazy.spawn("xbacklight -set  10")),
+            Key([], "2", lazy.spawn("xbacklight -set  20")),
+            Key([], "3", lazy.spawn("xbacklight -set  30")),
+            Key([], "4", lazy.spawn("xbacklight -set  40")),
+            Key([], "5", lazy.spawn("xbacklight -set  50")),
+            Key([], "6", lazy.spawn("xbacklight -set  60")),
+            Key([], "7", lazy.spawn("xbacklight -set  70")),
+            Key([], "8", lazy.spawn("xbacklight -set  80")),
+            Key([], "9", lazy.spawn("xbacklight -set  90")),
+            Key([], "0", lazy.spawn("xbacklight -set 100")),
             # system volume
-            Key([mod], 'k', lazy.spawn('amixer -qD pulse sset Master   1%+')),
-            Key([mod], 'j', lazy.spawn('amixer -qD pulse sset Master   1%-')),
-            Key([mod], 'q', lazy.spawn('amixer -qD pulse sset Master  10%')),
-            Key([mod], 'w', lazy.spawn('amixer -qD pulse sset Master  20%')),
-            Key([mod], 'e', lazy.spawn('amixer -qD pulse sset Master  30%')),
-            Key([mod], 'r', lazy.spawn('amixer -qD pulse sset Master  40%')),
-            Key([mod], 't', lazy.spawn('amixer -qD pulse sset Master  50%')),
-            Key([mod], 'z', lazy.spawn('amixer -qD pulse sset Master  60%')),
-            Key([mod], 'u', lazy.spawn('amixer -qD pulse sset Master  70%')),
-            Key([mod], 'i', lazy.spawn('amixer -qD pulse sset Master  80%')),
-            Key([mod], 'o', lazy.spawn('amixer -qD pulse sset Master  90%')),
-            Key([mod], 'p', lazy.spawn('amixer -qD pulse sset Master 100%')),
-            Key([mod], 'm', lazy.spawn('amixer -qD pulse sset Master mute')),
-            Key([], 'm', lazy.spawn('amixer -qD pulse sset Master unmute')),
-            Key([], 't', lazy.spawn('amixer -qD pulse sset Master toggle')),
+            Key([mod], "k", lazy.spawn("amixer -qD pulse sset Master   1%+")),
+            Key([mod], "j", lazy.spawn("amixer -qD pulse sset Master   1%-")),
+            Key([mod], "q", lazy.spawn("amixer -qD pulse sset Master  10%")),
+            Key([mod], "w", lazy.spawn("amixer -qD pulse sset Master  20%")),
+            Key([mod], "e", lazy.spawn("amixer -qD pulse sset Master  30%")),
+            Key([mod], "r", lazy.spawn("amixer -qD pulse sset Master  40%")),
+            Key([mod], "t", lazy.spawn("amixer -qD pulse sset Master  50%")),
+            Key([mod], "z", lazy.spawn("amixer -qD pulse sset Master  60%")),
+            Key([mod], "u", lazy.spawn("amixer -qD pulse sset Master  70%")),
+            Key([mod], "i", lazy.spawn("amixer -qD pulse sset Master  80%")),
+            Key([mod], "o", lazy.spawn("amixer -qD pulse sset Master  90%")),
+            Key([mod], "p", lazy.spawn("amixer -qD pulse sset Master 100%")),
+            Key([mod], "m", lazy.spawn("amixer -qD pulse sset Master mute")),
+            Key([], "m", lazy.spawn("amixer -qD pulse sset Master unmute")),
+            Key([], "t", lazy.spawn("amixer -qD pulse sset Master toggle")),
             # show system info
-            Key([], 'i', lazy.spawn('sysinfo.sh')),
+            Key([], "i", lazy.spawn("sysinfo.sh")),
             # poweroff, reboot, suspend. hibernate machine
-            Key(['control'], 'p', lazy.spawn('systemctl poweroff')),
-            Key(['control'], 'r', lazy.spawn('systemctl reboot')),
+            Key(["control"], "p", lazy.spawn("systemctl poweroff")),
+            Key(["control"], "r", lazy.spawn("systemctl reboot")),
             #  Key(['control'], 's', lazy.spawn('i3lock -i ~/Pictures/i3wallpapers/lockscreen/lastofusgiraffe.png && systemctl suspend')),
-            Key(['control'], 's', lazy.spawn('systemctl suspend')),
-            Key(['control'], 'h', lazy.spawn('i3lock && systemctl hibernate')),
+            Key(["control"], "s", lazy.spawn("systemctl suspend")),
+            Key(["control"], "h", lazy.spawn("i3lock && systemctl hibernate")),
         ],
         mode=True,
-        name='System Operations',
+        name="System Operations",
     ),
 ]
 
@@ -178,17 +178,17 @@ keys = [
 mouse = [
     Drag(
         [mod],
-        'Button1',
+        "Button1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
     Drag(
         [mod],
-        'Button3',
+        "Button3",
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
-    Click([mod], 'Button2', lazy.window.bring_to_front()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
 # }}}
@@ -197,7 +197,7 @@ mouse = [
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # {{{
 
-groups = [Group(i) for i in '1234567890']
+groups = [Group(i) for i in "1234567890"]
 for i in groups:
     keys.extend(
         [
@@ -205,13 +205,13 @@ for i in groups:
             Key([mod], i.name, lazy.group[i.name].toscreen()),
             # mod1 + control + letter of group = switch to & move focused window to group
             Key(
-                [mod, 'control'],
+                [mod, "control"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
             ),
             # Or, use below if you prefer not to switch to that group.
             # # mod1 + shift + letter of group = move focused window to group
-            Key([mod, 'shift'], i.name, lazy.window.togroup(i.name)),
+            Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
         ]
     )
 
@@ -222,10 +222,10 @@ for i in groups:
 # {{{
 
 layout_settings = {
-    'margin': 5,
-    'border_width': 2,
-    'border_focus': '#999999',
-    'border_normal': '#000000',
+    "margin": 5,
+    "border_width": 2,
+    "border_focus": "#999999",
+    "border_normal": "#000000",
 }
 
 layouts = [
@@ -251,34 +251,32 @@ layouts = [
 # {{{
 
 widget_defaults = dict(
-    font='fira code nerd font',
+    font="fira code nerd font",
     fontsize=12,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 widget_list = [
-    widget.Chord(foreground='#ff99ff'),
+    widget.Chord(foreground="#ff99ff"),
     widget.CurrentLayout(),
     widget.GroupBox(),
     widget.Prompt(),
     widget.WindowName(),
     #  widget.TextBox("default config", name="default"),
-    widget.Battery(
-        mouse_callbacks={'Button1': lambda: qtile.cmd_spawn('sysinfo.sh')}
-    ),
+    widget.Battery(mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("sysinfo.sh")}),
     widget.Sep(padding=20),
     # widget.Backlight(backlight_name='intel_backlight', fmt=':{}'),
-    widget.Backlight(backlight_name='amdgpu_bl1', fmt=':{}'),
-    widget.Volume(fmt='墳:{}'),
+    widget.Backlight(backlight_name="amdgpu_bl1", fmt=":{}"),
+    widget.Volume(fmt="墳:{}"),
     widget.Sep(padding=20),
     widget.Systray(),
     widget.Sep(padding=20),
     widget.Clock(
-        format=' %d-%m-%Y %a  %T %z/%Z',
+        format=" %d-%m-%Y %a  %T %z/%Z",
         mouse_callbacks={
             #  'Button1': lambda: qtile.cmd_spawn('alacritty --class floaty --dimensions 125 40 --command less -fR <(curl -s wttr.in)'),
-            'Button1': lambda: qtile.cmd_spawn('wttr-display.sh'),
+            "Button1": lambda: qtile.cmd_spawn("wttr-display.sh"),
         },
     ),
     #  widget.QuickExit(),
@@ -314,26 +312,26 @@ cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
-        Match(wm_class='floaty'),
-        Match(wm_instance_class='floaty'),
+        Match(wm_class="floaty"),
+        Match(wm_instance_class="floaty"),
         # Make flowblade's render window float
         #  Match(wm_class="Flowbladesinglerender"),
         Match(
-            wm_instance_class='flowbladesinglerender',
-            wm_class='Flowbladesinglerender',
+            wm_instance_class="flowbladesinglerender",
+            wm_class="Flowbladesinglerender",
         ),
         # Thunderbird
-        Match(wm_class='Thunderbird', role='messageWindow'),
-        Match(wm_class='Thunderbird', role='Msgcompose'),
+        Match(wm_class="Thunderbird", role="messageWindow"),
+        Match(wm_class="Thunderbird", role="Msgcompose"),
         # Firefox
-        Match(wm_class='firefox', wm_instance_class='Places'),
+        Match(wm_class="firefox", wm_instance_class="Places"),
         # OpenPGP window
-        Match(wm_class='Pinentry-gtk-2'),
+        Match(wm_class="Pinentry-gtk-2"),
     ]
 )
 
 auto_fullscreen = True
-focus_on_window_activation = 'smart'
+focus_on_window_activation = "smart"
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
@@ -343,7 +341,7 @@ focus_on_window_activation = 'smart'
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = 'LG3D'
+wmname = "LG3D"
 # }}}
 
 # vim: foldmethod=marker
