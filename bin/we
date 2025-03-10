@@ -3,22 +3,20 @@
 import os
 import re
 import sys
-from shutil import which as is_exec
-from typing import List, Optional
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                      Setup
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EP_START: Optional[float] = None
+ep_start: float | None = None
 if len(sys.argv) > 1:
     # -1 for 0 indexing
-    EP_START = float(sys.argv[1])
+    ep_start = float(sys.argv[1])
 
-MPV_PREFIX = []
+mpv_prefix: list[str] = []
 
 # Enable NVIDIA GPU in Hybrid setup
-MPV_PREFIX += [
+mpv_prefix += [
     '__NV_PRIME_RENDER_OFFLOAD=1',
     '__NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0',
     '__GLX_VENDOR_LIBRARY_NAME=nvidia',
@@ -67,7 +65,7 @@ def getEpisodeCount(filename: str) -> float:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-episodes: List[tuple[str, float]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
+episodes: list[tuple[str, float]] = [(f, getEpisodeCount(f)) for f in os.listdir()]
 episodes = list(filter(lambda e: e[1] >= 0, episodes))
 episodes.sort(key=lambda e: e[1])
 
@@ -78,28 +76,28 @@ for i, f in enumerate(episodes):
 #                           Get requeted episode index
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PLAYLIST_START = ''
-if EP_START:
-    if EP_START < 0:
-        assert int(EP_START) == EP_START, 'Backward index was not an integer'
+playlist_start = ''
+if ep_start:
+    if ep_start < 0:
+        assert int(ep_start) == ep_start, 'Backward index was not an integer'
         try:
-            EP_INDEX = episodes.index(episodes[int(EP_START)])
+            ep_index = episodes.index(episodes[int(ep_start)])
         except IndexError:
-            print(f'Index {EP_START} out of range.')
+            print(f'Index {ep_start} out of range.')
             exit(2)
     else:
         try:
-            EP_INDEX = [e[1] for e in episodes].index(EP_START)
+            ep_index = [e[1] for e in episodes].index(ep_start)
         except ValueError:
-            print(f'Episode {EP_START} does not exist.')
+            print(f'Episode {ep_start} does not exist.')
             exit(1)
-    PLAYLIST_START = f'--playlist-start={EP_INDEX}'
+    playlist_start = f'--playlist-start={ep_index}'
 
-os.system(
+_ = os.system(
     '{} mpv {} {} -- {}'.format(
-        ' '.join(MPV_PREFIX),
+        ' '.join(mpv_prefix),
         ' '.join(MPV_FLAGS),
-        PLAYLIST_START,
+        playlist_start,
         ' '.join((f'"{e[0]}"' for e in episodes)),
     )
 )
