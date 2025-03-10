@@ -37,99 +37,101 @@
       userName = "Kevin Laurent Biewesch";
     };
   in {
-    homeConfigurations."kevin" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+    homeConfigurations = {
+      "kevin" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
-        {
-          config = {
-            categories.enableAll = true;
-            mpv.withAnime4k = true;
-            wezterm.overrides = {
-              window_background_opacity = 0.97;
-              font_size = 11.1;
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./nix/home.nix
+          ./nix/categories.nix
+          {
+            config = {
+              categories.enableAll = true;
+              mpv.withAnime4k = true;
+              wezterm.overrides = {
+                window_background_opacity = 0.97;
+                font_size = 11.1;
+              };
+              git = {inherit (git) userName userEmail;};
+              jj = {inherit (git) userName userEmail;};
+              myscripts.mrandr = {
+                SCREEN = "eDP-2";
+                OUTPUT = "DP-1";
+              };
             };
-            git = {inherit (git) userName userEmail;};
-            jj = {inherit (git) userName userEmail;};
-            myscripts.mrandr = {
-              SCREEN = "eDP-2";
-              OUTPUT = "DP-1";
-            };
-          };
-        }
-      ];
+          }
+        ];
 
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "kevin";
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          inherit alejandra system;
+          username = "kevin";
+        };
       };
-    };
 
-    homeConfigurations."kuni" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+      "kuni" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
-        {
-          config = {
-            categories.enableAll = true;
-            gaming.enableAll = false;
-            home.withNixGL = rec {
-              enable = true;
-              package = pkgs.nixgl.nixGLIntel;
-              command = "${package}/bin/nixGLIntel";
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./nix/home.nix
+          ./nix/categories.nix
+          {
+            config = {
+              categories.enableAll = true;
+              gaming.enableAll = false;
+              home.withNixGL = rec {
+                enable = true;
+                package = pkgs.nixgl.nixGLIntel;
+                command = "${package}/bin/nixGLIntel";
+              };
+              wezterm.overrides = {
+                font_size = 9.5;
+              };
+              git = {inherit (git) userName userEmail;};
+              jj = {inherit (git) userName userEmail;};
+              myscripts.mrandr = {
+                SCREEN = "eDP";
+                OUTPUT = "DisplayPort-0";
+              };
             };
-            wezterm.overrides = {
-              font_size = 9.5;
-            };
-            git = {inherit (git) userName userEmail;};
-            jj = {inherit (git) userName userEmail;};
-            myscripts.mrandr = {
-              SCREEN = "eDP";
-              OUTPUT = "DisplayPort-0";
-            };
-          };
-        }
-      ];
+          }
+        ];
 
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "kuni";
+        extraSpecialArgs = {
+          inherit alejandra system;
+          username = "kuni";
+        };
       };
-    };
 
-    homeConfigurations."ubuntu" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+      "ubuntu" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
-        {
-          config = {
-            coding.enableAll = true;
-            handy-tools.enableAll = true;
-            system.enableAll = true;
-            terminal.enableAll = true;
-            latex.enable = true;
-            git = {inherit (git) userName userEmail;};
-            jj = {inherit (git) userName userEmail;};
-          };
-        }
-      ];
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./nix/home.nix
+          ./nix/categories.nix
+          {
+            config = {
+              coding.enableAll = true;
+              handy-tools.enableAll = true;
+              system.enableAll = true;
+              terminal.enableAll = true;
+              latex.enable = true;
+              git = {inherit (git) userName userEmail;};
+              jj = {inherit (git) userName userEmail;};
+            };
+          }
+        ];
 
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "ubuntu";
+        extraSpecialArgs = {
+          inherit alejandra system;
+          username = "ubuntu";
+        };
       };
     };
 
