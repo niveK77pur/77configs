@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.hyprland;
+  #  {{{
   envVars = {
     # Hint Electron apps to use Wayland:
     NIXOS_OZONE_WL = "1";
@@ -19,7 +20,8 @@
     # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     # QT_QPA_PLATFORMTHEME = "qt5ct";
-  };
+  }; #  }}}
+  #  {{{
   mkSubMap = {
     name,
     settings,
@@ -37,7 +39,7 @@
       (lib.strings.optionalString trigger-resets "bind=${trigger}, submap, reset")
       "bind = , escape, submap, reset"
       "submap = reset"
-    ];
+    ]; #  }}}
 in {
   options.hyprland = {
     enable = lib.mkEnableOption "hyprland";
