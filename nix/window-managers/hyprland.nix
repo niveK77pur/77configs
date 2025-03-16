@@ -60,6 +60,7 @@ in {
     {
       fuzzel.enable = true;
       dunst.enable = true;
+      swww.enable = true;
       home.packages = [pkgs.hyprshot pkgs.satty];
 
       programs.kitty.enable = true; # required for the default Hyprland config
@@ -75,6 +76,7 @@ in {
 
           exec-once = [
             "${config.services.dunst.package}/bin/dunst"
+            "swww-daemon"
           ];
 
           #  {{{1
