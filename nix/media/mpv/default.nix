@@ -9,6 +9,11 @@ in {
   options.mpv = {
     enable = lib.mkEnableOption "mpv";
     withAnime4k = lib.mkEnableOption {};
+    anime4kProfileName = lib.mkOption {
+      default = "anime4k";
+      type = lib.types.str;
+      description = "Name of the anime4k profile to be placed into the MPV configuration";
+    };
   };
 
   config = let
@@ -43,7 +48,7 @@ in {
         bindings = lib.mkIf cfg.withAnime4k anime4Kbindings;
         profiles = lib.mkMerge [
           (lib.mkIf cfg.withAnime4k {
-            anime4k = {
+            ${cfg.anime4kProfileName} = {
               glsl-shaders = "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl";
             };
           })

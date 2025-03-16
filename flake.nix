@@ -36,16 +36,32 @@
       userEmail = "kevinbiewesch@yahoo.fr";
       userName = "Kevin Laurent Biewesch";
     };
-  in {
-    homeConfigurations."kevin" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
+    #  {{{
+    makeUser = user: modules: {
+      "${user}" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules =
+          [
+            nix-index-database.hmModules.nix-index
+            ./nix/home.nix
+            ./nix/categories.nix
+          ]
+          ++ modules;
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          inherit alejandra system;
+          username = user;
+        };
+      };
+    }; #  }}}
+  in {
+    homeConfigurations = pkgs.lib.mergeAttrsList [
+      (makeUser "kevin" [
         {
           config = {
             categories.enableAll = true;
@@ -62,23 +78,9 @@
             };
           };
         }
-      ];
+      ])
 
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "kevin";
-      };
-    };
-
-    homeConfigurations."kuni" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
+      (makeUser "kuni" [
         {
           config = {
             categories.enableAll = true;
@@ -99,21 +101,9 @@
             };
           };
         }
-      ];
+      ])
 
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "kuni";
-      };
-    };
-
-    homeConfigurations."ubuntu" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      modules = [
-        nix-index-database.hmModules.nix-index
-        ./nix/home.nix
-        ./nix/categories.nix
+      (makeUser "ubuntu" [
         {
           config = {
             coding.enableAll = true;
@@ -125,13 +115,8 @@
             jj = {inherit (git) userName userEmail;};
           };
         }
-      ];
-
-      extraSpecialArgs = {
-        inherit alejandra system;
-        username = "ubuntu";
-      };
-    };
+      ])
+    ];
 
     devShells.${system}.default = pkgs.mkShell {
       name = "home-manager";
@@ -139,6 +124,7 @@
         # python
         pkgs.ruff
         pkgs.isort
+        pkgs.basedpyright
 
         # nix
         pkgs.nixd
@@ -149,3 +135,5 @@
     };
   };
 }
+# vim: fdm=marker
+

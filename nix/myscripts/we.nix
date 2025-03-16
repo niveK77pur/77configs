@@ -4,6 +4,7 @@
   lib,
   mpv,
   python3,
+  anime4kProfileName ? null,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "we";
@@ -23,9 +24,11 @@ stdenvNoCC.mkDerivation rec {
     install -Dm755 we -t $out/bin
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/we --set PATH ${lib.makeBinPath runtimeDependencies}
-  '';
+  postFixup = lib.strings.concatStringsSep " " [
+    "wrapProgram $out/bin/we"
+    "--set PATH ${lib.makeBinPath runtimeDependencies}"
+    (lib.strings.optionalString (!builtins.isNull anime4kProfileName) "--set MPV_PROFILE ${anime4kProfileName}")
+  ];
 
   meta = {
     description = "Helper to watch episodes using MPV";

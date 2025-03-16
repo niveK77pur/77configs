@@ -23,6 +23,11 @@ in {
           email = cfg.userEmail;
           name = cfg.userName;
         };
+        ui = {
+          default-command = [
+            "log"
+          ];
+        };
       };
     };
   };
