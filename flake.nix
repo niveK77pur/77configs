@@ -17,6 +17,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    swww.url = "github:LGFae/swww";
   };
 
   outputs = {
@@ -25,6 +26,7 @@
     alejandra,
     nixgl,
     nix-index-database,
+    swww,
     ...
   }: let
     system = "x86_64-linux";
@@ -54,7 +56,7 @@
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
         extraSpecialArgs = {
-          inherit alejandra system;
+          inherit alejandra system swww;
           username = user;
         };
       };
@@ -98,6 +100,10 @@
             myscripts.mrandr = {
               SCREEN = "eDP";
               OUTPUT = "DisplayPort-0";
+            };
+            swww.service = {
+              enable = true;
+              imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
             };
           };
         }
