@@ -76,6 +76,7 @@ in {
 
           exec-once = [
             "${config.services.dunst.package}/bin/dunst"
+            "${pkgs.waybar}/bin/waybar"
             "swww-daemon"
           ];
 
