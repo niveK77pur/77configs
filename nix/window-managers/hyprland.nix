@@ -57,6 +57,7 @@ in {
     lib.mkIf cfg.enable
     {
       fuzzel.enable = true;
+      dunst.enable = true;
       home.packages = [pkgs.hyprshot pkgs.satty];
 
       programs.kitty.enable = true; # required for the default Hyprland config
@@ -70,7 +71,9 @@ in {
           # See https://wiki.hyprland.org/Configuring/Monitors/
           # monitor = ",preferred,auto,auto"; # TODO: keep this?
 
-          # exec-once = "~/.config/77configs/config/hypr/autostart.sh"; # TODO: Add startup script
+          exec-once = [
+            "${config.services.dunst.package}/bin/dunst"
+          ];
 
           #  {{{1
           env =
