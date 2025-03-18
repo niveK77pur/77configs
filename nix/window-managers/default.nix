@@ -8,6 +8,7 @@
     ./fuzzel.nix
     ./dunst.nix
     ./swww.nix
+    ./clipse.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -17,5 +18,6 @@
     fuzzel.enable = lib.mkDefault true;
     dunst.enable = lib.mkDefault true;
     swww.enable = lib.mkDefault true;
+    clipse.enable = lib.mkDefault true;
   };
 }
