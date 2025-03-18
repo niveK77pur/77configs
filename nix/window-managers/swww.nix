@@ -28,6 +28,11 @@ in {
         default = null;
         description = "Path to folder containing images";
       };
+      assertDirExists =
+        lib.mkEnableOption "swww-service-assert"
+        // {
+          description = "Assert that `swww.service.imagesDir` path exists and fail evaluation if not";
+        };
     };
   };
 
@@ -36,9 +41,13 @@ in {
       home.packages = [cfg.package];
     }
     (lib.mkIf cfg.service.enable (let
-      imagesDir = assert cfg.service.imagesDir != null;
-      assert builtins.pathExists cfg.service.imagesDir;
-        cfg.service.imagesDir;
+      imagesDir =
+        if cfg.service.assertDirExists
+        then
+          assert cfg.service.imagesDir != null;
+          assert builtins.pathExists cfg.service.imagesDir;
+            cfg.service.imagesDir
+        else cfg.service.imagesDir;
     in {
       systemd.user.timers.swww-service = {
         Unit.Description = "Run swww to update wallpaper";
