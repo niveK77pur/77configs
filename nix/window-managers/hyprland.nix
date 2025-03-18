@@ -61,6 +61,7 @@ in {
       fuzzel.enable = true;
       dunst.enable = true;
       swww.enable = true;
+      clipse.enable = true;
       home.packages = [pkgs.hyprshot pkgs.satty];
 
       programs.kitty.enable = true; # required for the default Hyprland config
@@ -212,6 +213,11 @@ in {
           # Window Rules {{{1
           # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
           # TODO: Create and add window rules
+          windowrulev2 = [
+            "float, class:clipse"
+            "size 622 652, class:clipse"
+            "stayfocused, class:clipse"
+          ];
 
           # Key Bindings {{{1
           # See https://wiki.hyprland.org/Configuring/Binds/ for more
@@ -290,6 +296,9 @@ in {
             "$mainMod, F2, exec, dunstctl history-pop"
             "$mainMod, F3, exec, dunstctl close"
             "$mainMod SHIFT, F3, exec, dunstctl close-all"
+
+            # clipboard manager
+            "$mainMod, V, exec, ${config.wezterm.package}/bin/wezterm start --class clipse -e clipse"
           ];
           bindm = [
             # Move/resize windows with mainMod + LMB/RMB and dragging
