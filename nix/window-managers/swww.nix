@@ -44,8 +44,8 @@ in {
       imagesDir =
         if cfg.service.assertDirExists
         then
-          assert cfg.service.imagesDir != null;
-          assert builtins.pathExists cfg.service.imagesDir;
+          assert lib.assertMsg (cfg.service.imagesDir != null) "swww.service.imagesDir must be provided if swww.service.enable is enabled";
+          assert lib.assertMsg (builtins.pathExists cfg.service.imagesDir) "Either path does not exist, or evaluation needs to be --impure";
             cfg.service.imagesDir
         else cfg.service.imagesDir;
     in {
