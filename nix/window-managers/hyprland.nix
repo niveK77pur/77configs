@@ -53,6 +53,37 @@ in {
       type = lib.types.str;
       description = "Command to use for the app launcher";
     };
+    monitor = lib.mkOption {
+      default = null;
+      type = lib.types.nullOr (lib.types.listOf (lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            description = "Name of the monitor, see `hyprctl monitors all`";
+            example = "DP-1";
+          };
+          resolution = lib.mkOption {
+            default = "preferred";
+            type = lib.types.str;
+            description = "Resolution and refresh rate of the monitor";
+            example = "1920x1080@144";
+          };
+          position = lib.mkOption {
+            default = "auto";
+            type = lib.types.str;
+            description = "Position of the monitor";
+            example = "1920x0";
+          };
+          scale = lib.mkOption {
+            default = 1;
+            type = lib.types.number;
+            description = "Scale of the monitor";
+            example = "1";
+          };
+        };
+      }));
+      description = "Options for monitors; see `hyprctl monitors all`";
+    };
   };
 
   config =
@@ -148,7 +179,6 @@ in {
             animations = {
               # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
               enabled = true;
-
               bezier = [
                 "myBezier, 0.05, 0.9, 0.1, 1.05"
                 "workspaceBZ, 0.7, 0, 0.3, 1"
@@ -308,6 +338,19 @@ in {
             ];
             #  }}}1
           }
+          (lib.attrsets.optionalAttrs (cfg.monitor != null) {
+            monitor =
+              builtins.map (
+                m:
+                  lib.strings.concatStringsSep ", " [
+                    m.name
+                    m.resolution
+                    m.position
+                    (builtins.toString m.scale)
+                  ]
+              )
+              cfg.monitor;
+          })
         ];
         extraConfig = lib.strings.concatLines [
           (mkSubMap {

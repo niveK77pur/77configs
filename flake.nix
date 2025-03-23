@@ -105,6 +105,20 @@
               enable = true;
               imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
             };
+            hyprland = {
+              enable = true;
+              monitor = [
+                {
+                  name = "eDP-1";
+                  scale = 1.6;
+                }
+                {
+                  name = "DP-1"; # TODO: Make sure it matches monitor by name and ID
+                  position = "auto-left";
+                  scale = 1 + 1.0 / 3;
+                }
+              ];
+            };
           };
         }
       ])
