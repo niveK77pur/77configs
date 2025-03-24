@@ -9,6 +9,7 @@
     ./dunst.nix
     ./swww.nix
     ./clipse.nix
+    ./ashell.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -19,5 +20,6 @@
     dunst.enable = lib.mkDefault true;
     swww.enable = lib.mkDefault true;
     clipse.enable = lib.mkDefault true;
+    ashell.enable = lib.mkDefault true;
   };
 }
