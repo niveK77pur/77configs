@@ -1,0 +1,29 @@
+(defvar mainBattery "BAT0") ; TODO: Inject variable name using home-manager?
+
+(deflisten brightness :inital "??%"
+  "echo ??%")
+
+(defwidget bar []
+  (box :orientation "horizontal"
+       :halign "center"
+
+    "TIME: ${formattime(EWW_TIME,"%H:%M:%S")}"
+
+    ; "EWW_TEMPS: ${EWW_TEMPS}"
+    "BRIGHTNESS: ${brightness}"
+
+    "EWW_BATTERY: ${EWW_BATTERY[mainBattery]["capacity"]}%"))
+
+(defwindow example
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "100%"
+                               :height "2%"
+                               :anchor "top center")
+           :stacking "fg"
+           :windowtype "dock"
+           :wm-ignore false
+           ; :exclusive true ; WARN: uncomment
+
+            (bar))
