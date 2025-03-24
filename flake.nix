@@ -56,7 +56,11 @@
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
         extraSpecialArgs = {
-          inherit alejandra system swww;
+          inherit
+            alejandra
+            system
+            swww
+            ;
           username = user;
         };
       };
