@@ -78,6 +78,10 @@
       sessionVariables = {
         # EDITOR = "emacs";
       };
+
+      shell = {
+        enableShellIntegration = true;
+      };
     };
 
     # Let Home Manager install and manage itself.
