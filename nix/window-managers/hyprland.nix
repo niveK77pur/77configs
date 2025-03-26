@@ -102,6 +102,7 @@ in {
       dunst.enable = true;
       swww.enable = true;
       clipse.enable = true;
+      ashell.enable = true;
       home.packages = [pkgs.hyprshot pkgs.satty];
 
       programs.kitty.enable = true; # required for the default Hyprland config
@@ -118,7 +119,7 @@ in {
 
             exec-once = [
               "${config.services.dunst.package}/bin/dunst"
-              "${pkgs.waybar}/bin/waybar"
+              "ashell"
               "swww-daemon"
             ];
 
