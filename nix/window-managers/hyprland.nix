@@ -43,47 +43,56 @@
 in {
   options.hyprland = {
     enable = lib.mkEnableOption "hyprland";
+    #  {{{1
     terminal = lib.mkOption {
       default = "${config.wezterm.package}/bin/wezterm";
       type = lib.types.str;
       description = "Command to be executed for opening a terminal";
     };
+    #  {{{1
     launcher = lib.mkOption {
       default = "${config.programs.fuzzel.package}/bin/fuzzel";
       type = lib.types.str;
       description = "Command to use for the app launcher";
     };
+    #  {{{1
     monitor = lib.mkOption {
       default = null;
       type = lib.types.nullOr (lib.types.listOf (lib.types.submodule {
         options = {
+          #  {{{2
           name = lib.mkOption {
             type = lib.types.str;
             description = "Name of the monitor, see `hyprctl monitors all`";
             example = "DP-1";
           };
+          #  {{{2
           resolution = lib.mkOption {
             default = "preferred";
             type = lib.types.str;
             description = "Resolution and refresh rate of the monitor";
             example = "1920x1080@144";
           };
+          #  {{{2
           position = lib.mkOption {
             default = "auto";
             type = lib.types.str;
             description = "Position of the monitor";
             example = "1920x0";
           };
+          #  {{{2
           scale = lib.mkOption {
             default = 1;
             type = lib.types.number;
             description = "Scale of the monitor";
             example = "1";
           };
+          #  }}}2
         };
       }));
       description = "Options for monitors; see `hyprctl monitors all`";
     };
+    #  }}}1
   };
 
   config =
