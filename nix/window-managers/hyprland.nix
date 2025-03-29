@@ -265,10 +265,15 @@ in {
             # Window Rules {{{1
             # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
             # TODO: Create and add window rules
-            windowrulev2 = [
-              "float, class:clipse"
-              "size 622 652, class:clipse"
-              "stayfocused, class:clipse"
+            windowrulev2 = lib.lists.concatLists [
+              (mkWindowRule {
+                parameters = "class:clipse";
+                rules = [
+                  "float"
+                  "size 622 652"
+                  "stayfocused"
+                ];
+              })
             ];
 
             # Key Bindings {{{1
