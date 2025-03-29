@@ -273,6 +273,15 @@ in {
                   "stayfocused"
                 ];
               })
+
+              (mkWindowRule {
+                parameters = "class:thunderbird";
+                rules = [
+                  "monitor 0"
+                  "workspace 8"
+                  "noinitialfocus"
+                ];
+              })
             ];
 
             # Key Bindings {{{1
