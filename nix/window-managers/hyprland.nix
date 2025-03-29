@@ -103,6 +103,7 @@ in {
       swww.enable = true;
       clipse.enable = true;
       ashell.enable = true;
+      flameshot.enable = false;
       home.packages = [pkgs.hyprshot pkgs.satty];
 
       programs.kitty.enable = true; # required for the default Hyprland config
@@ -334,8 +335,10 @@ in {
               "$mainMod CTRL, F, fullscreenstate, 2 0"
 
               # Dunst notifications
-              # TODO: Add dunst derivation
-              "$mainMod, F1, exec, dunst-toggle.sh"
+              "$mainMod, F1, exec, ${pkgs.writeShellScript "dunst-toggle.sh" ''
+                dunstctl set-paused toggle
+                [ "$(dunstctl is-paused)" = "false" ] && notify-send --urgency=low "dunstctl" "Notifications are back on"
+              ''}"
               "$mainMod, F2, exec, dunstctl history-pop"
               "$mainMod, F3, exec, dunstctl close"
               "$mainMod SHIFT, F3, exec, dunstctl close-all"
