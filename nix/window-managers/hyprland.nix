@@ -266,6 +266,13 @@ in {
             # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
             windowrulev2 = lib.lists.concatLists [
               (mkWindowRule {
+                parameters = "class:.*";
+                rules = [
+                  "center 1"
+                ];
+              })
+
+              (mkWindowRule {
                 parameters = "class:clipse";
                 rules = [
                   "float"
