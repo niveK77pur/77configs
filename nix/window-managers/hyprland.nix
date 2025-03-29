@@ -40,6 +40,14 @@
       "bind = , escape, submap, reset"
       "submap = reset"
     ]; #  }}}
+  #  {{{
+  mkWindowRule = {
+    # See: https://wiki.hyprland.org/Configuring/Window-Rules/
+    rules,
+    parameters,
+  }:
+    lib.lists.map (rule: "${rule}, ${parameters}") rules;
+  #  }}}
 in {
   options.hyprland = {
     enable = lib.mkEnableOption "hyprland";
