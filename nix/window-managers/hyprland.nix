@@ -264,7 +264,6 @@ in {
 
             # Window Rules {{{1
             # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-            # TODO: Create and add window rules
             windowrulev2 = lib.lists.concatLists [
               (mkWindowRule {
                 parameters = "class:clipse";
