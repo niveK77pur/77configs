@@ -291,6 +291,15 @@ in {
                   "noinitialfocus"
                 ];
               })
+
+              (mkWindowRule {
+                parameters = "class:ferdium";
+                rules = [
+                  "monitor 0"
+                  "workspace 9"
+                  "noinitialfocus"
+                ];
+              })
             ];
 
             # Key Bindings {{{1
