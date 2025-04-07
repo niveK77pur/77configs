@@ -12,6 +12,7 @@ in {
     ./cedit.nix
     ./mount.nix
     ./randomcase.nix
+    ./new-lilypond-project.nix
   ];
 
   options.myscripts = {
@@ -34,11 +35,8 @@ in {
     cedit.enable = lib.mkDefault true;
     mount.enable = lib.mkDefault true;
     randomcase.enable = lib.mkDefault true;
+    new-lilypond-project.enable = lib.mkDefault true;
     home.packages =
-      [
-        (pkgs.callPackage ./new-lilypond-project.nix {useGh = true;})
-        # (pkgs.callPackage ./mount-go.nix {})
-      ]
-      ++ lib.lists.optional cfg.mrandr.enable (pkgs.callPackage ./mrandr.nix {inherit (cfg.mrandr) OUTPUT SCREEN;});
+      lib.lists.optional cfg.mrandr.enable (pkgs.callPackage ./mrandr.nix {inherit (cfg.mrandr) OUTPUT SCREEN;});
   };
 }
