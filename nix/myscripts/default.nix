@@ -8,6 +8,7 @@
 in {
   imports = [
     ./we.nix
+    ./ccopy.nix
   ];
 
   options.myscripts = {
@@ -26,9 +27,9 @@ in {
   };
   config = lib.mkIf config.myscripts.enableAll {
     we.enable = lib.mkDefault true;
+    ccopy.enable = lib.mkDefault true;
     home.packages =
       [
-        (pkgs.callPackage ./ccopy.nix {})
         (pkgs.callPackage ./cedit.nix {})
         (pkgs.callPackage ./mount.nix {})
         (pkgs.callPackage ./randomcase.nix {})
