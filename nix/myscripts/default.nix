@@ -10,6 +10,7 @@ in {
     ./we.nix
     ./ccopy.nix
     ./cedit.nix
+    ./mount.nix
   ];
 
   options.myscripts = {
@@ -30,9 +31,9 @@ in {
     we.enable = lib.mkDefault true;
     ccopy.enable = lib.mkDefault true;
     cedit.enable = lib.mkDefault true;
+    mount.enable = lib.mkDefault true;
     home.packages =
       [
-        (pkgs.callPackage ./mount.nix {})
         (pkgs.callPackage ./randomcase.nix {})
         (pkgs.callPackage ./new-lilypond-project.nix {useGh = true;})
         # (pkgs.callPackage ./mount-go.nix {})
