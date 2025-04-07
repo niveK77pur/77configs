@@ -78,7 +78,7 @@
             };
             git = {inherit (git) userName userEmail;};
             jj = {inherit (git) userName userEmail;};
-            myscripts.mrandr = {
+            mrandr = {
               SCREEN = "eDP-2";
               OUTPUT = "DP-1";
             };
@@ -101,7 +101,7 @@
             };
             git = {inherit (git) userName userEmail;};
             jj = {inherit (git) userName userEmail;};
-            myscripts.mrandr = {
+            mrandr = {
               SCREEN = "eDP";
               OUTPUT = "DisplayPort-0";
             };

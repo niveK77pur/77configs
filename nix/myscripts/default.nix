@@ -13,21 +13,11 @@ in {
     ./mount.nix
     ./randomcase.nix
     ./new-lilypond-project.nix
+    ./mrandr.nix
   ];
 
   options.myscripts = {
     enableAll = lib.mkEnableOption "myscripts";
-    mrandr = {
-      enable = lib.mkEnableOption "mrandr.sh" // {default = true;};
-      OUTPUT = lib.mkOption {
-        description = "Output display name from xrandr";
-        type = lib.types.str;
-      };
-      SCREEN = lib.mkOption {
-        description = "Main display name from xrandr";
-        type = lib.types.str;
-      };
-    };
   };
   config = lib.mkIf config.myscripts.enableAll {
     we.enable = lib.mkDefault true;
@@ -36,7 +26,6 @@ in {
     mount.enable = lib.mkDefault true;
     randomcase.enable = lib.mkDefault true;
     new-lilypond-project.enable = lib.mkDefault true;
-    home.packages =
-      lib.lists.optional cfg.mrandr.enable (pkgs.callPackage ./mrandr.nix {inherit (cfg.mrandr) OUTPUT SCREEN;});
+    mrandr.enable = lib.mkDefault true;
   };
 }
