@@ -6,6 +6,10 @@
 }: let
   cfg = config.myscripts;
 in {
+  imports = [
+    ./we.nix
+  ];
+
   options.myscripts = {
     enableAll = lib.mkEnableOption "myscripts";
     mrandr = {
@@ -21,14 +25,9 @@ in {
     };
   };
   config = lib.mkIf config.myscripts.enableAll {
+    we.enable = lib.mkDefault true;
     home.packages =
       [
-        (
-          pkgs.callPackage ./we.nix (
-            {mpv = config.programs.mpv.finalPackage;}
-            // (lib.attrsets.optionalAttrs config.mpv.withAnime4k {inherit (config.mpv) anime4kProfileName;})
-          )
-        )
         (pkgs.callPackage ./ccopy.nix {})
         (pkgs.callPackage ./cedit.nix {})
         (pkgs.callPackage ./mount.nix {})
