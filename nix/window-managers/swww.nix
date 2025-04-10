@@ -54,6 +54,7 @@ in {
         Install.WantedBy = ["timers.target"];
         Timer = {
           OnCalendar = "hourly";
+          Persistent = true;
           Unit = "swww-service.service";
         };
       };
