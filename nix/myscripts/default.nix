@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -19,7 +18,8 @@ in {
   options.myscripts = {
     enableAll = lib.mkEnableOption "myscripts";
   };
-  config = lib.mkIf config.myscripts.enableAll {
+
+  config = lib.mkIf cfg.enableAll {
     we.enable = lib.mkDefault true;
     ccopy.enable = lib.mkDefault true;
     cedit.enable = lib.mkDefault true;
