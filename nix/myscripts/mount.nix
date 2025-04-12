@@ -1,53 +1,77 @@
 {
-  stdenvNoCC,
-  makeWrapper,
+  pkgs,
   lib,
-  libnotify,
-  dmenu,
-  smenu,
-  coreutils,
-  glib,
-  mount,
-  udisks,
-  gnused,
-  util-linux,
-  usbutils,
-  gnugrep,
-  gawk,
-}:
-stdenvNoCC.mkDerivation rec {
-  pname = "mount.sh";
-  version = "1.0.0";
+  config,
+  ...
+}: let
+  cfg = config.mount;
+  #  {{{
+  pkg = {
+    stdenvNoCC,
+    makeWrapper,
+    lib,
+    libnotify,
+    dmenu,
+    smenu,
+    coreutils,
+    glib,
+    mount,
+    udisks,
+    gnused,
+    util-linux,
+    usbutils,
+    gnugrep,
+    gawk,
+  }:
+    stdenvNoCC.mkDerivation rec {
+      pname = "mount.sh";
+      version = "1.0.0";
 
-  src = ../../bin/${pname};
-  unpackPhase = "ln -s $src $(stripHash $src)";
+      src = ../../bin/${pname};
+      unpackPhase = "ln -s $src $(stripHash $src)";
 
-  runtimeDependencies = [
-    libnotify
-    dmenu
-    smenu
-    glib # for 'gio'
-    mount
-    udisks
-    coreutils
-    gnused
-    util-linux
-    usbutils
-    gnugrep
-    gawk
-  ];
+      runtimeDependencies = [
+        libnotify
+        dmenu
+        smenu
+        glib # for 'gio'
+        mount
+        udisks
+        coreutils
+        gnused
+        util-linux
+        usbutils
+        gnugrep
+        gawk
+      ];
 
-  buildInputs = [makeWrapper];
+      buildInputs = [makeWrapper];
 
-  installPhase = ''
-    install -Dm755 ${pname} -t $out/bin
-  '';
+      installPhase = ''
+        install -Dm755 ${pname} -t $out/bin
+      '';
 
-  postFixup = ''
-    wrapProgram $out/bin/${pname} --set PATH ${lib.makeBinPath runtimeDependencies}
-  '';
+      postFixup = ''
+        wrapProgram $out/bin/${pname} --set PATH ${lib.makeBinPath runtimeDependencies}
+      '';
 
-  meta = {
-    description = "(Un-)mount USB devices";
+      meta = {
+        description = "(Un-)mount USB devices";
+      };
+    };
+  #  }}}
+in {
+  options.mount = {
+    enable = lib.mkEnableOption "mount";
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.callPackage pkg {};
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = [cfg.package];
   };
 }
+# vim: fdm=marker
+
