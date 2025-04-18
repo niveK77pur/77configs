@@ -26,6 +26,7 @@
     ./comma.nix
     ./pay-respects.nix
     ./hours.nix
+    ./stylix.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -53,5 +54,6 @@
     comma.enable = lib.mkDefault true;
     pay-respects.enable = lib.mkDefault true;
     hours.enable = lib.mkDefault true;
+    stylix.enable = lib.mkDefault true;
   };
 }

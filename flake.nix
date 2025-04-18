@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     swww.url = "github:LGFae/swww";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -27,6 +28,7 @@
     nixgl,
     nix-index-database,
     swww,
+    stylix,
     ...
   }: let
     system = "x86_64-linux";
@@ -48,6 +50,7 @@
         modules =
           [
             nix-index-database.hmModules.nix-index
+            stylix.homeManagerModules.stylix
             ./nix/home.nix
             ./nix/categories.nix
           ]
