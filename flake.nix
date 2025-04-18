@@ -13,6 +13,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +24,7 @@
     home-manager,
     nixgl,
     nix-index-database,
+    stylix,
     ...
   }: let
     system = "x86_64-linux";
@@ -65,6 +70,7 @@
           inherit
             system
             wrapNixGL
+            stylix
             ;
           username = user;
         };
