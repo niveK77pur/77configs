@@ -51,6 +51,15 @@
           [
             nix-index-database.hmModules.nix-index
             stylix.homeManagerModules.stylix
+            {
+              disabledModules = [
+                "${stylix}/modules/kde/hm.nix"
+                "${stylix}/modules/xresources/hm.nix"
+                "${stylix}/modules/sxiv/hm.nix"
+                "${stylix}/modules/mpv/hm.nix"
+                "${stylix}/modules/neovim/hm.nix"
+              ];
+            }
             ./nix/home.nix
             ./nix/categories.nix
           ]
