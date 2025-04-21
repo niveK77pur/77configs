@@ -68,7 +68,6 @@ in {
           STOP                quit-watch-later
           CLOSE_WIN           quit-watch-later
           CLOSE_WIN {encode}  quit-watch-later
-          ctrl+c              quit-watch-later
         ''
 
         (lib.strings.optionalString cfg.withAnime4k (
