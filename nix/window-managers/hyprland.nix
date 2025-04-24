@@ -112,7 +112,15 @@ in {
       clipse.enable = true;
       ashell.enable = true;
       flameshot.enable = false;
-      home.packages = [pkgs.hyprshot pkgs.satty];
+      pass.enable = true;
+      home.packages = [
+        pkgs.hyprshot
+        pkgs.satty
+        # needed by passmenu
+        (pkgs.writeShellScriptBin "dmenu-wl" ''
+          ${cfg.launcher} --dmenu "$@"
+        '')
+      ];
 
       programs.kitty.enable = true; # required for the default Hyprland config
       wayland.windowManager.hyprland = {
@@ -322,7 +330,7 @@ in {
               "$mainMod, M, exit,"
               "$mainMod, SPACE, togglefloating,"
               "$mainMod, D, exec, exec `${cfg.launcher}`"
-              # "$mainMod, P, pseudo, # dwindle"
+              "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
               # "$mainMod, J, togglesplit, # dwindle"
 
               # Move focus with mainMod + arrow keys {{{
