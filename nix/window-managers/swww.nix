@@ -38,17 +38,20 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
+      assertions = [
+        {
+          assertion = cfg.service.imagesDir != null;
+          message = "swww.service.imagesDir must be provided if swww.service.enable is enabled";
+        }
+        {
+          assertion = cfg.service.assertDirExists -> (builtins.pathExists cfg.service.imagesDir);
+          message = "Either path does not exist, or evaluation needs to be --impure";
+        }
+      ];
+
       home.packages = [cfg.package];
     }
-    (lib.mkIf cfg.service.enable (let
-      imagesDir =
-        if cfg.service.assertDirExists
-        then
-          assert lib.assertMsg (cfg.service.imagesDir != null) "swww.service.imagesDir must be provided if swww.service.enable is enabled";
-          assert lib.assertMsg (builtins.pathExists cfg.service.imagesDir) "Either path does not exist, or evaluation needs to be --impure";
-            cfg.service.imagesDir
-        else cfg.service.imagesDir;
-    in {
+    (lib.mkIf cfg.service.enable {
       systemd.user.timers.swww-service = {
         Unit.Description = "Run swww to update wallpaper";
         Install.WantedBy = ["timers.target"];
@@ -65,14 +68,14 @@ in {
         Service = {
           Type = "simple";
           ExecStart = builtins.toString (pkgs.writeShellScript "swww-set-image.sh" ''
-            [ -d "${imagesDir}" ] || { echo "Folder `${imagesDir}` does not exist. Exiting."; exit 255; }
+            [ -d "${cfg.service.imagesDir}" ] || { echo "Folder `${cfg.service.imagesDir}` does not exist. Exiting."; exit 255; }
             ${cfg.package}/bin/swww img \
               --transition-fps ${builtins.toString cfg.service.fps} \
               --transition-type any \
-              "$(find ${imagesDir} -follow -type f | shuf -n 1)"
+              "$(find ${cfg.service.imagesDir} -follow -type f | shuf -n 1)"
           '');
         };
       };
-    }))
+    })
   ]);
 }
