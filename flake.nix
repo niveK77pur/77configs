@@ -82,6 +82,9 @@
               SCREEN = "eDP-2";
               OUTPUT = "DP-1";
             };
+            swww.service = {
+              enable = false;
+            };
           };
         }
       ])
