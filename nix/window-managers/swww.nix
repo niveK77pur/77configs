@@ -40,7 +40,7 @@ in {
     {
       assertions = [
         {
-          assertion = cfg.service.imagesDir != null;
+          assertion = cfg.service.enable -> cfg.service.imagesDir != null;
           message = "swww.service.imagesDir must be provided if swww.service.enable is enabled";
         }
         {
