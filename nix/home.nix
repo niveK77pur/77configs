@@ -107,6 +107,7 @@
         "steam-original"
         "steam-unwrapped"
         "discord"
+        "nvidia"
       ];
   };
 }

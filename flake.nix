@@ -82,6 +82,11 @@
               SCREEN = "eDP-2";
               OUTPUT = "DP-1";
             };
+            home.withNixGL = rec {
+              enable = true;
+              package = pkgs.nixgl.auto.nixGLDefault;
+              command = "${package}/bin/nixGL";
+            };
             swww.service = {
               enable = false;
             };
