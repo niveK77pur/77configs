@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -22,20 +23,27 @@ in {
     };
   };
 
-  config = lib.mkIf config.jj.enable {
-    programs.jujutsu = {
-      enable = true;
-      settings = {
-        user = {
-          email = cfg.userEmail;
-          name = cfg.userName;
-        };
-        ui = {
-          default-command = [
-            "log"
-          ];
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      programs.jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            email = cfg.userEmail;
+            name = cfg.userName;
+          };
+          ui = {
+            default-command = [
+              "log"
+            ];
+          };
         };
       };
-    };
-  };
+    }
+
+    (lib.mkIf (cfg.diff-editor == "meld") {
+      home.packages = [pkgs.meld];
+      programs.jujutsu.settings.ui.diff-editor = "meld-3";
+    })
+  ]);
 }
