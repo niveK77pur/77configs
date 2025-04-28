@@ -13,6 +13,13 @@ in {
     userName = lib.mkOption {
       type = lib.types.str;
     };
+    diff-editor = lib.mkOption {
+      type = lib.types.nullOr (lib.types.enum [
+        "meld"
+      ]);
+      default = null;
+      description = "Which diff editor to use, if any";
+    };
   };
 
   config = lib.mkIf config.jj.enable {
