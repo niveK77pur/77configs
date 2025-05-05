@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     swww.url = "github:LGFae/swww";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -27,6 +28,7 @@
     nixgl,
     nix-index-database,
     swww,
+    stylix,
     ...
   }: let
     system = "x86_64-linux";
@@ -60,6 +62,7 @@
             alejandra
             system
             swww
+            stylix
             ;
           username = user;
         };
