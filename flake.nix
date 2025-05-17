@@ -95,7 +95,17 @@
               command = "${package}/bin/nixGL";
             };
             swww.service = {
-              enable = false;
+              enable = true;
+              imagesDir = "/home/kevin/Pictures/Wallpaper";
+            };
+            hyprland = {
+              enable = true;
+              monitor = [
+                {
+                  name = "eDP-1";
+                  scale = 1.6;
+                }
+              ];
             };
           };
         }
