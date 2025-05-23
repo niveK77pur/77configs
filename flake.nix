@@ -135,6 +135,10 @@
                   position = "auto-left";
                   scale = 1 + 1.0 / 3;
                 }
+                {
+                  name = "HDMI-A-1";
+                  position = "auto-up";
+                }
               ];
             };
           };
