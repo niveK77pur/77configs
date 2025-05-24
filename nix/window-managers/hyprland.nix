@@ -128,6 +128,7 @@ in {
           ''}";
         };
       };
+      gammastep.enable = true;
       home.packages = [
         pkgs.hyprshot
         (wrapNixGL {
@@ -160,6 +161,7 @@ in {
               "${config.services.dunst.package}/bin/dunst"
               "ashell"
               "swww-daemon"
+              "gammastep"
             ];
 
             #  {{{1
