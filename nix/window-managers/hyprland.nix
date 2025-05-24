@@ -113,6 +113,7 @@ in {
       ashell.enable = true;
       flameshot.enable = false;
       pass.enable = true;
+      gammastep.enable = true;
       home.packages = [
         pkgs.hyprshot
         pkgs.satty
@@ -138,6 +139,7 @@ in {
               "${config.services.dunst.package}/bin/dunst"
               "ashell"
               "swww-daemon"
+              # "gammastep"
             ];
 
             #  {{{1
