@@ -10,6 +10,7 @@
     ./swww.nix
     ./clipse.nix
     ./ashell.nix
+    ./gammastep.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -21,5 +22,6 @@
     swww.enable = lib.mkDefault true;
     clipse.enable = lib.mkDefault true;
     ashell.enable = lib.mkDefault true;
+    gammastep.enable = lib.mkDefault true;
   };
 }
