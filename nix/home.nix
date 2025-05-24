@@ -86,6 +86,9 @@
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+    services.home-manager.autoExpire = {
+      enable = true;
+    };
 
     # Let 'myrepos' handle this repository as well
     programs.mr.settings = {
