@@ -197,11 +197,6 @@ in {
                 passes = 1;
                 xray = true; # floating windows see through ignore tiled windows
               };
-
-              drop_shadow = true;
-              shadow_range = 4;
-              shadow_render_power = 3;
-              # col.shadow = "rgba (1 a1a1aee)"; # ISSUE: Option does not exist anymore
             };
 
             #  {{{2
