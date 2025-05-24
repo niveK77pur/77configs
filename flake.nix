@@ -79,7 +79,6 @@
             git = {inherit (git) userName userEmail;};
             jj = {
               inherit (git) userName userEmail;
-              diff-editor = "meld";
             };
             mrandr = {
               SCREEN = "eDP-2";
@@ -113,7 +112,6 @@
             git = {inherit (git) userName userEmail;};
             jj = {
               inherit (git) userName userEmail;
-              diff-editor = "meld";
             };
             mrandr = {
               SCREEN = "eDP";
