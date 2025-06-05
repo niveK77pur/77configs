@@ -37,6 +37,12 @@ in {
               "log"
             ];
           };
+          git = {
+            private-commits = lib.strings.concatStringsSep " | " [
+              "description(glob:'wip:*')"
+              "description(glob:'private:*')"
+            ];
+          };
         };
       };
     }
