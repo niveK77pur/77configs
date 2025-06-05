@@ -8,10 +8,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    alejandra = {
-      url = "github:kamadorueda/alejandra/3.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixgl.url = "github:nix-community/nixGL";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -23,7 +19,6 @@
   outputs = {
     nixpkgs,
     home-manager,
-    alejandra,
     nixgl,
     nix-index-database,
     swww,
@@ -57,7 +52,6 @@
         # to pass through arguments to home.nix
         extraSpecialArgs = {
           inherit
-            alejandra
             system
             swww
             ;
@@ -169,7 +163,7 @@
         # nix
         pkgs.nixd
         pkgs.nil
-        alejandra.defaultPackage.${system}
+        pkgs.alejandra
         pkgs.statix
       ];
     };
