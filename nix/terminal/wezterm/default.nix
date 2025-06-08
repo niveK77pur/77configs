@@ -42,8 +42,7 @@ in {
       version = "latest";
       src = ../../../config/wezterm;
       patches = [
-        (pkgs.substituteAll {
-          src = ./wezterm.patch;
+        (pkgs.replaceVars ./wezterm.patch {
           inherit (cfg) window_background_opacity font_size;
         })
       ];
