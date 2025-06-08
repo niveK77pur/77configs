@@ -2,8 +2,6 @@
   pkgs,
   lib,
   config,
-  system,
-  swww,
   ...
 }: let
   cfg = config.swww;
@@ -12,7 +10,7 @@ in {
     enable = lib.mkEnableOption "swww";
     package = lib.mkOption {
       type = lib.types.package;
-      default = swww.packages.${system}.swww;
+      default = pkgs.swww;
       description = "swww package to use";
     };
 

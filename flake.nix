@@ -13,7 +13,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    swww.url = "github:LGFae/swww";
   };
 
   outputs = {
@@ -21,7 +20,6 @@
     home-manager,
     nixgl,
     nix-index-database,
-    swww,
     ...
   }: let
     system = "x86_64-linux";
@@ -53,7 +51,6 @@
         extraSpecialArgs = {
           inherit
             system
-            swww
             ;
           username = user;
         };
