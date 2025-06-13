@@ -15,10 +15,11 @@ in {
       type = lib.types.str;
     };
     diff-editor = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [
+      type = lib.types.enum [
         "meld"
-      ]);
-      default = null;
+        ":builtin"
+      ];
+      default = ":builtin";
       description = "Which diff editor to use, if any";
     };
   };
@@ -33,6 +34,7 @@ in {
             name = cfg.userName;
           };
           ui = {
+            inherit (cfg) diff-editor;
             default-command = [
               "log"
             ];
@@ -49,7 +51,6 @@ in {
 
     (lib.mkIf (cfg.diff-editor == "meld") {
       home.packages = [pkgs.meld];
-      programs.jujutsu.settings.ui.diff-editor = "meld-3";
     })
   ]);
 }
