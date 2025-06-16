@@ -9,6 +9,7 @@
     ./rio.nix
     ./pistol.nix
     ./starship.nix
+    ./ghostty.nix
   ];
 
   options.terminal.enableAll = lib.mkEnableOption "terminal";
@@ -19,5 +20,6 @@
     rio.enable = lib.mkDefault true;
     pistol.enable = lib.mkDefault true;
     starship.enable = lib.mkDefault true;
+    ghostty.enable = lib.mkDefault true;
   };
 }
