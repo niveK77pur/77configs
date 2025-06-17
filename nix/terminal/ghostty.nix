@@ -13,7 +13,9 @@ in {
     programs.ghostty = {
       enable = true;
       installVimSyntax = true;
-      settings = {};
+      settings = {
+        theme = "duskfox";
+      };
       themes = {};
     };
   };
