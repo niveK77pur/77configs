@@ -53,7 +53,7 @@ in {
     enable = lib.mkEnableOption "hyprland";
     #  {{{1
     terminal = lib.mkOption {
-      default = "${config.wezterm.package}/bin/wezterm";
+      default = "${config.ghostty.package}/bin/ghostty";
       type = lib.types.str;
       description = "Command to be executed for opening a terminal";
     };
@@ -113,6 +113,7 @@ in {
       ashell.enable = true;
       flameshot.enable = false;
       pass.enable = true;
+      ghostty.enable = true;
       home.packages = [
         pkgs.hyprshot
         pkgs.satty
