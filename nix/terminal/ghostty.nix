@@ -24,7 +24,7 @@ in {
     programs.ghostty = {
       inherit (cfg) package;
       enable = true;
-      installVimSyntax = true;
+      installBatSyntax = false; # stuck on a previous generation
       settings = {
         theme = "duskfox";
       };
