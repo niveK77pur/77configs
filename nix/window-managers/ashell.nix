@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  wrapNixGL,
   ...
 }: let
   cfg = config.ashell;
@@ -10,13 +11,10 @@ in {
     enable = lib.mkEnableOption "ashell";
     package = lib.mkOption {
       type = lib.types.package;
-      default =
-        if config.home.withNixGL.enable
-        then
-          pkgs.writeShellScriptBin "ashell" ''
-            ${config.home.withNixGL.command} ${pkgs.ashell}/bin/ashell
-          ''
-        else pkgs.ashell;
+      default = wrapNixGL {
+        binName = "ashell";
+        inherit config;
+      };
       description = "Package to use; wrap with nixGL if enabled";
     };
   };

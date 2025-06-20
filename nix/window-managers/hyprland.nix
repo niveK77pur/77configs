@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  wrapNixGL,
   ...
 }: let
   cfg = config.hyprland;
@@ -116,7 +117,10 @@ in {
       ghostty.enable = true;
       home.packages = [
         pkgs.hyprshot
-        pkgs.satty
+        (wrapNixGL {
+          binName = "satty";
+          inherit config;
+        })
         # needed by passmenu
         (pkgs.writeShellScriptBin "dmenu-wl" ''
           ${cfg.launcher} --dmenu "$@"
@@ -442,7 +446,7 @@ in {
                 ++ (
                   if config.home.withNixGL.enable
                   then [
-                    "$mainMod, E, exec, [float] hyprshot -m region --raw | ${config.home.withNixGL.command} satty --filename -"
+                    "$mainMod, E, exec, [float] hyprshot -m region --raw | satty --filename -"
                     "$mainMod, E, submap, reset"
                   ]
                   else [

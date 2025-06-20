@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  wrapNixGL,
   ...
 }: let
   cfg = config.wezterm.overrides;
@@ -9,13 +10,10 @@ in {
   options.wezterm.enable = lib.mkEnableOption "wezterm";
   options.wezterm.package = lib.mkOption {
     type = lib.types.package;
-    default =
-      if config.home.withNixGL.enable
-      then
-        pkgs.writeShellScriptBin "wezterm" ''
-          ${config.home.withNixGL.command} ${pkgs.wezterm}/bin/wezterm "$@"
-        ''
-      else pkgs.wezterm;
+    default = wrapNixGL {
+      binName = "wezterm";
+      inherit config;
+    };
     description = "The wezterm package to be used";
   };
   options.wezterm.overrides = {

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  wrapNixGL,
   ...
 }: let
   cfg = config.ghostty;
@@ -10,13 +11,10 @@ in {
     enable = lib.mkEnableOption "ghostty";
     package = lib.mkOption {
       type = lib.types.package;
-      default =
-        if config.home.withNixGL.enable
-        then
-          pkgs.writeShellScriptBin "ghostty" ''
-            ${config.home.withNixGL.command} ${pkgs.ghostty}/bin/ghostty
-          ''
-        else pkgs.ghostty;
+      default = wrapNixGL {
+        binName = "ghostty";
+        inherit config;
+      };
     };
   };
 
