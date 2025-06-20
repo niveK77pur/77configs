@@ -121,6 +121,7 @@ in {
         (pkgs.writeShellScriptBin "dmenu-wl" ''
           ${cfg.launcher} --dmenu "$@"
         '')
+        pkgs.xdg-desktop-portal-hyprland
       ];
 
       services.hyprpolkitagent.enable = true;

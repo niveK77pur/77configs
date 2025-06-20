@@ -21,6 +21,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [pkgs.xdg-desktop-portal-gtk];
     programs.ghostty = {
       inherit (cfg) package;
       enable = true;
