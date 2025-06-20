@@ -32,6 +32,19 @@
       userName = "Kevin Laurent Biewesch";
     };
     #  {{{
+    wrapNixGL = {
+      binName,
+      pkg ? pkgs.${binName},
+      config,
+    }:
+      if config.home.withNixGL.enable
+      then
+        pkgs.writeShellScriptBin "${binName}" ''
+          ${config.home.withNixGL.command} "${pkg}/bin/${binName}" "$@"
+        ''
+      else pkg;
+    #  }}}
+    #  {{{
     makeUser = user: modules: {
       "${user}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -51,6 +64,7 @@
         extraSpecialArgs = {
           inherit
             system
+            wrapNixGL
             ;
           username = user;
         };
