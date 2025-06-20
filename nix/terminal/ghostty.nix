@@ -28,6 +28,7 @@ in {
       installBatSyntax = false; # stuck on a previous generation
       settings = {
         theme = "duskfox";
+        gtk-single-instance = true;
       };
       themes = {};
     };
