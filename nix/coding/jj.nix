@@ -40,10 +40,12 @@ in {
             ];
           };
           git = {
-            private-commits = lib.strings.concatStringsSep " | " [
-              "description(glob:'wip:*')"
-              "description(glob:'private:*')"
-            ];
+            private-commits =
+              lib.strings.concatStringsSep " | "
+              (map (revset: "(" + revset + ")") [
+                "description(glob:'wip:*')"
+                "description(glob:'private:*')"
+              ]);
           };
         };
       };
