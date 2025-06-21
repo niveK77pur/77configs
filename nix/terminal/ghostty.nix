@@ -44,6 +44,10 @@ in {
           "super+ctrl+shift+j=resize_split:down,${split_resize_amount}"
           "super+ctrl+shift+k=resize_split:up,${split_resize_amount}"
           "super+ctrl+shift+l=resize_split:right,${split_resize_amount}"
+
+          # remap to make default mappings work on swiss french layout
+          "ctrl+shift+plus=increase_font_size:1"
+          "ctrl+shift+semicolon=reload_config"
         ];
       };
       themes = {};
