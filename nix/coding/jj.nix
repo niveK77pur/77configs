@@ -45,6 +45,7 @@ in {
               (map (revset: "(" + revset + ")") [
                 "description(glob:'wip:*')"
                 "description(glob:'private:*')"
+                "empty() ~ merges() ~ root()" # an empty commit
               ]);
           };
         };
