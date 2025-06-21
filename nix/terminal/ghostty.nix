@@ -26,6 +26,7 @@ in {
       installBatSyntax = false; # stuck on a previous generation
       settings = {
         theme = "duskfox";
+        font-size = 10;
         gtk-single-instance = true;
         keybind = let
           split_resize_amount = builtins.toString 100;
