@@ -27,7 +27,9 @@ in {
       settings = {
         theme = "duskfox";
         gtk-single-instance = true;
-        keybind = [
+        keybind = let
+          split_resize_amount = builtins.toString 100;
+        in [
           # Use hjkl to navigate splits
           "ctrl+shift+h=goto_split:left"
           "ctrl+shift+j=goto_split:down"
@@ -36,6 +38,12 @@ in {
 
           # Remove fullscreen toggle
           "ctrl+enter=unbind"
+
+          # Resize splits wiht hjkl
+          "super+ctrl+shift+h=resize_split:left,${split_resize_amount}"
+          "super+ctrl+shift+j=resize_split:down,${split_resize_amount}"
+          "super+ctrl+shift+k=resize_split:up,${split_resize_amount}"
+          "super+ctrl+shift+l=resize_split:right,${split_resize_amount}"
         ];
       };
       themes = {};
