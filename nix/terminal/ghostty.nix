@@ -33,10 +33,6 @@ in {
           "ctrl+shift+j=goto_split:down"
           "ctrl+shift+k=goto_split:up"
           "ctrl+shift+l=goto_split:right"
-          "ctrl+alt+up=unbind"
-          "ctrl+alt+down=unbind"
-          "ctrl+alt+right=unbind"
-          "ctrl+alt+left=unbind"
 
           # Remove fullscreen toggle
           "ctrl+enter=unbind"
