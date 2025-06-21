@@ -40,6 +40,9 @@ in {
           # Remove fullscreen toggle
           "ctrl+enter=unbind"
 
+          # Remove open config binding
+          "ctrl+comma=unbind"
+
           # Resize splits wiht hjkl
           "super+ctrl+shift+h=resize_split:left,${split_resize_amount}"
           "super+ctrl+shift+j=resize_split:down,${split_resize_amount}"
