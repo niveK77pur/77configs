@@ -27,6 +27,7 @@ in {
       settings = {
         theme = "duskfox";
         font-size = 10;
+        unfocused-split-opacity = 0.5;
         gtk-single-instance = true;
         keybind = let
           split_resize_amount = builtins.toString 100;
