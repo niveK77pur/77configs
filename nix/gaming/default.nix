@@ -19,6 +19,8 @@
     ./glx.nix
 
     ./devices
+
+    ./chiaki.nix
   ];
 
   options.gaming.enableAll = lib.mkEnableOption "gaming";
@@ -39,5 +41,6 @@
     glx.enable = lib.mkDefault true;
 
     gaming.devices.enableAll = lib.mkDefault true;
+    chiaki.enable = lib.mkDefault true;
   };
 }
