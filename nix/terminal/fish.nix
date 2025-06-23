@@ -92,6 +92,15 @@
           })
         ];
 
+        shellAbbrs = lib.mkMerge [
+          (lib.mkIf config.programs.jujutsu.enable {
+            jjl = {
+              position = "command";
+              expansion = ''jj log -n (math "floor($(${pkgs.ncurses}/bin/tput lines) / 2)" - 2)'';
+            };
+          })
+        ];
+
         plugins = [
           {
             name = "fzf";
