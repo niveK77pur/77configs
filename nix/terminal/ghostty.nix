@@ -29,6 +29,7 @@ in {
         font-size = 10;
         unfocused-split-opacity = 0.5;
         gtk-single-instance = true;
+        shell-integration-features = "sudo";
         keybind = let
           split_resize_amount = builtins.toString 100;
         in [
