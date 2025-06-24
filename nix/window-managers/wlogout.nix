@@ -53,10 +53,21 @@
 in {
   options.wlogout = {
     enable = lib.mkEnableOption "wlogout";
+    layout = lib.mkOption {
+      type = lib.types.attrs;
+      default = fromWlogoutLayout "${pkgs.wlogout}/etc/wlogout/layout";
+      description = "wlogout settings";
+    };
+    override-layout = lib.mkOption {
+      type = lib.types.attrs;
+      default = {};
+      description = "Override or expand existing settings";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = [pkgs.wlogout];
+    xdg.configFile."wlogout/layout".text = toWlogLayout (lib.recursiveUpdate cfg.layout cfg.override-layout);
   };
 }
 # vim: fdm=marker
