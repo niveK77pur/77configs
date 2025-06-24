@@ -116,7 +116,12 @@ in {
       flameshot.enable = false;
       pass.enable = true;
       ghostty.enable = true;
-      wlogout.enable = true;
+      wlogout = {
+        enable = true;
+        override-layout = {
+          Logout.action = "hyprctl dispatch exit";
+        };
+      };
       home.packages = [
         pkgs.hyprshot
         (wrapNixGL {
