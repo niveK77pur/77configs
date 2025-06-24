@@ -26,6 +26,7 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
+      home.packages = [pkgs.jj-fzf];
       programs.jujutsu = {
         enable = true;
         settings = {
