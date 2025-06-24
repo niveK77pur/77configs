@@ -116,6 +116,7 @@ in {
       flameshot.enable = false;
       pass.enable = true;
       ghostty.enable = true;
+      wlogout.enable = true;
       home.packages = [
         pkgs.hyprshot
         (wrapNixGL {
@@ -332,7 +333,7 @@ in {
               "$mainMod, RETURN, exec, ${cfg.terminal}"
               "$mainMod CTRL, RETURN, exec, [float] ${cfg.terminal}"
               "$mainMod SHIFT, Q, killactive,"
-              "$mainMod, M, exit,"
+              "$mainMod, M, exec, wlogout --show-binds"
               "$mainMod, SPACE, togglefloating,"
               "$mainMod, D, exec, exec `${cfg.launcher}`"
               "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
