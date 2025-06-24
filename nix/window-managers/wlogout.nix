@@ -14,3 +14,5 @@ in {
     home.packages = [pkgs.wlogout];
   };
 }
+# vim: fdm=marker
+
