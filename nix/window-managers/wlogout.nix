@@ -36,6 +36,13 @@
         ]
       )
     );
+  #  {{{1
+  toWlogLayout = layout:
+    lib.strings.concatMapStrings (e: builtins.toJSON e) (
+      builtins.attrValues (
+        lib.attrsets.mapAttrs (name: value: value // {text = name;}) layout
+      )
+    );
   #  }}}1
 in {
   options.wlogout = {
