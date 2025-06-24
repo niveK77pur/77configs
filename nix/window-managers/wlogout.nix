@@ -14,7 +14,11 @@
   #      [..., { ..., text = "MyButton", ... }, ...]
   #   => { ..., "MyButton" = { ... }, ... }
     lib.lists.foldr
-    (e: agg: agg // {"${e.text}" = builtins.removeAttrs e ["text"];})
+    (e: agg:
+      agg
+      // {
+        "${e.text}" = builtins.removeAttrs e ["text"] // {index = builtins.length (builtins.attrNames agg);};
+      })
     {}
     (
       builtins.fromJSON (
@@ -38,9 +42,11 @@
     );
   #  {{{1
   toWlogLayout = layout:
-    lib.strings.concatMapStrings (e: builtins.toJSON e) (
-      builtins.attrValues (
-        lib.attrsets.mapAttrs (name: value: value // {text = name;}) layout
+    lib.strings.concatMapStrings (e: builtins.toJSON (builtins.removeAttrs e ["index"])) (
+      builtins.sort (p: q: p.index < q.index) (
+        builtins.attrValues (
+          lib.attrsets.mapAttrs (name: value: value // {text = name;}) layout
+        )
       )
     );
   #  }}}1
