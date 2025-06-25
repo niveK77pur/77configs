@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.hyprland;
-  #  {{{
+  #  {{{1
   envVars = {
     # Hint Electron apps to use Wayland:
     NIXOS_OZONE_WL = "1";
@@ -22,8 +22,8 @@
     # GDK_BACKEND = "wayland,x11";
     # SDL_VIDEODRIVER = "wayland";
     # CLUTTER_BACKEND = "wayland";
-  }; #  }}}
-  #  {{{
+  };
+  #  {{{1
   mkSubMap = {
     name,
     settings,
@@ -41,15 +41,15 @@
       (lib.strings.optionalString trigger-resets "bind=${trigger}, submap, reset")
       "bind = , escape, submap, reset"
       "submap = reset"
-    ]; #  }}}
-  #  {{{
+    ];
+  #  {{{1
   mkWindowRule = {
     # See: https://wiki.hyprland.org/Configuring/Window-Rules/
     rules,
     parameters,
   }:
     lib.lists.map (rule: "${rule}, ${parameters}") rules;
-  #  }}}
+  #  }}}1
 in {
   options.hyprland = {
     enable = lib.mkEnableOption "hyprland";
