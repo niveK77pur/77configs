@@ -346,90 +346,97 @@ in {
             # See https://wiki.hyprland.org/Configuring/Keywords/ for more
             "$mainMod" = "SUPER";
 
-            bind = [
-              "$mainMod, RETURN, exec, ${cfg.terminal}"
-              "$mainMod CTRL, RETURN, exec, [float] ${cfg.terminal}"
-              "$mainMod SHIFT, Q, killactive,"
-              "$mainMod, M, exec, wlogout --show-binds"
-              "$mainMod, SPACE, togglefloating,"
-              "$mainMod, D, exec, exec `${cfg.launcher}`"
-              "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
-              # "$mainMod, J, togglesplit, # dwindle"
-
-              # Move focus with mainMod + arrow keys {{{
-              "$mainMod, left, movefocus, l"
-              "$mainMod, right, movefocus, r"
-              "$mainMod, up, movefocus, u"
-              "$mainMod, down, movefocus, d"
-              "$mainMod, H, movefocus, l"
-              "$mainMod, L, movefocus, r"
-              "$mainMod, K, movefocus, u"
-              "$mainMod, J, movefocus, d"
-              #  }}}
-              # Move window {{{
-              "$mainMod SHIFT, H, movewindoworgroup, l"
-              "$mainMod SHIFT, J, movewindoworgroup, d"
-              "$mainMod SHIFT, K, movewindoworgroup, u"
-              "$mainMod SHIFT, L, movewindoworgroup, r"
-              #  }}}
-              # Resize window {{{
-              "$mainMod CTRL, H, resizeactive, -20% 0%"
-              "$mainMod CTRL, J, resizeactive, 0% 20%"
-              "$mainMod CTRL, K, resizeactive, 0% -20%"
-              "$mainMod CTRL, L, resizeactive, 20% 0%"
-              #  }}}
-
-              # Switch workspaces with mainMod + [0-9] {{{
-              "$mainMod, 1, workspace, 1"
-              "$mainMod, 2, workspace, 2"
-              "$mainMod, 3, workspace, 3"
-              "$mainMod, 4, workspace, 4"
-              "$mainMod, 5, workspace, 5"
-              "$mainMod, 6, workspace, 6"
-              "$mainMod, 7, workspace, 7"
-              "$mainMod, 8, workspace, 8"
-              "$mainMod, 9, workspace, 9"
-              "$mainMod, 0, workspace, 10"
-              #  }}}
-              # Move active window to a workspace with mainMod + SHIFT + [0-9] {{{
-              "$mainMod SHIFT, 1, movetoworkspace, 1"
-              "$mainMod SHIFT, 2, movetoworkspace, 2"
-              "$mainMod SHIFT, 3, movetoworkspace, 3"
-              "$mainMod SHIFT, 4, movetoworkspace, 4"
-              "$mainMod SHIFT, 5, movetoworkspace, 5"
-              "$mainMod SHIFT, 6, movetoworkspace, 6"
-              "$mainMod SHIFT, 7, movetoworkspace, 7"
-              "$mainMod SHIFT, 8, movetoworkspace, 8"
-              "$mainMod SHIFT, 9, movetoworkspace, 9"
-              "$mainMod SHIFT, 0, movetoworkspace, 10"
-              #  }}}
-              # Focus urgend or last window
-              "$mainMod, U, focusurgentorlast,"
-
-              # Fullscreen windows
-              "$mainMod, F, fullscreen,"
-              "$mainMod SHIFT, F, fullscreenstate, 0 2"
-              "$mainMod CTRL, F, fullscreenstate, 2 0"
-
-              # Dunst notifications
-              "$mainMod, F1, exec, ${pkgs.writeShellScript "dunst-toggle.sh" ''
-                dunstctl set-paused toggle
-                [ "$(dunstctl is-paused)" = "false" ] && notify-send --urgency=low "dunstctl" "Notifications are back on"
-              ''}"
-              "$mainMod, F2, exec, dunstctl history-pop"
-              "$mainMod, F3, exec, dunstctl close"
-              "$mainMod SHIFT, F3, exec, dunstctl close-all"
-
-              # clipboard manager
-              "$mainMod, V, exec, ${config.wezterm.package}/bin/wezterm start --class clipse -e clipse"
-            ];
-            bindm = [
-              # Move/resize windows with mainMod + LMB/RMB and dragging
-              "$mainMod, mouse:272, movewindow"
-              "$mainMod, mouse:273, resizewindow"
-            ];
             #  }}}1
           }
+          (mergeBindings [
+            {
+              #  {{{1
+              bind = [
+                "$mainMod, RETURN, exec, ${cfg.terminal}"
+                "$mainMod CTRL, RETURN, exec, [float] ${cfg.terminal}"
+                "$mainMod SHIFT, Q, killactive,"
+                "$mainMod, M, exec, wlogout --show-binds"
+                "$mainMod, SPACE, togglefloating,"
+                "$mainMod, D, exec, exec `${cfg.launcher}`"
+                "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
+                # "$mainMod, J, togglesplit, # dwindle"
+
+                # Move focus with mainMod + arrow keys {{{
+                "$mainMod, left, movefocus, l"
+                "$mainMod, right, movefocus, r"
+                "$mainMod, up, movefocus, u"
+                "$mainMod, down, movefocus, d"
+                "$mainMod, H, movefocus, l"
+                "$mainMod, L, movefocus, r"
+                "$mainMod, K, movefocus, u"
+                "$mainMod, J, movefocus, d"
+                #  }}}
+                # Move window {{{
+                "$mainMod SHIFT, H, movewindoworgroup, l"
+                "$mainMod SHIFT, J, movewindoworgroup, d"
+                "$mainMod SHIFT, K, movewindoworgroup, u"
+                "$mainMod SHIFT, L, movewindoworgroup, r"
+                #  }}}
+                # Resize window {{{
+                "$mainMod CTRL, H, resizeactive, -20% 0%"
+                "$mainMod CTRL, J, resizeactive, 0% 20%"
+                "$mainMod CTRL, K, resizeactive, 0% -20%"
+                "$mainMod CTRL, L, resizeactive, 20% 0%"
+                #  }}}
+
+                # Switch workspaces with mainMod + [0-9] {{{
+                "$mainMod, 1, workspace, 1"
+                "$mainMod, 2, workspace, 2"
+                "$mainMod, 3, workspace, 3"
+                "$mainMod, 4, workspace, 4"
+                "$mainMod, 5, workspace, 5"
+                "$mainMod, 6, workspace, 6"
+                "$mainMod, 7, workspace, 7"
+                "$mainMod, 8, workspace, 8"
+                "$mainMod, 9, workspace, 9"
+                "$mainMod, 0, workspace, 10"
+                #  }}}
+                # Move active window to a workspace with mainMod + SHIFT + [0-9] {{{
+                "$mainMod SHIFT, 1, movetoworkspace, 1"
+                "$mainMod SHIFT, 2, movetoworkspace, 2"
+                "$mainMod SHIFT, 3, movetoworkspace, 3"
+                "$mainMod SHIFT, 4, movetoworkspace, 4"
+                "$mainMod SHIFT, 5, movetoworkspace, 5"
+                "$mainMod SHIFT, 6, movetoworkspace, 6"
+                "$mainMod SHIFT, 7, movetoworkspace, 7"
+                "$mainMod SHIFT, 8, movetoworkspace, 8"
+                "$mainMod SHIFT, 9, movetoworkspace, 9"
+                "$mainMod SHIFT, 0, movetoworkspace, 10"
+                #  }}}
+                # Focus urgend or last window
+                "$mainMod, U, focusurgentorlast,"
+
+                # Fullscreen windows
+                "$mainMod, F, fullscreen,"
+                "$mainMod SHIFT, F, fullscreenstate, 0 2"
+                "$mainMod CTRL, F, fullscreenstate, 2 0"
+
+                # Dunst notifications
+                "$mainMod, F1, exec, ${pkgs.writeShellScript "dunst-toggle.sh" ''
+                  dunstctl set-paused toggle
+                  [ "$(dunstctl is-paused)" = "false" ] && notify-send --urgency=low "dunstctl" "Notifications are back on"
+                ''}"
+                "$mainMod, F2, exec, dunstctl history-pop"
+                "$mainMod, F3, exec, dunstctl close"
+                "$mainMod SHIFT, F3, exec, dunstctl close-all"
+
+                # clipboard manager
+                "$mainMod, V, exec, ${config.wezterm.package}/bin/wezterm start --class clipse -e clipse"
+              ];
+              #  {{{1
+              bindm = [
+                # Move/resize windows with mainMod + LMB/RMB and dragging
+                "$mainMod, mouse:272, movewindow"
+                "$mainMod, mouse:273, resizewindow"
+              ];
+              #  }}}1
+            }
+          ])
           (lib.attrsets.optionalAttrs (cfg.monitor != null) {
             monitor =
               builtins.map (
