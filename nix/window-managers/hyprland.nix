@@ -49,6 +49,10 @@
     parameters,
   }:
     lib.lists.map (rule: "${rule}, ${parameters}") rules;
+  #  {{{1
+  mergeBindings = bindings:
+  # we only expect to be providing the 'bin' familiy of settings here
+    builtins.zipAttrsWith (_: values: lib.concatLists values) bindings;
   #  }}}1
 in {
   options.hyprland = {
