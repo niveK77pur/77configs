@@ -12,6 +12,7 @@
     ./ashell.nix
     ./wlogout.nix
     ./gammastep.nix
+    ./avizo.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -25,5 +26,6 @@
     ashell.enable = lib.mkDefault true;
     wlogout.enable = lib.mkDefault true;
     gammastep.enable = lib.mkDefault true;
+    avizo.enable = lib.mkDefault true;
   };
 }
