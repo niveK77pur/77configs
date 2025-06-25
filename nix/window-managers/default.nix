@@ -11,6 +11,7 @@
     ./clipse.nix
     ./ashell.nix
     ./wlogout.nix
+    ./gammastep.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -23,5 +24,6 @@
     clipse.enable = lib.mkDefault true;
     ashell.enable = lib.mkDefault true;
     wlogout.enable = lib.mkDefault true;
+    gammastep.enable = lib.mkDefault true;
   };
 }
