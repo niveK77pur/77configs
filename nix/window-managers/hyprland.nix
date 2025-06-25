@@ -449,6 +449,14 @@ in {
                 ", XF86MonBrightnessDown, exec, ${config.avizo.package}/bin/lightctl down"
               ];
             })
+            #  {{{1
+            (lib.optionalAttrs config.services.playerctld.enable {
+              bindl = [
+                ", XF86AudioPlay, exec, playerctl play-pause"
+                ", XF86AudioPrev, exec, playerctl previous"
+                ", XF86AudioNext, exec, playerctl next"
+              ];
+            })
             #  }}}1
           ])
           (lib.attrsets.optionalAttrs (cfg.monitor != null) {
