@@ -133,6 +133,7 @@ in {
         };
       };
       gammastep.enable = true;
+      avizo.enable = true;
       home.packages = [
         pkgs.hyprshot
         (wrapNixGL {
