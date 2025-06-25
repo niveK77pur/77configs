@@ -437,6 +437,19 @@ in {
               ];
               #  }}}1
             }
+            #  {{{1
+            (lib.optionalAttrs config.avizo.enable {
+              bindl = [
+                ", XF86AudioMute, exec, ${config.avizo.package}/bin/volumectl toggle-mute"
+              ];
+              bindel = [
+                ", XF86AudioRaiseVolume, exec, ${config.avizo.package}/bin/volumectl -u up"
+                ", XF86AudioLowerVolume, exec, ${config.avizo.package}/bin/volumectl -u down"
+                ", XF86MonBrightnessUp, exec, ${config.avizo.package}/bin/lightctl up"
+                ", XF86MonBrightnessDown, exec, ${config.avizo.package}/bin/lightctl down"
+              ];
+            })
+            #  }}}1
           ])
           (lib.attrsets.optionalAttrs (cfg.monitor != null) {
             monitor =
@@ -473,6 +486,23 @@ in {
                 "$mainMod, E, exec, [float] hyprshot -m region --raw | satty --filename -"
                 "$mainMod, E, submap, reset"
               ];
+            };
+          })
+
+          (mkSubMap {
+            name = "system";
+            trigger = "$mainMod,S";
+            trigger-resets = true;
+            settings = {
+              bind = builtins.concatLists (builtins.genList (i: let
+                  value = (i + 1) * 10;
+                in [
+                  # number row
+                  "$mainMod, code:${toString (i + 10)}, exec, ${config.avizo.package}/bin/lightctl set ${toString value}"
+                  # character row right below
+                  "$mainMod, code:${toString (i + 24)}, exec, ${config.avizo.package}/bin/volumectl set ${toString value}"
+                ])
+                10);
             };
           })
         ];
