@@ -449,31 +449,22 @@ in {
             name = "screenshot";
             trigger = "$mainMod,X";
             settings = {
-              bind =
-                [
-                  "$mainMod, S, exec, hyprshot -m region --clipboard-only"
-                  "$mainMod, S, submap, reset"
+              bind = [
+                "$mainMod, S, exec, hyprshot -m region --clipboard-only"
+                "$mainMod, S, submap, reset"
 
-                  "$mainMod, W, exec, hyprshot -m window"
-                  "$mainMod, W, submap, reset"
+                "$mainMod, W, exec, hyprshot -m window"
+                "$mainMod, W, submap, reset"
 
-                  "$mainMod, F, exec, hyprshot -m output"
-                  "$mainMod, F, submap, reset"
+                "$mainMod, F, exec, hyprshot -m output"
+                "$mainMod, F, submap, reset"
 
-                  "$mainMod, R, exec, hyprshot -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy"
-                  "$mainMod, R, submap, reset"
-                ]
-                ++ (
-                  if config.home.withNixGL.enable
-                  then [
-                    "$mainMod, E, exec, [float] hyprshot -m region --raw | satty --filename -"
-                    "$mainMod, E, submap, reset"
-                  ]
-                  else [
-                    "$mainMod, E, exec, notify-send screenshot Enable nixGL for `satty` to work"
-                    "$mainMod, E, submap, reset"
-                  ]
-                );
+                "$mainMod, R, exec, hyprshot -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy"
+                "$mainMod, R, submap, reset"
+
+                "$mainMod, E, exec, [float] hyprshot -m region --raw | satty --filename -"
+                "$mainMod, E, submap, reset"
+              ];
             };
           })
         ];
