@@ -119,7 +119,13 @@ in {
       wlogout = {
         enable = true;
         override-layout = {
-          Logout.action = "hyprctl dispatch exit";
+          Logout.action = "${pkgs.writeShellScript "hyprexitwithgrace" ''
+            LOGFILE=/tmp/hypr/hyprexitwithgrace.log
+            mkdir -p $(dirname "$LOGFILE")
+            HYPRCMDS=$(hyprctl -j clients | jq -j '.[] | "dispatch closewindow address:\(.address); "')
+            hyprctl --batch "$HYPRCMDS" >> "$LOGFILE" 2>&1
+            hyprctl dispatch exit >> "$LOGFILE" 2>&1
+          ''}";
         };
       };
       home.packages = [
