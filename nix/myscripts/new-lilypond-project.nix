@@ -28,12 +28,12 @@
       src = fetchFromGitHub {
         owner = "niveK77pur";
         repo = "nvim";
-        rev = "f31866f351e392024559c4f4be814f1b7d5ea522";
+        rev = "722053eff995";
         sparseCheckout = [
           "scripts"
           "skeletons/Lilypond/newfile"
         ];
-        sha256 = "sha256-Z99UWQM5/UbzXS09wkSrSBJ/7T82/usod7osRg5JHWo=";
+        sha256 = "sha256-i+QSdYTF5CVVSrcChd87KxqY5SmDptJqYe7/1kAM9Iw=";
       };
 
       buildInputs = [makeWrapper];
