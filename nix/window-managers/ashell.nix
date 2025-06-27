@@ -25,8 +25,8 @@ in {
     fuzzel.enable = true;
     wezterm.enable = true;
     xdg.configFile."ashell/config.toml".source = tomlFormat.generate "ashell-config" {
-      appLauncherCmd = "fuzzel";
-      clipboardCmd = "${config.wezterm.package}/bin/wezterm start --class clipse -e clipse";
+      app_launcher_cmd = "fuzzel";
+      clipboard_cmd = "${config.wezterm.package}/bin/wezterm start --class clipse -e clipse";
       modules = {
         left = [
           "AppLauncher"
