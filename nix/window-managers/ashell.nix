@@ -46,6 +46,9 @@ in {
           ]
         ];
       };
+      settings = {
+        wifi_more_cmd = "nm-connection-editor";
+      };
     };
   };
 }
