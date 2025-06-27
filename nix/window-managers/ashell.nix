@@ -6,6 +6,7 @@
   ...
 }: let
   cfg = config.ashell;
+  tomlFormat = pkgs.formats.toml {};
 in {
   options.ashell = {
     enable = lib.mkEnableOption "ashell";
@@ -23,7 +24,7 @@ in {
     home.packages = [cfg.package];
     fuzzel.enable = true;
     wezterm.enable = true;
-    xdg.configFile."ashell.yml".text = builtins.toJSON {
+    xdg.configFile."ashell/config.toml".source = tomlFormat.generate "ashell-config" {
       appLauncherCmd = "fuzzel";
       clipboardCmd = "${config.wezterm.package}/bin/wezterm start --class clipse -e clipse";
       modules = {
