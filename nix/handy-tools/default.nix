@@ -27,6 +27,7 @@
     ./pay-respects.nix
     ./hours.nix
     ./magic-wormhole.nix
+    ./mosh.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -55,5 +56,6 @@
     pay-respects.enable = lib.mkDefault true;
     hours.enable = lib.mkDefault true;
     magic-wormhole.enable = lib.mkDefault true;
+    mosh.enable = lib.mkDefault true;
   };
 }
