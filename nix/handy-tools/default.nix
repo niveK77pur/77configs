@@ -26,6 +26,7 @@
     ./comma.nix
     ./pay-respects.nix
     ./hours.nix
+    ./magic-wormhole.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -53,5 +54,6 @@
     comma.enable = lib.mkDefault true;
     pay-respects.enable = lib.mkDefault true;
     hours.enable = lib.mkDefault true;
+    magic-wormhole.enable = lib.mkDefault true;
   };
 }
