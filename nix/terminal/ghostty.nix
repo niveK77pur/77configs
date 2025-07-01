@@ -10,7 +10,7 @@ in {
   options.ghostty = {
     enable = lib.mkEnableOption "ghostty";
     package = lib.mkOption {
-      type = lib.types.package;
+      type = lib.types.nullOr lib.types.package;
       default = wrapNixGL {
         binName = "ghostty";
         inherit config;
