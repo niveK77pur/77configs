@@ -30,7 +30,11 @@
       # Home Manager needs a bit of information about you and the paths it should
       # manage.
       inherit username;
-      homeDirectory = "/home/${config.home.username}";
+      homeDirectory = "/${
+        if pkgs.stdenv.isDarwin
+        then "Users"
+        else "home"
+      }/${config.home.username}";
 
       # This value determines the Home Manager release that your configuration is
       # compatible with. This helps avoid breakage when a new Home Manager release
