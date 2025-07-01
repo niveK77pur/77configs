@@ -121,6 +121,16 @@
               sha512 = "sha512-OnrdZY4VVofo0h9KAyktmhw4xDi3UE2uA5c2HSx9u6+ts3OuixTdmSQd2/DqNYGzB/a4IVoKa8Wm2Xi9oCrx5A==";
             };
           }
+
+          {
+            name = "nix-env.fish";
+            src = pkgs.fetchFromGitHub {
+              owner = "lilyball";
+              repo = "nix-env.fish";
+              rev = "7b65bd2";
+              sha512 = "sha512-qWpjZVWcSkkTOcF+5yik2YwlFYxWxLp28zVNhRKs8EqnIwGAvrxVDOB6nmhVT4D2MxygFbh51pzG2lQ8aI1ZGg==";
+            };
+          }
         ];
       };
     };
