@@ -171,6 +171,25 @@
           };
         }
       ])
+
+      (makeUser "kbiewesch" [
+        {
+          config = {
+            coding.enableAll = true;
+            handy-tools.enableAll = true;
+            kdeconnect.enable = false;
+            lf.enable = false; # TODO: Check dragon-drop causes issues
+            fish.enable = true;
+            ghostty = {
+              enable = true;
+              package = null;
+            };
+            starship.enable = true;
+            git = {inherit (git) userName userEmail;};
+            jj = {inherit (git) userName userEmail;};
+          };
+        }
+      ])
     ];
 
     devShells.${system}.default = pkgs.mkShell {
