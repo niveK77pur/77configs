@@ -19,7 +19,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.xdg-desktop-portal-gtk];
+    home.packages = lib.lists.optional pkgs.stdenv.isLinux pkgs.xdg-desktop-portal-gtk;
     programs.ghostty = {
       inherit (cfg) package;
       enable = true;
