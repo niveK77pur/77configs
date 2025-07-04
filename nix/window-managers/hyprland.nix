@@ -146,7 +146,6 @@ in {
         '')
         pkgs.xdg-desktop-portal-hyprland
       ];
-      vieb.useWayland = true;
 
       services.hyprpolkitagent.enable = true;
 
