@@ -14,6 +14,7 @@ in {
       enable = true;
       policies = {
         DefaultDownloadDirectory = "/tmp/floorp-downloads";
+        DontCheckDefaultBrowser = true;
       };
     };
   };
