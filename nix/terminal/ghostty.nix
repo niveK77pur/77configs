@@ -19,7 +19,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.lists.optional pkgs.stdenv.isLinux pkgs.xdg-desktop-portal-gtk;
+    home.packages = lib.lists.concatLists [
+      [
+        pkgs.nerd-fonts.fira-code
+        pkgs.maple-mono.NF
+      ]
+      (lib.lists.optional pkgs.stdenv.isLinux pkgs.xdg-desktop-portal-gtk)
+    ];
     programs.ghostty = {
       inherit (cfg) package;
       enable = true;
@@ -27,6 +33,10 @@ in {
       settings = {
         theme = "duskfox";
         font-size = 10;
+        font-family = "Maple Mono NF";
+        # font-family-bold = "FiraCode NF";
+        # font-family-italic = "Maple Mono NF";
+        # font-family-bold-italic = "Maple Mono NF";
         unfocused-split-opacity = 0.5;
         gtk-single-instance = true;
         shell-integration-features = "sudo";
