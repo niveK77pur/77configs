@@ -119,7 +119,12 @@ in {
       ashell.enable = true;
       flameshot.enable = false;
       pass.enable = true;
-      ghostty.enable = true;
+      ghostty = {
+        enable = true;
+        settings_override = {
+          font-size = 10;
+        };
+      };
       wlogout = {
         enable = true;
         override-layout = {
