@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -13,6 +14,7 @@
     ./wlogout.nix
     ./gammastep.nix
     ./avizo.nix
+    ./autoraise.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
@@ -27,5 +29,6 @@
     wlogout.enable = lib.mkDefault true;
     gammastep.enable = lib.mkDefault true;
     avizo.enable = lib.mkDefault true;
+    autoraise.enable = lib.mkDefault pkgs.stdenv.isDarwin;
   };
 }
