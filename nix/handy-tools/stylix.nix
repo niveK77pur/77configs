@@ -15,6 +15,21 @@ in {
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.vimPlugins.nightfox-nvim}/extra/duskfox/base16.yaml";
+      fonts = {
+        monospace = {
+          package = pkgs.maple-mono.NF;
+          name = "Maple Mono NF";
+        };
+        sansSerif = {
+          package = pkgs.carlito;
+          name = "Carlito";
+        };
+        serif = {
+          # TODO: Find better font
+          package = pkgs.carlito;
+          name = "Carlito";
+        };
+      };
       targets = {
         neovim.enable = false;
       };
