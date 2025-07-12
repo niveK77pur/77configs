@@ -4,8 +4,8 @@
   ...
 }: {
   options.starship.enable = lib.mkEnableOption "starship";
-  config = {
-    programs.starship = lib.mkIf config.starship.enable {
+  config = lib.mkIf config.starship.enable {
+    programs.starship = {
       enable = true;
       # enableTransience = true;
     };
