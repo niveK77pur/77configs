@@ -28,6 +28,7 @@
     ./hours.nix
     ./magic-wormhole.nix
     ./mosh.nix
+    ./stylix.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -57,5 +58,6 @@
     hours.enable = lib.mkDefault true;
     magic-wormhole.enable = lib.mkDefault true;
     mosh.enable = lib.mkDefault true;
+    sx.enable = lib.mkDefault true;
   };
 }

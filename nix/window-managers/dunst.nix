@@ -29,8 +29,8 @@ in {
           padding = 8;
           horizontal_padding = 8;
           frame_width = 2;
-          frame_color = "#e68a00";
-          separator_color = "frame";
+          # frame_color = "#e68a00";
+          # separator_color = "frame";
           sort = true;
           idle_threshold = 120;
 
@@ -90,22 +90,22 @@ in {
         };
 
         # Urgency sections {{{
-        urgency_low = {
-          background = "#222222";
-          foreground = "#888888";
-          timeout = 10;
-        };
-        urgency_normal = {
-          background = "#444444";
-          foreground = "#ffffff";
-          timeout = 10;
-        };
-        urgency_critical = {
-          background = "#900000";
-          foreground = "#ffffff";
-          frame_color = "#ff0000";
-          timeout = 0;
-        };
+        # urgency_low = {
+        #   background = "#222222";
+        #   foreground = "#888888";
+        #   timeout = 10;
+        # };
+        # urgency_normal = {
+        #   background = "#444444";
+        #   foreground = "#ffffff";
+        #   timeout = 10;
+        # };
+        # urgency_critical = {
+        #   background = "#900000";
+        #   foreground = "#ffffff";
+        #   frame_color = "#ff0000";
+        #   timeout = 0;
+        # };
         #  }}}
       };
     };
