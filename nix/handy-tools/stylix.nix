@@ -32,6 +32,7 @@ in {
       };
       targets = {
         neovim.enable = false;
+        firefox.enable = false;
       };
     };
   };
