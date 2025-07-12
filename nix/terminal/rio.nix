@@ -13,12 +13,12 @@
     programs.rio = {
       enable = true;
       settings = {
-        fonts = {
-          family = "FiraCode Nerd Font";
-          italic = {
-            family = "Victor Mono NF";
-          };
-        };
+        # fonts = {
+        #   family = "FiraCode Nerd Font";
+        #   italic = {
+        #     family = "Victor Mono NF";
+        #   };
+        # };
         use-fork = true;
       };
     };
