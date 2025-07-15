@@ -193,6 +193,7 @@
             starship.enable = true;
             git = {inherit (git) userName userEmail;};
             jj = {inherit (git) userName userEmail;};
+            autoraise.enable = true;
           };
         }
       ])
