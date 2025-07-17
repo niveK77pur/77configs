@@ -12,7 +12,11 @@
         fps_limit = "60,90,120,0";
         fps_limit_method = "early";
         no_display = true;
-        background_alpha = 0.3;
+        background_alpha = lib.mkForce 0.3;
+
+        font_size = lib.mkForce 24;
+        font_size_text = lib.mkForce 24;
+        font_scale = lib.mkForce 1;
 
         # visual
         time = true;
