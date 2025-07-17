@@ -70,6 +70,12 @@
             };
           })
 
+          (lib.mkIf config.lazyjj.enable {
+            lj = makeAlias {
+              body = "lazyjj $argv";
+            };
+          })
+
           (lib.mkIf config.programs.tmux.enable {
             t = makeAlias {
               body = "tmux $argv";

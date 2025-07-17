@@ -26,6 +26,6 @@
     gh.enable = lib.mkDefault true;
     lazygit.enable = lib.mkDefault true;
     ripgrep.enable = lib.mkDefault true;
-    layzjj.enable = lib.mkDefault true;
+    lazyjj.enable = lib.mkDefault true;
   };
 }
