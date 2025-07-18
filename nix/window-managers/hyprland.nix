@@ -299,6 +299,11 @@ in {
             };
 
             # {{{2
+            xwayland = {
+              force_zero_scaling = true;
+            };
+
+            # {{{2
             # # Example per-device config
             # # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
             # "device:epic-mouse-v1" = {
