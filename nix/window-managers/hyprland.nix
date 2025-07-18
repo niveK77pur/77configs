@@ -8,20 +8,28 @@
   cfg = config.hyprland;
   #  {{{1
   envVars = {
-    # Hint Electron apps to use Wayland:
+    # Hint Electron apps to use Wayland
+    # https://wiki.hypr.land/Getting-Started/Master-Tutorial/#force-apps-to-use-wayland
     NIXOS_OZONE_WL = "1";
-    # Hint QT apps to use Wayland:
+
+    # Toolkit Backend Variables
+    # https://wiki.hypr.land/Configuring/Environment-variables/#toolkit-backend-variables
+    GDK_BACKEND = "wayland,x11,*";
     QT_QPA_PLATFORM = "wayland;xcb";
-    # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    # QT_QPA_PLATFORMTHEME = "qt5ct";
-    # XCURSOR_SIZE = "24";
-    # XDG_CURRENT_DESKTOP = "Hyprland";
-    # XDG_SESSION_TYPE = "wayland";
-    # XDG_SESSION_DESKTOP = "Hyprland";
-    # GDK_BACKEND = "wayland,x11";
-    # SDL_VIDEODRIVER = "wayland";
-    # CLUTTER_BACKEND = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    CLUTTER_BACKEND = "wayland";
+
+    # XDG Specifications
+    # https://wiki.hypr.land/Configuring/Environment-variables/#xdg-specifications
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+
+    # Qt Variables
+    # https://wiki.hypr.land/Configuring/Environment-variables/#qt-variables
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    # QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
+    # QT_QPA_PLATFORMTHEME="qt5ct";
   };
   #  {{{1
   mkSubMap = {
