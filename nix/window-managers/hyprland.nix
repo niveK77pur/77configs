@@ -109,6 +109,13 @@ in {
             description = "Scale of the monitor";
             example = "1";
           };
+          #  {{{2
+          extraArgs = lib.mkOption {
+            default = {};
+            type = lib.types.attrs;
+            description = "Scale of the monitor";
+            example = ''{ mirror = "DP-1"; vrr = 1; }'';
+          };
           #  }}}2
         };
       }));
@@ -479,12 +486,13 @@ in {
             monitor =
               builtins.map (
                 m:
-                  lib.strings.concatStringsSep ", " [
-                    m.name
-                    m.resolution
-                    m.position
-                    (builtins.toString m.scale)
-                  ]
+                  lib.strings.concatStringsSep ", " ([
+                      m.name
+                      m.resolution
+                      m.position
+                      (builtins.toString m.scale)
+                    ]
+                    ++ (lib.mapAttrsToList (arg: val: "${arg}, ${toString val}") m.extraArgs))
               )
               cfg.monitor;
           })
