@@ -106,6 +106,14 @@
                   name = "eDP-1";
                   scale = 1.6;
                 }
+                {
+                  name = "desc:Sony SONY TV  *00 0x01010101";
+                  # resolution = "1920x1080@60";
+                  scale = 2;
+                  extraArgs = {
+                    vrr = 3;
+                  };
+                }
               ];
             };
           };
