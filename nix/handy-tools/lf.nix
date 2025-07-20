@@ -20,6 +20,10 @@ in {
           shellopts = "-eu";
           scrolloff = 10;
           inherit (cfg) icons;
+          cleaner = toString (pkgs.writeShellScript "cleaner.sh" ''
+            # See https://github.com/gokcehan/lf/issues/1885#issuecomment-2885921225
+            printf "\e_Ga=d,d=A;\e\\" >/dev/tty
+          '');
         };
         keybindings = {
           D = "delete";
@@ -116,7 +120,41 @@ in {
               fi
             }}'';
         };
-        previewer = {};
+        previewer = {
+          source = pkgs.writeShellScript "preview.sh" ''
+            file="$1"
+            width="$2"
+            heigt="$3"
+            x="$4"
+            y="$5"
+
+            chafaPreview() (
+              # See https://github.com/gokcehan/lf/issues/1885#issuecomment-2885921225
+              # Buffer the output of chafa
+              output=$(${pkgs.chafa}/bin/chafa --format kitty --animate off --polite on --size "$width"x"$height" "$@")
+              printf "\e["$(($y + 1))";"$x"H" >/dev/tty # set the cursor to the correct position
+              printf $output >/dev/tty # print the chafa output
+              exit 1 # exit with non-zero, so that the image gets redrawn every time
+            )
+
+            case "$(file -Lb --mime-type -- "$file")" in
+              image/*) chafaPreview "$file" ;;
+              video/*)
+                  prev=$(mktemp --suffix=.jpg)
+                  trap 'rm -rf -- "$prev"' EXIT
+                  ${pkgs.ffmpegthumbnailer}/bin/ffmpegthumbnailer -s0 -m -f -i "$file" -c jpeg -o "$prev"
+                  chafaPreview "$prev"
+                ;;
+              application/pdf)
+                  prev=$(mktemp --suffix=.qoi)
+                  trap 'rm -rf -- "$prev"' EXIT
+                  ${pkgs.imagemagick.override {ghostscriptSupport = true;}}/bin/magick "$file[0]" "$prev"
+                  chafaPreview --threshold=1 --bg=white "$prev"
+                ;;
+              *) ${pkgs.pistol}/bin/pistol "$file" ;;
+            esac
+          '';
+        };
       };
     }
     (lib.mkIf cfg.icons {
