@@ -187,7 +187,6 @@
             coding.enableAll = true;
             handy-tools.enableAll = true;
             kdeconnect.enable = false;
-            lf.enable = false; # TODO: Check dragon-drop causes issues
             fish.enable = true;
             ghostty = {
               enable = true;
