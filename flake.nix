@@ -161,6 +161,11 @@
                   name = "HDMI-A-1";
                   position = "auto-up";
                 }
+                {
+                  name = "desc:LG Electronics LG ULTRAFINE 0x00015B5D";
+                  position = "auto-up";
+                  scale = 1.6;
+                }
               ];
             };
           };
