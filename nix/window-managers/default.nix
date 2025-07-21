@@ -16,6 +16,7 @@
     ./avizo.nix
     ./autoraise.nix
     ./hyprlock.nix
+    ./hypridle.nix
   ];
 
   options.window-managers.enableAll = lib.mkEnableOption "window-managers";
