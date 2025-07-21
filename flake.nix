@@ -123,6 +123,11 @@
       (makeUser "kuni" [
         {
           config = {
+            home.packages = [
+              pkgs.bitwarden-desktop
+              pkgs.google-cloud-sdk
+            ];
+            claude.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {
