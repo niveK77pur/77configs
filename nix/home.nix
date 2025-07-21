@@ -115,6 +115,7 @@
         "steam-unwrapped"
         "discord"
         "nvidia"
+        "claude-code"
       ];
   };
 }

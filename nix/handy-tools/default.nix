@@ -29,6 +29,7 @@
     ./magic-wormhole.nix
     ./mosh.nix
     ./stylix.nix
+    ./claude.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
