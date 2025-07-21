@@ -152,6 +152,8 @@ in {
           ''}";
         };
       };
+      hyprlock.enable = true;
+      hypridle.enable = true;
       gammastep.enable = true;
       avizo.enable = true;
       home.packages = [
