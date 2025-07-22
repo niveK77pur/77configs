@@ -128,6 +128,7 @@
               pkgs.google-cloud-sdk
             ];
             claude.enable = true;
+            services.ssh-agent.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {
