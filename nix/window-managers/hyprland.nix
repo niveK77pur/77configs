@@ -400,10 +400,17 @@ in {
                 "$mainMod CTRL, RETURN, exec, [float] ${cfg.terminal}"
                 "$mainMod SHIFT, Q, killactive,"
                 "$mainMod, M, exec, wlogout --show-binds"
-                "$mainMod, SPACE, togglefloating,"
+                (mkBind {
+                  extraMods = ["CTRL"];
+                  key = "SPACE";
+                  dispatcher = "togglefloating";
+                })
+                (mkBind {
+                  key = "SPACE";
+                  dispatcher = "changegroupactive";
+                })
                 "$mainMod, D, exec, exec `${cfg.launcher}`"
                 "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
-                # "$mainMod, J, togglesplit, # dwindle"
 
                 # Move focus with mainMod + arrow keys {{{
                 "$mainMod, left, movefocus, l"
@@ -556,6 +563,40 @@ in {
                 ])
                 10);
             };
+          })
+
+          (mkSubMap {
+            name = "layout";
+            trigger = "$mainMod,W";
+            trigger-resets = true;
+            settings.bind = lib.lists.concatLists [
+              # dwindle
+              (mkBind {
+                key = "D";
+                dispatcher = "layoutmsg";
+                params = "togglesplit";
+                submap-reset = true;
+              })
+              (mkBind {
+                key = "S";
+                dispatcher = "layoutmsg";
+                params = "swapsplit";
+                submap-reset = true;
+              })
+
+              # grouped/tabbed windows
+              (mkBind {
+                key = "T";
+                dispatcher = "togglegroup";
+                submap-reset = true;
+              })
+              (mkBind {
+                key = "L";
+                dispatcher = "lockactivegroup";
+                params = "toggle";
+                submap-reset = true;
+              })
+            ];
           })
         ];
       };
