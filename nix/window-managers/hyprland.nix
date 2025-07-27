@@ -51,6 +51,23 @@
       "submap = reset"
     ];
   #  {{{1
+  mkBind = {
+    MODS ? "$mainMod",
+    extraMods ? [],
+    key,
+    dispatcher ? "exec",
+    params ? [],
+    args ? [],
+    submap-reset ? null,
+  }: let
+    # use lists as default values to completely exclude attribute from bind definition
+    mods = lib.concatStringsSep " " (lib.lists.flatten [MODS extraMods]);
+    bind = lib.concatStringsSep ", " (lib.lists.flatten [mods key dispatcher params args]);
+  in
+    if submap-reset == null
+    then bind
+    else [bind] ++ (lib.lists.optional submap-reset (lib.concatStringsSep ", " [mods key "submap" "reset"]));
+  #  {{{1
   mkWindowRule = {
     # See: https://wiki.hyprland.org/Configuring/Window-Rules/
     rules,
