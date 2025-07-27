@@ -129,6 +129,7 @@
             ];
             claude.enable = true;
             services.ssh-agent.enable = true;
+            firefox.enableKyomeiProfile = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {
