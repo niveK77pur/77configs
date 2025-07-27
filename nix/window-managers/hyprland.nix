@@ -273,6 +273,7 @@ in {
               pseudotile = true;
               # you probably want this
               preserve_split = true;
+              smart_split = true;
             };
 
             # {{{2
