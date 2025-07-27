@@ -396,10 +396,24 @@ in {
             {
               #  {{{1
               bind = [
-                "$mainMod, RETURN, exec, ${cfg.terminal}"
-                "$mainMod CTRL, RETURN, exec, [float] ${cfg.terminal}"
-                "$mainMod SHIFT, Q, killactive,"
-                "$mainMod, M, exec, wlogout --show-binds"
+                (mkBind {
+                  key = "RETURN";
+                  params = "${cfg.terminal}";
+                })
+                (mkBind {
+                  extraMods = "CTRL";
+                  key = "RETURN";
+                  params = "[float] ${cfg.terminal}";
+                })
+                (mkBind {
+                  extraMods = "SHIFT";
+                  key = "Q";
+                  dispatcher = "killactive";
+                })
+                (mkBind {
+                  key = "M";
+                  params = "wlogout --show-binds";
+                })
                 (mkBind {
                   extraMods = ["CTRL"];
                   key = "SPACE";
@@ -409,8 +423,14 @@ in {
                   key = "SPACE";
                   dispatcher = "changegroupactive";
                 })
-                "$mainMod, D, exec, exec `${cfg.launcher}`"
-                "$mainMod, P, exec, ${pkgs.pass}/bin/passmenu"
+                (mkBind {
+                  key = "D";
+                  params = "exec `${cfg.launcher}`";
+                })
+                (mkBind {
+                  key = "P";
+                  params = "${pkgs.pass}/bin/passmenu";
+                })
 
                 # Move focus with mainMod + arrow keys {{{
                 "$mainMod, left, movefocus, l"
@@ -460,30 +480,68 @@ in {
                 "$mainMod SHIFT, 0, movetoworkspace, 10"
                 #  }}}
                 # Focus urgend or last window
-                "$mainMod, U, focusurgentorlast,"
+                (mkBind {
+                  key = "U";
+                  dispatcher = "focusurgentorlast";
+                })
 
                 # Fullscreen windows
-                "$mainMod, F, fullscreen,"
-                "$mainMod SHIFT, F, fullscreenstate, 0 2"
-                "$mainMod CTRL, F, fullscreenstate, 2 0"
+                (mkBind {
+                  key = "F";
+                  dispatcher = "fullscreen";
+                })
+                (mkBind {
+                  extraMods = "SHIFT";
+                  key = "F";
+                  dispatcher = "fullscreenstate";
+                  params = "0 2";
+                })
+                (mkBind {
+                  extraMods = "CTRL";
+                  key = "F";
+                  dispatcher = "fullscreenstate";
+                  params = "2 0";
+                })
 
                 # Dunst notifications
-                "$mainMod, F1, exec, ${pkgs.writeShellScript "dunst-toggle.sh" ''
-                  dunstctl set-paused toggle
-                  [ "$(dunstctl is-paused)" = "false" ] && notify-send --urgency=low "dunstctl" "Notifications are back on"
-                ''}"
-                "$mainMod, F2, exec, dunstctl history-pop"
-                "$mainMod, F3, exec, dunstctl close"
-                "$mainMod SHIFT, F3, exec, dunstctl close-all"
+                (mkBind {
+                  key = "F1";
+                  params = pkgs.writeShellScript "dunst-toggle.sh" ''
+                    dunstctl set-paused toggle
+                    [ "$(dunstctl is-paused)" = "false" ] && notify-send --urgency=low "dunstctl" "Notifications are back on"
+                  '';
+                })
+                (mkBind {
+                  key = "F2";
+                  params = "dunstctl history-pop";
+                })
+                (mkBind {
+                  key = "F3";
+                  params = "dunstctl close";
+                })
+                (mkBind {
+                  extraMods = "SHIFT";
+                  key = "F3";
+                  params = "dunstctl close-all";
+                })
 
                 # clipboard manager
-                "$mainMod, V, exec, ${config.wezterm.package}/bin/wezterm start --class clipse -e clipse"
+                (mkBind {
+                  key = "V";
+                  params = "${config.wezterm.package}/bin/wezterm start --class clipse -e clipse";
+                })
               ];
               #  {{{1
               bindm = [
                 # Move/resize windows with mainMod + LMB/RMB and dragging
-                (mkBind{key="mouse:272";dispatcher="movewindow";})
-                (mkBind{key="mouse:273";dispatcher="resizewindow";})
+                (mkBind {
+                  key = "mouse:272";
+                  dispatcher = "movewindow";
+                })
+                (mkBind {
+                  key = "mouse:273";
+                  dispatcher = "resizewindow";
+                })
               ];
               #  }}}1
             }
