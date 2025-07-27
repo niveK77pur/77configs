@@ -529,21 +529,32 @@ in {
             name = "screenshot";
             trigger = "$mainMod,X";
             settings = {
-              bind = [
-                "$mainMod, S, exec, hyprshot -m region --clipboard-only"
-                "$mainMod, S, submap, reset"
-
-                "$mainMod, W, exec, hyprshot -m window"
-                "$mainMod, W, submap, reset"
-
-                "$mainMod, F, exec, hyprshot -m output"
-                "$mainMod, F, submap, reset"
-
-                "$mainMod, R, exec, hyprshot -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy"
-                "$mainMod, R, submap, reset"
-
-                "$mainMod, E, exec, [float] hyprshot -m region --raw | satty --filename -"
-                "$mainMod, E, submap, reset"
+              bind = lib.lists.concatLists [
+                (mkBind {
+                  key = "S";
+                  params = "hyprshot -m region --clipboard-only";
+                  submap-reset = true;
+                })
+                (mkBind {
+                  key = "W";
+                  params = "hyprshot -m window";
+                  submap-reset = true;
+                })
+                (mkBind {
+                  key = "F";
+                  params = "hyprshot -m output";
+                  submap-reset = true;
+                })
+                (mkBind {
+                  key = "R";
+                  params = "hyprshot -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy";
+                  submap-reset = true;
+                })
+                (mkBind {
+                  key = "E";
+                  params = "[float] hyprshot -m region --raw | satty --filename -";
+                  submap-reset = true;
+                })
               ];
             };
           })
@@ -557,9 +568,15 @@ in {
                   value = (i + 1) * 10;
                 in [
                   # number row
-                  "$mainMod, code:${toString (i + 10)}, exec, ${config.avizo.package}/bin/lightctl set ${toString value}"
+                  (mkBind {
+                    key = "code:${toString (i + 10)}";
+                    params = "${config.avizo.package}/bin/lightctl set ${toString value}";
+                  })
                   # character row right below
-                  "$mainMod, code:${toString (i + 24)}, exec, ${config.avizo.package}/bin/volumectl set ${toString value}"
+                  (mkBind {
+                    key = "code:${toString (i + 24)}";
+                    params = "${config.avizo.package}/bin/volumectl set ${toString value}";
+                  })
                 ])
                 10);
             };
