@@ -422,6 +422,13 @@ in {
                 (mkBind {
                   key = "SPACE";
                   dispatcher = "changegroupactive";
+                  params = "f";
+                })
+                (mkBind {
+                  extraMods = "SHIFT";
+                  key = "SPACE";
+                  dispatcher = "changegroupactive";
+                  params = "b";
                 })
                 (mkBind {
                   key = "D";
