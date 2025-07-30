@@ -116,6 +116,7 @@
         "discord"
         "nvidia"
         "claude-code"
+        "slack"
       ];
   };
 }

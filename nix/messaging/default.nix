@@ -8,6 +8,7 @@
     ./ferdium.nix
     ./thunderbird.nix
     ./signal.nix
+    ./slack.nix
   ];
 
   options.messaging.enableAll = lib.mkEnableOption "messaging";
