@@ -130,6 +130,7 @@
             claude.enable = true;
             services.ssh-agent.enable = true;
             firefox.enableKyomeiProfile = true;
+            slack.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {
