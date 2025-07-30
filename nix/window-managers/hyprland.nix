@@ -381,6 +381,16 @@ in {
                   "noinitialfocus"
                 ];
               })
+
+              (mkWindowRule {
+                parameters = "class:Slack";
+                rules = [
+                  "monitor 0"
+                  "workspace 9"
+                  "noinitialfocus"
+                ];
+              })
+
             ];
 
             # Key Bindings {{{1
