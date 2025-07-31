@@ -129,7 +129,10 @@
             ];
             claude.enable = true;
             services.ssh-agent.enable = true;
-            firefox.enableKyomeiProfile = true;
+            firefox = {
+              enableKyomeiProfile = true;
+              defaultProfile = "kyomei";
+            };
             slack.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
