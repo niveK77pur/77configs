@@ -390,7 +390,6 @@ in {
                   "noinitialfocus"
                 ];
               })
-
             ];
 
             # Key Bindings {{{1
