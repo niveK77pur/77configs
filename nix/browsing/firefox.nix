@@ -49,6 +49,11 @@ in {
               tags = ["messaging"];
               url = "https://kyomei-ai.slack.com/messages";
             }
+            {
+              name = "Community City Incubator";
+              tags = ["incubator"];
+              url = "https://community.cityincubator.lu/dashboard";
+            }
           ];
         };
         #  {{{1
