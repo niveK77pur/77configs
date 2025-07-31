@@ -315,7 +315,7 @@ in {
             # {{{2
             misc = {
               enable_swallow = true;
-              swallow_regex = "^org.wezfurlong.wezterm$";
+              swallow_regex = "^org.wezfurlong.wezterm$|^com.mitchellh.ghostty$";
               # cursor_zoom_factor = 1.0; # ISSUE: Option does not exist anymore
             };
 
