@@ -677,7 +677,7 @@ in {
 
               # grouped/tabbed windows
               (mkBind {
-                key = "T";
+                key = "G";
                 dispatcher = "togglegroup";
                 submap-reset = true;
               })
