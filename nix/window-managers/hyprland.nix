@@ -687,6 +687,13 @@ in {
                 params = "toggle";
                 submap-reset = true;
               })
+
+              # swallow windows
+              (mkBind {
+                key = "X";
+                dispatcher = "toggleswallow";
+                submap-reset = true;
+              })
             ];
           })
         ];
