@@ -8,18 +8,27 @@ in {
   options.firefox = {
     enable = lib.mkEnableOption "firefox";
     enableKyomeiProfile = lib.mkEnableOption "firefox";
+    defaultProfile = lib.mkOption {
+      type = lib.types.str;
+      default = "default";
+      description = "Which profile name to set as default";
+    };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       programs.firefox = {
         enable = true;
-        profiles.default = {};
+        profiles = {
+          default = {
+            isDefault = lib.mkDefault false;
+          };
+          ${cfg.defaultProfile}.isDefault = true;
+        };
       };
     }
     (lib.mkIf cfg.enableKyomeiProfile {
       programs.firefox.profiles.kyomei = {
-        isDefault = false;
         id = 1;
         search.default = "ddg";
         #  {{{1
