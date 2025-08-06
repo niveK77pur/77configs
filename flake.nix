@@ -58,7 +58,7 @@
         # the path to your home.nix.
         modules =
           [
-            nix-index-database.hmModules.nix-index
+            nix-index-database.homeModules.nix-index
             ./nix/home.nix
             ./nix/categories.nix
           ]
