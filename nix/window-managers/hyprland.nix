@@ -610,12 +610,12 @@ in {
                 })
                 (mkBind {
                   key = "W";
-                  params = "hyprshot -m window";
+                  params = "hyprshot -m window --clipboard-only";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "F";
-                  params = "hyprshot -m output";
+                  params = "hyprshot -m output --clipboard-only";
                   submap-reset = true;
                 })
                 (mkBind {
