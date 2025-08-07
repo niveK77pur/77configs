@@ -134,6 +134,7 @@
               defaultProfile = "kyomei";
             };
             slack.enable = true;
+            glab.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {
