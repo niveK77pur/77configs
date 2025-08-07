@@ -10,6 +10,7 @@
     ./git.nix
     ./jj.nix
     ./gh.nix
+    ./glab.nix
     ./lazygit.nix
     ./ripgrep.nix
     ./lazyjj.nix
