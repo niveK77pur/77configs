@@ -10,11 +10,15 @@ in {
   imports = [inputs.stylix.homeModules.stylix];
 
   options.sx.enable = lib.mkEnableOption "sx";
+  options.sx.base16Scheme = lib.mkOption {
+    type = lib.types.path;
+    default = "${pkgs.vimPlugins.nightfox-nvim}/extra/duskfox/base16.yaml";
+  };
 
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.vimPlugins.nightfox-nvim}/extra/duskfox/base16.yaml";
+      inherit (cfg) base16Scheme;
       fonts = {
         monospace = {
           package = pkgs.maple-mono.NF;
