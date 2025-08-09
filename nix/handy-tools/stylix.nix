@@ -8,11 +8,12 @@
   cfg = config.sx;
 in {
   imports = [inputs.stylix.homeModules.stylix];
-
-  options.sx.enable = lib.mkEnableOption "sx";
-  options.sx.base16Scheme = lib.mkOption {
-    type = lib.types.path;
-    default = "${pkgs.vimPlugins.nightfox-nvim}/extra/duskfox/base16.yaml";
+  options.sx = {
+    enable = lib.mkEnableOption "sx";
+    base16Scheme = lib.mkOption {
+      type = lib.types.path;
+      default = "${pkgs.vimPlugins.nightfox-nvim}/extra/duskfox/base16.yaml";
+    };
   };
 
   config = lib.mkIf cfg.enable {
