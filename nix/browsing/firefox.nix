@@ -22,6 +22,10 @@ in {
         profiles = {
           default = {
             isDefault = lib.mkDefault false;
+            search = {
+              force = true;
+              default = "ddg";
+            };
           };
           ${cfg.defaultProfile}.isDefault = true;
         };
@@ -30,7 +34,10 @@ in {
     (lib.mkIf cfg.enableKyomeiProfile {
       programs.firefox.profiles.kyomei = {
         id = 1;
-        search.default = "ddg";
+        search = {
+          default = "ddg";
+          force = true;
+        };
         #  {{{1
         settings = {
           "extensions.autoDisableScopes" = 0;
