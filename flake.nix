@@ -156,6 +156,7 @@
               enable = true;
               imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
             };
+            sx.base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
             hyprland = {
               enable = true;
               monitor = [
