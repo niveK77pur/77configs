@@ -24,7 +24,6 @@
     home-manager,
     nixgl,
     nix-index-database,
-    stylix,
     ...
   }: let
     system = "x86_64-linux";
@@ -70,7 +69,6 @@
           inherit
             system
             wrapNixGL
-            stylix
             inputs
             ;
           username = user;

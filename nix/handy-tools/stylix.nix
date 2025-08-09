@@ -2,12 +2,12 @@
   pkgs,
   lib,
   config,
-  stylix,
+  inputs,
   ...
 }: let
   cfg = config.sx;
 in {
-  imports = [stylix.homeModules.stylix];
+  imports = [inputs.stylix.homeModules.stylix];
 
   options.sx.enable = lib.mkEnableOption "sx";
 
