@@ -19,7 +19,7 @@
     };
   };
 
-  outputs = {
+  outputs = inputs @ {
     nixpkgs,
     home-manager,
     nixgl,
@@ -71,6 +71,7 @@
             system
             wrapNixGL
             stylix
+            inputs
             ;
           username = user;
         };
