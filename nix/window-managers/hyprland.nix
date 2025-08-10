@@ -260,7 +260,7 @@ in {
               blur = {
                 enabled = true;
                 size = 3;
-                passes = 1;
+                passes = 2;
                 xray = true; # floating windows see through ignore tiled windows
               };
             };
