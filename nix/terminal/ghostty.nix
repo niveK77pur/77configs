@@ -37,7 +37,7 @@ in {
       installBatSyntax = false; # stuck on a previous generation
       settings =
         {
-          theme = "duskfox";
+          # theme = "duskfox";
           font-family = "Maple Mono NF";
           # font-family-bold = "FiraCode NF";
           # font-family-italic = "Maple Mono NF";
