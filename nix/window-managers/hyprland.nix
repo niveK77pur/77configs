@@ -628,6 +628,12 @@ in {
                   params = "[float] hyprshot -m region --raw | satty --filename -";
                   submap-reset = true;
                 })
+                (mkBind {
+                  # mainly useful for pasting image into claude. See https://github.com/anthropics/claude-code/issues/5113
+                  key = "P";
+                  params = "hyprshot -m region -o /tmp -f screenshot.png ; echo /tmp/screenshot.png | wl-copy";
+                  submap-reset = true;
+                })
               ];
             };
           })
