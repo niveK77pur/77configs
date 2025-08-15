@@ -144,6 +144,7 @@
             wezterm.overrides = {
               font_size = 9.5;
             };
+            zathura.withLilypondXdgOpen = true;
             git = {inherit (git) userName userEmail;};
             jj = {
               inherit (git) userName userEmail;
