@@ -30,6 +30,7 @@
     ./mosh.nix
     ./stylix.nix
     ./claude.nix
+    ./broot.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -60,5 +61,6 @@
     magic-wormhole.enable = lib.mkDefault true;
     mosh.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
+    broot.enable = lib.mkDefault true;
   };
 }
