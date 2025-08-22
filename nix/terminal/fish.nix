@@ -24,6 +24,11 @@
             # lfcd
             bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
           ''
+
+          # For `fifc` plugin
+          ''
+            set -Ux fifc_editor ${pkgs.neovim}/bin/nvim
+          ''
         ];
 
         functions = lib.mkMerge [
@@ -117,6 +122,15 @@
               repo = "fzf.fish";
               rev = "v10.3";
               sha512 = "sha512-PsX3/F4fHO2JCxsws14noGyQ9HMMRMQ2LWqy172Qm9kN+HMndK8NFyz6UDTaD9Zi2D1JTIZeEbQz4ARvTRBmoA==";
+            };
+          }
+          {
+            name = "fifc";
+            src = pkgs.fetchFromGitHub {
+              owner = "gazorby";
+              repo = "fifc";
+              rev = "a01650cd432becdc6e36feeff5e8d657bd7ee84a";
+              sha512 = "sha512-LCRLrefPBZoFaR4t08Ilfyl0/L7p2O/AIWAZsqQqmORtBLyRnRWOdyLW8cGhY9gar2aYolHfWyadhO2Qku4myQ==";
             };
           }
 
