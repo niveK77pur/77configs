@@ -53,6 +53,15 @@ in {
                 "empty() ~ merges() ~ root()" # an empty commit
               ]);
           };
+          #  {{{1
+          aliases = {
+            newm = [
+              "util"
+              "exec"
+              "--"
+              (pkgs.writers.writeFish "jj-new-move-bookmark" (builtins.readFile ./jj/newm.fish))
+            ];
+          }; #  }}}1
         };
       };
     }
@@ -62,3 +71,5 @@ in {
     })
   ]);
 }
+# vim: fdm=marker
+
