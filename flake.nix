@@ -233,6 +233,8 @@
         pkgs.nil
         pkgs.alejandra
         pkgs.statix
+
+        pkgs.fish-lsp
       ];
     };
   };
