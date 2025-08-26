@@ -61,6 +61,12 @@ in {
               "--"
               (pkgs.writers.writeFish "jj-new-move-bookmark" (builtins.readFile ./jj/newm.fish))
             ];
+            rebasem = [
+              "util"
+              "exec"
+              "--"
+              (pkgs.writers.writeFish "jj-rebase-move-bookmark" (builtins.readFile ./jj/rebasem.fish))
+            ];
           }; #  }}}1
         };
       };
