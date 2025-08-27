@@ -54,20 +54,19 @@ in {
               ]);
           };
           #  {{{1
-          aliases = {
-            newm = [
-              "util"
-              "exec"
-              "--"
-              (pkgs.writers.writeFish "jj-new-move-bookmark" (builtins.readFile ./jj/newm.fish))
-            ];
-            rebasem = [
-              "util"
-              "exec"
-              "--"
-              (pkgs.writers.writeFish "jj-rebase-move-bookmark" (builtins.readFile ./jj/rebasem.fish))
-            ];
-          }; #  }}}1
+          aliases = lib.mergeAttrsList [
+            # Custom fish scripts for aliases
+            (lib.lists.foldr (file: agg:
+              agg
+              // {
+                "${lib.removeSuffix ".fish" (builtins.baseNameOf file)}" = [
+                  "util"
+                  "exec"
+                  "--"
+                  (pkgs.writers.writeFish "${baseNameOf file}" file)
+                ];
+              }) {} (lib.fileset.toList ./jj/aliases/fish))
+          ]; #  }}}1
         };
       };
     }
