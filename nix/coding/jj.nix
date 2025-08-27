@@ -55,6 +55,17 @@ in {
           };
           #  {{{1
           aliases = lib.mergeAttrsList [
+            {
+              tug = [
+                "bookmark"
+                "move"
+                "--from"
+                "heads(::@- & bookmarks())"
+                "--to"
+                "@-"
+              ];
+            }
+
             # Custom fish scripts for aliases
             (lib.lists.foldr (file: agg:
               agg
