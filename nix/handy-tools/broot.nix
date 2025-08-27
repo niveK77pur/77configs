@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -16,7 +17,15 @@ in {
         verbs = [
           {
             invocation = "open {command}";
-            execution = "{command} {file}";
+            external = [
+              (toString (pkgs.writeShellScript "open-with-anything" ''
+                file="$1"; shift 1
+                echo "Executing: $@ \"$file\""
+                $@ "$file"
+              ''))
+              "{file}"
+              "{command}"
+            ];
           }
         ];
       };
