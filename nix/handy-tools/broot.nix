@@ -18,11 +18,11 @@ in {
           {
             invocation = "open {command}";
             external = [
-              (toString (pkgs.writeShellScript "open-with-anything" ''
+              "${pkgs.writeShellScript "open-with-anything" ''
                 file="$1"; shift 1
                 echo "Executing: $@ \"$file\""
                 $@ "$file"
-              ''))
+              ''}"
               "{file}"
               "{command}"
             ];
