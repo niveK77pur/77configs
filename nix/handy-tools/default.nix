@@ -31,6 +31,7 @@
     ./stylix.nix
     ./claude.nix
     ./broot.nix
+    ./retry.nix
   ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
@@ -62,5 +63,6 @@
     mosh.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
     broot.enable = lib.mkDefault true;
+    retry.enable = lib.mkDefault true;
   };
 }
