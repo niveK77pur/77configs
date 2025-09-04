@@ -19,16 +19,19 @@ in {
     {
       programs.firefox = {
         enable = true;
-        profiles = {
-          default = {
-            isDefault = lib.mkDefault false;
-            search = {
-              force = true;
-              default = "ddg";
+        profiles =
+          {
+            default = {
+              isDefault = lib.mkDefault false;
+              search = {
+                force = true;
+                default = "ddg";
+              };
             };
+          }
+          // {
+            ${cfg.defaultProfile}.isDefault = true;
           };
-          ${cfg.defaultProfile}.isDefault = true;
-        };
       };
     }
     (lib.mkIf cfg.enableKyomeiProfile {
