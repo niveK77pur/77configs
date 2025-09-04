@@ -11,6 +11,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.magic-wormhole-rs];
+    home.packages = [
+      pkgs.magic-wormhole-rs
+      pkgs.magic-wormhole
+    ];
   };
 }
