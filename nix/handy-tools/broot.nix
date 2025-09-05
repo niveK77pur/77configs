@@ -27,6 +27,15 @@ in {
               "{command}"
             ];
           }
+
+          {
+            key = "ctrl-j";
+            internal = "line_down";
+          }
+          {
+            key = "ctrl-k";
+            internal = "line_up";
+          }
         ];
       };
     };
