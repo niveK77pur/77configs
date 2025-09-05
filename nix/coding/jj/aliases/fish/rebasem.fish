@@ -63,4 +63,4 @@ test -n "$dest_revset"; or begin
 end
 
 jj rebase $argv $source_flag $source_revset $dest_flag $dest_revset
-and jj bookmark move $dest_revset -t $bookmark_revset
+and jj bookmark move --from $dest_revset --to $bookmark_revset
