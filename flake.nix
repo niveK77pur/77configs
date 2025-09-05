@@ -35,6 +35,7 @@
       userEmail = "kevinbiewesch@yahoo.fr";
       userName = "Kevin Laurent Biewesch";
     };
+    stylix-base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
     #  {{{
     wrapNixGL = {
       binName,
@@ -98,6 +99,7 @@
               enable = true;
               imagesDir = "/home/kevin/Pictures/Wallpaper";
             };
+            sx.base16Scheme = stylix-base16Scheme;
             hyprland = {
               enable = true;
               monitor = [
@@ -157,7 +159,7 @@
               enable = true;
               imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
             };
-            sx.base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+            sx.base16Scheme = stylix-base16Scheme;
             hyprland = {
               enable = true;
               monitor = [
