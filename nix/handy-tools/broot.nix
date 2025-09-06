@@ -36,6 +36,14 @@ in {
             key = "ctrl-k";
             internal = "line_up";
           }
+          {
+            key = "ctrl-l";
+            internal = "panel_right";
+          }
+          {
+            key = "ctrl-h";
+            internal = "panel_left_no_open";
+          }
         ];
       };
     };
