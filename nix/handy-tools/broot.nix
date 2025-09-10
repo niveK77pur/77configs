@@ -47,5 +47,9 @@ in {
         ];
       };
     };
+
+    programs.fish.shellInit = ''
+      bind alt-o 'br; commandline -f repaint'
+    '';
   };
 }
