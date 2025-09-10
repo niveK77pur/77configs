@@ -19,17 +19,9 @@
       programs.fish = {
         enable = true;
 
-        shellInit = lib.concatLines [
-          ''
-            # lfcd
-            bind \co 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
-          ''
-
-          # For `fifc` plugin
-          ''
-            set -Ux fifc_editor ${pkgs.neovim}/bin/nvim
-          ''
-        ];
+        shellInit = ''
+          set -Ux fifc_editor ${pkgs.neovim}/bin/nvim
+        '';
 
         functions = lib.mkMerge [
           {

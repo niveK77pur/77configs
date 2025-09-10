@@ -156,6 +156,10 @@ in {
           '';
         };
       };
+
+      programs.fish.shellInit = ''
+        bind ctrl-o 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+      '';
     }
     (lib.mkIf cfg.icons {
       # TODO: Fetch from GitHub
