@@ -27,6 +27,14 @@ in {
               "{command}"
             ];
           }
+          {
+            name = "open-code";
+            key = "enter";
+            execution = "$EDITOR +{line} {file}";
+            apply_to = "text_file";
+            working_dir = "{root}";
+            leave_broot = false;
+          }
 
           {
             key = "ctrl-j";
