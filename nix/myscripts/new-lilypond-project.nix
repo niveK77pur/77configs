@@ -23,17 +23,17 @@
   }:
     stdenvNoCC.mkDerivation rec {
       pname = "newlilypond_VIM.sh";
-      version = "2024-05-10";
+      version = "2025-09-15";
 
       src = fetchFromGitHub {
         owner = "niveK77pur";
         repo = "nvim";
-        rev = "722053eff995";
+        rev = "c8aea453ecfba6017d7b5b9ca3203b6797b6bd50";
         sparseCheckout = [
           "scripts"
           "skeletons/Lilypond/newfile"
         ];
-        sha256 = "sha256-i+QSdYTF5CVVSrcChd87KxqY5SmDptJqYe7/1kAM9Iw=";
+        sha256 = "sha256-kBBK4FcwaRPyVAUX1lDPHF9HdKRVSjWzcLCZGZORMjw=";
       };
 
       buildInputs = [makeWrapper];
