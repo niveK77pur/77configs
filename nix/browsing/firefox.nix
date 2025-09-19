@@ -1,6 +1,8 @@
 {
   lib,
+  pkgs,
   config,
+  inputs,
   ...
 }: let
   cfg = config.firefox;
@@ -13,6 +15,7 @@ in {
       default = "default";
       description = "Which profile name to set as default";
     };
+    withPipewireScreenaudio = lib.mkEnableOption "pipewire-screenaudio";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -34,6 +37,13 @@ in {
           };
       };
     }
+    (lib.mkIf cfg.withPipewireScreenaudio {
+      programs.firefox.package = pkgs.firefox.override {
+        nativeMessagingHosts = [
+          inputs.pipewire-screenaudio.packages.${pkgs.system}.default
+        ];
+      };
+    })
     (lib.mkIf cfg.enableKyomeiProfile {
       programs.firefox.profiles.kyomei = {
         id = 1;
