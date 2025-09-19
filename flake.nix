@@ -104,6 +104,7 @@
               imagesDir = "/home/kevin/Pictures/Wallpaper";
             };
             sx.base16Scheme = stylix-base16Scheme;
+            firefox.withPipewireScreenaudio = true;
             hyprland = {
               enable = true;
               monitor = [
