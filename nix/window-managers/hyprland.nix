@@ -301,10 +301,10 @@ in {
             # {{{2
             gestures = {
               # See https://wiki.hyprland.org/Configuring/Variables/ for more
-              workspace_swipe = true;
               workspace_swipe_cancel_ratio = 0.3;
               workspace_swipe_forever = true;
             };
+            gesture = "3, horizontal, workspace";
 
             # {{{2
             # group = {
