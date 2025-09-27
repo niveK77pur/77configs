@@ -232,7 +232,7 @@ in {
               # accel_profile = adaptive
             };
 
-            #  {{{3
+            #  {{{2
             general = let
               gap_size = 10;
             in {
