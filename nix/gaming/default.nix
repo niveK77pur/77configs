@@ -11,6 +11,7 @@
     ./mangohud.nix
     ./gamemode.nix
     ./gamescope.nix
+    ./proton.nix
 
     ./gpu-screen-recorder.nix
     ./ludusavi.nix
@@ -33,6 +34,7 @@
     mangohud.enable = lib.mkDefault true;
     gamemode.enable = lib.mkDefault true;
     gamescope.enable = lib.mkDefault true;
+    proton.enable = lib.mkDefault true;
 
     gpu-screen-recorder.enable = lib.mkDefault true;
     ludusavi.enable = lib.mkDefault true;
