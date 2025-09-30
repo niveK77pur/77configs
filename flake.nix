@@ -186,6 +186,10 @@
                   position = "auto-up";
                   scale = 1.6;
                 }
+                {
+                  name = "desc:LG Electronics 24GM77 0x01010101";
+                  position = "auto-left";
+                }
               ];
             };
             programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
