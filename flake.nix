@@ -182,7 +182,14 @@
                   position = "auto-up";
                 }
                 {
+                  # monitor on dongle
                   name = "desc:LG Electronics LG ULTRAFINE 0x00015B5D";
+                  position = "auto-right";
+                  scale = 1.6;
+                }
+                {
+                  # monitor on HDMI
+                  name = "desc:LG Electronics LG ULTRAFINE 502NTKF2L925";
                   position = "auto-right";
                   scale = 1.6;
                 }
