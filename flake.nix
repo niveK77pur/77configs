@@ -183,7 +183,7 @@
                 }
                 {
                   name = "desc:LG Electronics LG ULTRAFINE 0x00015B5D";
-                  position = "auto-up";
+                  position = "auto-right";
                   scale = 1.6;
                 }
                 {
