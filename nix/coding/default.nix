@@ -11,6 +11,7 @@
     ./jj.nix
     ./gh.nix
     ./glab.nix
+    ./gcloud.nix
     ./lazygit.nix
     ./ripgrep.nix
     ./lazyjj.nix
