@@ -24,6 +24,16 @@ in {
             description = "Easily ssh into gcloud machines";
           };
         }
+
+        (lib.optionalAttrs config.programs.ghostty.enable {
+          gghostty = let
+            infocmp = "${pkgs.ncurses}/bin/infocmp";
+          in {
+            body = "${infocmp} -x xterm-ghostty | ${gcloud} compute ssh $host -- tic -x -";
+            argumentNames = "host";
+            description = "Easily copy ghostty terminfo to gcloud machine";
+          };
+        })
       ];
   };
 }
