@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  helper,
   ...
 }: {
   options.lazygit.enable = lib.mkEnableOption "lazygit";
@@ -23,6 +24,11 @@
             output = "terminal";
           }
         ];
+      };
+    };
+    programs.fish.functions = {
+      lg = helper.makeFishAliasFunction {
+        body = "lazygit $argv";
       };
     };
   };

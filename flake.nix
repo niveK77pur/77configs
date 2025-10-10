@@ -70,11 +70,24 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = {
+        extraSpecialArgs = let
+          helper = {
+            # Create a cleaner alias for fish using a function
+            makeFishAliasFunction = args:
+              args
+              // {
+                wraps = args.body;
+                description =
+                  "alias: "
+                  + (args.description or args.body);
+              };
+          };
+        in {
           inherit
             system
             wrapNixGL
             inputs
+            helper
             ;
           username = user;
         };

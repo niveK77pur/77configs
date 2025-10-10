@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  helper,
   ...
 }: {
   options.neovim.enable = lib.mkEnableOption "neovim";
@@ -12,6 +13,11 @@
       extraPackages = [
         pkgs.gcc # mostly for tree-sitter
       ];
+    };
+    programs.fish.functions = {
+      n = helper.makeFishAliasFunction {
+        body = "nvim $argv";
+      };
     };
     programs.mr.settings = {
       ".config/nvim" = let

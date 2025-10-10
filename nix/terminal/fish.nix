@@ -2,18 +2,12 @@
   pkgs,
   lib,
   config,
+  helper,
   ...
 }: {
   options.fish.enable = lib.mkEnableOption "fish";
   config = let
-    makeAlias = args:
-      args
-      // {
-        wraps = args.body;
-        description =
-          "alias: "
-          + (args.description or args.body);
-      };
+    makeAlias = helper.makeFishAliasFunction;
   in
     lib.mkIf config.fish.enable {
       programs.fish = {
@@ -39,39 +33,9 @@
             };
           }
 
-          {
-            # see: https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
-            lfcd = {
-              body = ''cd "$(command ${pkgs.lf}/bin/lf -print-last-dir $argv)"'';
-              wraps = "${pkgs.lf}/bin/lf";
-              description = "lf - Terminal file manager (changing directory on exit)";
-            };
-          }
-
-          (lib.mkIf config.programs.neovim.enable {
-            n = makeAlias {
-              body = "nvim $argv";
-            };
-            v = makeAlias {
-              body = "nvim $argv";
-            };
-          })
-
           (lib.mkIf config.programs.feh.enable {
             feh = makeAlias {
               body = "feh -Z --scale-down $argv";
-            };
-          })
-
-          (lib.mkIf config.programs.lazygit.enable {
-            lg = makeAlias {
-              body = "lazygit $argv";
-            };
-          })
-
-          (lib.mkIf config.lazyjj.enable {
-            lj = makeAlias {
-              body = "lazyjj $argv";
             };
           })
 
@@ -93,15 +57,6 @@
             };
             tn = makeAlias {
               body = "tmux new -s $argv";
-            };
-          })
-        ];
-
-        shellAbbrs = lib.mkMerge [
-          (lib.mkIf config.programs.jujutsu.enable {
-            jjl = {
-              position = "command";
-              expansion = ''jj log -n (math "floor($(${pkgs.ncurses}/bin/tput lines) / 2)" - 2)'';
             };
           })
         ];

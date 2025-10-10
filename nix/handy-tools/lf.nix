@@ -156,10 +156,19 @@ in {
           '';
         };
       };
-
-      programs.fish.shellInit = ''
-        bind ctrl-o 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
-      '';
+      programs.fish = {
+        shellInit = ''
+          bind ctrl-o 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
+        '';
+        functions = {
+          # see: https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
+          lfcd = {
+            body = ''cd "$(command ${pkgs.lf}/bin/lf -print-last-dir $argv)"'';
+            wraps = "${pkgs.lf}/bin/lf";
+            description = "lf - Terminal file manager (changing directory on exit)";
+          };
+        };
+      };
     }
     (lib.mkIf cfg.icons {
       # TODO: Fetch from GitHub
