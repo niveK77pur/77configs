@@ -27,67 +27,69 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       home.packages = [pkgs.jj-fzf];
-      programs.fish = {
-        shellInit = ''
-          # somehow executing 'jj-fzf' directly leads to problems (i.e. bookmark editing does not fill the input field)
-          bind alt-j 'commandline "jj-fzf"; commandline -f execute; commandline -f repaint'
-        '';
-        shellAbbrs = {
-          jjl = {
-            position = "command";
-            expansion = ''jj log -n (math "floor($(${pkgs.ncurses}/bin/tput lines) / 2)" - 2)'';
+      programs = {
+        fish = {
+          shellInit = ''
+            # somehow executing 'jj-fzf' directly leads to problems (i.e. bookmark editing does not fill the input field)
+            bind alt-j 'commandline "jj-fzf"; commandline -f execute; commandline -f repaint'
+          '';
+          shellAbbrs = {
+            jjl = {
+              position = "command";
+              expansion = ''jj log -n (math "floor($(${pkgs.ncurses}/bin/tput lines) / 2)" - 2)'';
+            };
           };
         };
-      };
-      programs.jujutsu = {
-        enable = true;
-        settings = {
-          user = {
-            email = cfg.userEmail;
-            name = cfg.userName;
-          };
-          ui = {
-            inherit (cfg) diff-editor;
-            default-command = [
-              "log"
-            ];
-          };
-          git = {
-            private-commits =
-              lib.strings.concatStringsSep " | "
-              (map (revset: "(" + revset + ")") [
-                "description(glob:'wip:*')"
-                "description(glob:'private:*')"
-                "empty() ~ merges() ~ root()" # an empty commit
-              ]);
-          };
-          #  {{{1
-          aliases = lib.mergeAttrsList [
-            {
-              # {{{2
-              tug = [
-                "bookmark"
-                "move"
-                "--from"
-                "heads(::@- & bookmarks())"
-                "--to"
-                "@-"
+        jujutsu = {
+          enable = true;
+          settings = {
+            user = {
+              email = cfg.userEmail;
+              name = cfg.userName;
+            };
+            ui = {
+              inherit (cfg) diff-editor;
+              default-command = [
+                "log"
               ];
-              # }}}2
-            }
-
-            # Custom fish scripts for aliases {{{2
-            (lib.lists.foldr (file: agg:
-              agg
-              // {
-                "${lib.removeSuffix ".fish" (builtins.baseNameOf file)}" = [
-                  "util"
-                  "exec"
-                  "--"
-                  (pkgs.writers.writeFish "${baseNameOf file}" file)
+            };
+            git = {
+              private-commits =
+                lib.strings.concatStringsSep " | "
+                (map (revset: "(" + revset + ")") [
+                  "description(glob:'wip:*')"
+                  "description(glob:'private:*')"
+                  "empty() ~ merges() ~ root()" # an empty commit
+                ]);
+            };
+            #  {{{1
+            aliases = lib.mergeAttrsList [
+              {
+                # {{{2
+                tug = [
+                  "bookmark"
+                  "move"
+                  "--from"
+                  "heads(::@- & bookmarks())"
+                  "--to"
+                  "@-"
                 ];
-              }) {} (lib.fileset.toList ./jj/aliases/fish))
-          ]; #  }}}1
+                # }}}2
+              }
+
+              # Custom fish scripts for aliases {{{2
+              (lib.lists.foldr (file: agg:
+                agg
+                // {
+                  "${lib.removeSuffix ".fish" (builtins.baseNameOf file)}" = [
+                    "util"
+                    "exec"
+                    "--"
+                    (pkgs.writers.writeFish "${baseNameOf file}" file)
+                  ];
+                }) {} (lib.fileset.toList ./jj/aliases/fish))
+            ]; #  }}}1
+          };
         };
       };
     }
