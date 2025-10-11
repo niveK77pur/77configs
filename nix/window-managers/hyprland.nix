@@ -629,6 +629,15 @@ in {
                   submap-reset = true;
                 })
                 (mkBind {
+                  key = "T";
+                  params = pkgs.writers.writeFish "hyprshot-tesseract.fish" ''
+                    set text (hyprshot -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
+                    notify-send "hyprshot tesseract copy to clipboard" $text
+                    wl-copy $text
+                  '';
+                  submap-reset = true;
+                })
+                (mkBind {
                   # mainly useful for pasting image into claude. See https://github.com/anthropics/claude-code/issues/5113
                   key = "P";
                   params = "hyprshot -m region -o /tmp -f screenshot.png ; echo /tmp/screenshot.png | wl-copy";
