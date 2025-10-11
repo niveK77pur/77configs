@@ -88,7 +88,18 @@ in {
                     (pkgs.writers.writeFish "${baseNameOf file}" file)
                   ];
                 }) {} (lib.fileset.toList ./jj/aliases/fish))
-            ]; #  }}}1
+            ]; #  }}}2
+            # {{{1
+            templates = {
+              draft_commit_description = ''
+                concat(
+                  builtin_draft_commit_description,
+                  "\nJJ: ignore-rest\n",
+                  diff.git(),
+                )
+              '';
+            };
+            # }}}1
           };
         };
       };
