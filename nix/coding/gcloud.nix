@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  helper,
   ...
 }: let
   cfg = config.gcloud;
@@ -22,6 +23,10 @@ in {
             argumentNames = "host";
             wraps = gcloud;
             description = "Easily ssh into gcloud machines";
+          };
+
+          glist = helper.makeFishAliasFunction {
+            body = "${gcloud} compute instances list $argv";
           };
         }
 
