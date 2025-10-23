@@ -16,15 +16,20 @@ in {
   };
 
   config = lib.mkIf config.git.enable {
-    programs.git = {
-      enable = true;
-      inherit (cfg) userEmail userName;
+    programs = {
+      git = {
+        enable = true;
+        settings = {
+          user = {
+            email = cfg.userEmail;
+            name = cfg.userName;
+          };
+          init.defaultBranch = "main";
+        };
+      };
       # delta.enable = true;
       diff-so-fancy.enable = true;
       # difftastic.enable = true;
-      extraConfig = {
-        init.defaultBranch = "main";
-      };
     };
   };
 }
