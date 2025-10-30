@@ -6,6 +6,23 @@
   ...
 }: let
   cfg = config.ghostty;
+  ghostty-cursor-shaders = pkgs.fetchFromGitHub {
+    owner = "sahaj-b";
+    repo = "ghostty-cursor-shaders";
+    rev = "4faa83e4b9306750fc8de64b38c6f53c57862db8";
+    hash = "sha256-ruhEqXnWRCYdX5mRczpY3rj1DTdxyY3BoN9pdlDOKrE=";
+  };
+  shaders = let
+    shader-list = [
+      "${ghostty-cursor-shaders}/cursor_warp.glsl"
+    ];
+  in
+    lib.listToAttrs (
+      lib.zipListsWith
+      (name: value: {inherit name value;})
+      (builtins.genList (n: "shader-${toString n}") (builtins.length shader-list))
+      shader-list
+    );
 in {
   options.ghostty = {
     enable = lib.mkEnableOption "ghostty";
@@ -33,6 +50,7 @@ in {
       settings = {
         # theme = "duskfox";
         font-family = "Maple Mono NF";
+        custom-shader = map (name: "shaders/${name}") (lib.attrNames shaders);
         # font-family-bold = "FiraCode NF";
         # font-family-italic = "Maple Mono NF";
         # font-family-bold-italic = "Maple Mono NF";
@@ -67,5 +85,9 @@ in {
       };
       themes = {};
     };
+    xdg.configFile =
+      lib.mapAttrs'
+      (name: value: lib.nameValuePair "ghostty/shaders/${name}" {source = value;})
+      shaders;
   };
 }
