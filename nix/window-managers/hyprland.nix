@@ -153,9 +153,9 @@ in {
       pass.enable = true;
       ghostty = {
         enable = true;
-        settings_override = {
-          font-size = 10;
-        };
+      };
+      programs.ghostty.settings = {
+        font-size = lib.mkForce 10;
       };
       wlogout = {
         enable = true;
