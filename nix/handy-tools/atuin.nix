@@ -28,6 +28,9 @@
               "--info inline-right"
               "--prompt 'autin > '"
 
+              "--with-shell ${lib.getExe config.programs.fish.package}"
+              "--query (commandline -b)"
+
               "--delimiter @"
               "--with-nth '{6..}'"
               "--accept-nth '{6..}'"
