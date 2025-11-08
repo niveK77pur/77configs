@@ -1,0 +1,38 @@
+diff --git a/config/zellij/config.kdl b/config/zellij/config.kdl
+index 36a6d51dd9..d920b54402 100644
+--- a/config/zellij/config.kdl
++++ b/config/zellij/config.kdl
+@@ -49,10 +49,12 @@
+         bind "]" { BreakPaneRight; SwitchToMode "locked"; }
+         bind "b" { BreakPane; SwitchToMode "locked"; }
+         bind "h" { GoToPreviousTab; }
++        bind "i" { MoveTab "left"; }
+         bind "j" { GoToNextTab; }
+         bind "k" { GoToPreviousTab; }
+         bind "l" { GoToNextTab; }
+         bind "n" { NewTab; SwitchToMode "locked"; }
++        bind "o" { MoveTab "right"; }
+         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
+         bind "s" { ToggleActiveSyncTab; SwitchToMode "locked"; }
+         bind "t" { SwitchToMode "normal"; }
+@@ -155,19 +157,13 @@
+         bind "Alt down" { MoveFocus "down"; }
+         bind "Alt up" { MoveFocus "up"; }
+         bind "Alt right" { MoveFocusOrTab "right"; }
+-        bind "Alt +" { Resize "Increase"; }
+-        bind "Alt -" { Resize "Decrease"; }
+-        bind "Alt =" { Resize "Increase"; }
+-        bind "Alt [" { PreviousSwapLayout; }
+-        bind "Alt ]" { NextSwapLayout; }
++        bind "Alt Space" { NextSwapLayout; }
+         bind "Alt f" { ToggleFloatingPanes; }
+         bind "Alt h" { MoveFocusOrTab "left"; }
+-        bind "Alt i" { MoveTab "left"; }
+         bind "Alt j" { MoveFocus "down"; }
+         bind "Alt k" { MoveFocus "up"; }
+         bind "Alt l" { MoveFocusOrTab "right"; }
+         bind "Alt n" { NewPane; }
+-        bind "Alt o" { MoveTab "right"; }
+         bind "Alt p" { TogglePaneInGroup; }
+         bind "Alt Shift p" { ToggleGroupMarking; }
+     }

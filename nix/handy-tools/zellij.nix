@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: {
@@ -9,7 +10,12 @@
       enable = true;
     };
     xdg.configFile."zellij/config.kdl" = {
-      source = ../../config/zellij/config.kdl;
+      source = let
+        patched = pkgs.applyPatches {
+          src = ../..;
+          patches = [../../config/zellij/zellij.patch];
+        };
+      in "${patched}/config/zellij/config.kdl";
     };
   };
 }
