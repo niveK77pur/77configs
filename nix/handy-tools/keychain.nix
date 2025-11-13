@@ -8,7 +8,7 @@ in {
   options.keychain = {
     enable = lib.mkEnableOption "keychain";
     keys = lib.mkOption {
-      type = lib.types.listOf lib.types.string;
+      type = lib.types.listOf lib.types.str;
       default = [];
     };
   };

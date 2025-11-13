@@ -14,6 +14,13 @@
       settings = {
         update_check = false;
         filter_mode_shell_up_key_binding = "session";
+        history_filter = [
+          "^jj$"
+          "^(n|nvim) "
+          "^z "
+          "^ls "
+          "^(lg|lazygit)$"
+        ];
       };
     };
     programs.fish = {
@@ -27,6 +34,9 @@
               "--layout reverse"
               "--info inline-right"
               "--prompt 'autin > '"
+
+              "--with-shell ${lib.getExe config.programs.fish.package}"
+              "--query (commandline -b)"
 
               "--delimiter @"
               "--with-nth '{6..}'"
