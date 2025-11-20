@@ -154,6 +154,7 @@
             slack.enable = true;
             gcloud.enable = true;
             glab.enable = true;
+            keychain.enable = true;
             categories.enableAll = true;
             gaming.enableAll = false;
             home.withNixGL = rec {

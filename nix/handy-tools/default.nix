@@ -63,6 +63,5 @@
     mosh.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
     broot.enable = lib.mkDefault true;
-    keychain.enable = lib.mkDefault true;
   };
 }
