@@ -26,11 +26,6 @@
           ];
         };
       };
-      fish.functions = {
-        lg = helper.makeFishAliasFunction {
-          body = "lazygit $argv";
-        };
-      };
     };
   };
 }

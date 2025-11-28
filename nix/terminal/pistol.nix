@@ -10,8 +10,8 @@
       enable = true;
       associations = let
         pygmentize = "${pkgs.python312Packages.pygments}/bin/pygmentize";
-        pdftotext = "${pkgs.poppler_utils}/bin/pdftotext";
-        pdfinfo = "${pkgs.poppler_utils}/bin/pdfinfo";
+        pdftotext = "${pkgs.poppler-utils}/bin/pdftotext";
+        pdfinfo = "${pkgs.poppler-utils}/bin/pdfinfo";
       in [
         {
           fpath = ".*/aur[^/]*/.*SRCINFO$";
