@@ -15,6 +15,7 @@
     ./lazygit.nix
     ./ripgrep.nix
     ./lazyjj.nix
+    ./delta.nix
   ];
 
   options.coding.enableAll = lib.mkEnableOption "coding";
@@ -29,5 +30,6 @@
     lazygit.enable = lib.mkDefault true;
     ripgrep.enable = lib.mkDefault true;
     lazyjj.enable = lib.mkDefault true;
+    delta.enable = lib.mkDefault true;
   };
 }
