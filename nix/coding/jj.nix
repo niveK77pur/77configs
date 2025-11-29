@@ -27,7 +27,10 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       home.packages = [pkgs.jj-fzf];
-      difftastic.enableJujutsuIntegration = true;
+      difftastic = {
+        enable = true;
+        enableJujutsuIntegration = true;
+      };
       programs = {
         fish = {
           shellInit = ''

@@ -18,6 +18,8 @@ in {
       ui.diff-formatter = [
         (lib.getExe config.programs.difftastic.package)
         "--color=always"
+        "--sort-paths"
+        "--syntax-highlight=off"
         "$left"
         "right"
       ];
