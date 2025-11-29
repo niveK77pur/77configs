@@ -3,21 +3,11 @@
   lib,
   ...
 }: {
-  imports = [
-    ./neovim.nix
-    ./nix-tools.nix
-    ./latex.nix
-    ./git.nix
-    ./jj.nix
-    ./gh.nix
-    ./glab.nix
-    ./gcloud.nix
-    ./lazygit.nix
-    ./ripgrep.nix
-    ./lazyjj.nix
-    ./delta.nix
-    ./difftastic.nix
-  ];
+  imports = lib.fileset.toList (
+    lib.fileset.fileFilter
+    (file: (file.hasExt "nix") && (file.name != "default.nix"))
+    ./.
+  );
 
   options.coding.enableAll = lib.mkEnableOption "coding";
 

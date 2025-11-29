@@ -3,14 +3,12 @@
   lib,
   ...
 }: {
-  imports = [
-    ./ani-cli.nix
-    ./mpv
-    ./yt-dlp.nix
-    ./zathura.nix
-    ./flameshot.nix
-    ./streamlink.nix
-  ];
+  imports =
+    map
+    (file: ./. + "/${file}")
+    (lib.filter
+      (f: f != "default.nix")
+      (lib.attrNames (builtins.readDir ./.)));
 
   options.media.enableAll = lib.mkEnableOption "media";
 

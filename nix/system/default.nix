@@ -3,11 +3,11 @@
   lib,
   ...
 }: {
-  imports = [
-    ./topgrade.nix
-    ./pass.nix
-    ./myrepos.nix
-  ];
+  imports = lib.fileset.toList (
+    lib.fileset.fileFilter
+    (file: (file.hasExt "nix") && (file.name != "default.nix"))
+    ./.
+  );
 
   options.system.enableAll = lib.mkEnableOption "system";
 

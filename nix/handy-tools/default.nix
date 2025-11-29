@@ -3,36 +3,16 @@
   lib,
   ...
 }: {
-  imports = [
-    ./aria2.nix
-    ./lf.nix
-    ./kde-connect.nix
-    ./direnv.nix
-    ./fd.nix
-    ./atuin.nix
-    ./viddy.nix
-    ./zellij.nix
-    ./vidir.nix
-    ./pdfarranger.nix
-    ../coding/lazygit.nix
-    ./bat.nix
-    ../coding/ripgrep.nix
-    ./z-lua.nix
-    ./eza.nix
-    ./fzf.nix
-    ./taskwarrior.nix
-    ./parallel.nix
-    ./dua.nix
-    ./comma.nix
-    ./pay-respects.nix
-    ./hours.nix
-    ./magic-wormhole.nix
-    ./mosh.nix
-    ./stylix.nix
-    ./claude.nix
-    ./broot.nix
-    ./keychain.nix
-  ];
+  imports =
+    (lib.fileset.toList (
+      lib.fileset.fileFilter
+      (file: (file.hasExt "nix") && (file.name != "default.nix"))
+      ./.
+    ))
+    ++ [
+      ../coding/lazygit.nix
+      ../coding/ripgrep.nix
+    ];
 
   options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
 

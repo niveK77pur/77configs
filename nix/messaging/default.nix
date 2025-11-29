@@ -3,13 +3,11 @@
   lib,
   ...
 }: {
-  imports = [
-    ./discord.nix
-    ./ferdium.nix
-    ./thunderbird.nix
-    ./signal.nix
-    ./slack.nix
-  ];
+  imports = lib.fileset.toList (
+    lib.fileset.fileFilter
+    (file: (file.hasExt "nix") && (file.name != "default.nix"))
+    ./.
+  );
 
   options.messaging.enableAll = lib.mkEnableOption "messaging";
 

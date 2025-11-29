@@ -3,14 +3,12 @@
   lib,
   ...
 }: {
-  imports = [
-    ./fish.nix
-    ./wezterm
-    ./rio.nix
-    ./pistol.nix
-    ./starship.nix
-    ./ghostty.nix
-  ];
+  imports =
+    map
+    (file: ./. + "/${file}")
+    (lib.filter
+      (f: f != "default.nix")
+      (lib.attrNames (builtins.readDir ./.)));
 
   options.terminal.enableAll = lib.mkEnableOption "terminal";
 

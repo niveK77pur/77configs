@@ -88,7 +88,7 @@ in {
                     "--"
                     (pkgs.writers.writeFish "${baseNameOf file}" file)
                   ];
-                }) {} (lib.fileset.toList ./jj/aliases/fish))
+                }) {} (lib.fileset.toList (lib.fileset.fileFilter (file: file.hasExt "fish") ./jj/aliases)))
             ]; #  }}}2
             # {{{1
             templates = {
