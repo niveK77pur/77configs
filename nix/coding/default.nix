@@ -16,6 +16,7 @@
     ./ripgrep.nix
     ./lazyjj.nix
     ./delta.nix
+    ./difftastic.nix
   ];
 
   options.coding.enableAll = lib.mkEnableOption "coding";
@@ -31,5 +32,6 @@
     ripgrep.enable = lib.mkDefault true;
     lazyjj.enable = lib.mkDefault true;
     delta.enable = lib.mkDefault true;
+    difftastic.enable = lib.mkDefault true;
   };
 }
