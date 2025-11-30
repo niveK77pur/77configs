@@ -12,7 +12,10 @@
         enable = true;
         defaultEditor = true;
         extraPackages = [
-          pkgs.gcc # mostly for tree-sitter
+          pkgs.gcc # tree-sitter
+          pkgs.tree-sitter # tree-sitter
+          pkgs.gnutar # tree-sitter
+          pkgs.curl # tree-sitter
         ];
       };
       fish.functions = {
