@@ -23,5 +23,6 @@
     lazyjj.enable = lib.mkDefault true;
     delta.enable = lib.mkDefault true;
     difftastic.enable = lib.mkDefault true;
+    mergiraf.enable = lib.mkDefault true;
   };
 }
