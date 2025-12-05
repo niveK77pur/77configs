@@ -100,6 +100,16 @@
               sha512 = "sha512-qWpjZVWcSkkTOcF+5yik2YwlFYxWxLp28zVNhRKs8EqnIwGAvrxVDOB6nmhVT4D2MxygFbh51pzG2lQ8aI1ZGg==";
             };
           }
+
+          {
+            name = "loadenv.fish";
+            src = pkgs.fetchFromGitHub {
+              owner = "berk-karaal";
+              repo = "loadenv.fish";
+              rev = "5870891cd032a8eed594e7c024005bef5c7cefe2";
+              sha512 = "sha512-I1+SkZ2ogF6wDEZwfCMCZNDsY4H9lDm6rAYwac13AzSCc8SqLwMw1gwAdzzEeJCG9nZF47FYwNEpWkdghNtM6A==";
+            };
+          }
         ];
       };
     };
