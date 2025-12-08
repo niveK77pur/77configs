@@ -392,6 +392,11 @@ in {
               })
             ];
 
+            windowrule = [
+              # FIX: https://github.com/hyprwm/Hyprland/issues/2412
+              ''noinitialfocus,class:^jetbrains-.*$,floating:1,title:^$|^\s$|^win\d+$''
+            ];
+
             # Key Bindings {{{1
             # See https://wiki.hyprland.org/Configuring/Binds/ for more
 
