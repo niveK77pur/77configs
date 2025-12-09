@@ -27,7 +27,7 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       home.packages = [pkgs.jj-fzf];
-      difftastic = {
+      delta = {
         enable = true;
         enableJujutsuIntegration = true;
       };
