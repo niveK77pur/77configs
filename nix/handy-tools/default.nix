@@ -43,5 +43,6 @@
     mosh.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
     broot.enable = lib.mkDefault true;
+    nix-your-shell.enable = lib.mkDefault true;
   };
 }
