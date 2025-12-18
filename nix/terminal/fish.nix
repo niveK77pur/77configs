@@ -92,7 +92,7 @@
           }
 
           {
-            name = "nix-env.fish";
+            name = "nix-env";
             src = pkgs.fetchFromGitHub {
               owner = "lilyball";
               repo = "nix-env.fish";
@@ -102,7 +102,7 @@
           }
 
           {
-            name = "loadenv.fish";
+            name = "loadenv";
             src = pkgs.fetchFromGitHub {
               owner = "berk-karaal";
               repo = "loadenv.fish";
