@@ -6,6 +6,6 @@
 }: {
   options.glx.enable = lib.mkEnableOption "glx";
   config = lib.mkIf config.glx.enable {
-    home.packages = with pkgs; [glxinfo];
+    home.packages = with pkgs; [mesa-demos];
   };
 }
