@@ -5,6 +5,11 @@
 }: {
   options.mangohud.enable = lib.mkEnableOption "mangohud";
   config = lib.mkIf config.mangohud.enable {
+    stylix.targets.mangohud = {
+      fonts.override.sizes.applications = 24;
+      opacity.override.popups = 0.3;
+    };
+
     programs.mangohud = {
       enable = true;
       enableSessionWide = true;
@@ -12,11 +17,6 @@
         fps_limit = "60,90,120,0";
         fps_limit_method = "early";
         no_display = true;
-        background_alpha = lib.mkForce 0.3;
-
-        font_size = lib.mkForce 24;
-        font_size_text = lib.mkForce 24;
-        font_scale = lib.mkForce 1;
 
         # visual
         time = true;
