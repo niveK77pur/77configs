@@ -17,6 +17,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    programs.vivid.enable = true;
     stylix = {
       enable = true;
       inherit (cfg) base16Scheme;
