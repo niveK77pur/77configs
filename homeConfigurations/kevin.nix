@@ -1,4 +1,5 @@
 {
+  lib,
   git,
   stylix-base16Scheme,
 }: [
@@ -42,5 +43,8 @@
         ];
       };
     };
+  }
+  {
+    stylix.targets.mangohud.fonts.override.sizes.applications = lib.mkForce 30;
   }
 ]
