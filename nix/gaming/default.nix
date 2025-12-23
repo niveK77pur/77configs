@@ -18,23 +18,19 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.gaming.enableAll {
-      steam.enable = lib.mkDefault true;
-      lutris.enable = lib.mkDefault true;
-      heroic.enable = lib.mkDefault true;
-
-      mangohud.enable = lib.mkDefault true;
+      chiaki.enable = lib.mkDefault true;
       gamemode.enable = lib.mkDefault true;
       gamescope.enable = lib.mkDefault true;
-      proton.enable = lib.mkDefault true;
-
-      gpu-screen-recorder.enable = lib.mkDefault true;
-      ludusavi.enable = lib.mkDefault true;
-
-      vulkan.enable = lib.mkDefault true;
-      glx.enable = lib.mkDefault true;
-
       gaming.devices.enableAll = lib.mkDefault true;
-      chiaki.enable = lib.mkDefault true;
+      glx.enable = lib.mkDefault true;
+      gpu-screen-recorder.enable = lib.mkDefault true;
+      heroic.enable = lib.mkDefault true;
+      ludusavi.enable = lib.mkDefault true;
+      lutris.enable = lib.mkDefault true;
+      mangohud.enable = lib.mkDefault true;
+      proton.enable = lib.mkDefault true;
+      steam.enable = lib.mkDefault true;
+      vulkan.enable = lib.mkDefault true;
     })
 
     (lib.mkIf config.gaming.devices.enableAll {
