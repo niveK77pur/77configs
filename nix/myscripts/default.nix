@@ -5,15 +5,14 @@
 }: let
   cfg = config.myscripts;
 in {
-  imports = [
-    ./we.nix
-    ./ccopy.nix
-    ./cedit.nix
-    ./mount.nix
-    ./randomcase.nix
-    ./new-lilypond-project.nix
-    ./mrandr.nix
-  ];
+  imports = lib.fileset.toList (
+    lib.fileset.fileFilter
+    (file:
+      (file.hasExt "nix")
+      && (file.name != "default.nix")
+      && (file.name != "mount-go.nix"))
+    ./.
+  );
 
   options.myscripts = {
     enableAll = lib.mkEnableOption "myscripts";
