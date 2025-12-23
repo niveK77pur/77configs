@@ -3,19 +3,14 @@
   lib,
   ...
 }: {
-  imports = [
-    ./browsing
-    ./coding
-    ./fonts
-    ./gaming
-    ./handy-tools
-    ./media
-    ./messaging
-    ./myscripts
-    ./system
-    ./terminal
-    ./window-managers
-  ];
+  imports =
+    map
+    (file: ./. + "/${file}")
+    (builtins.attrNames (
+      lib.filterAttrs
+      (_: value: value == "directory")
+      (builtins.readDir ./.)
+    ));
 
   options.categories.enableAll = lib.mkEnableOption "categories";
 
