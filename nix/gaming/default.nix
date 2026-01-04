@@ -18,7 +18,6 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.gaming.enableAll {
-      chiaki.enable = lib.mkDefault true;
       gamemode.enable = lib.mkDefault true;
       gamescope.enable = lib.mkDefault true;
       gaming.devices.enableAll = lib.mkDefault true;
