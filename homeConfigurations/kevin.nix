@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   git,
   stylix-base16Scheme,
@@ -46,5 +47,6 @@
   }
   {
     stylix.targets.mangohud.fonts.override.sizes.applications = lib.mkForce 30;
+    home.packages = [pkgs.video2x];
   }
 ]
