@@ -6,6 +6,6 @@
 }: {
   options.vidir.enable = lib.mkEnableOption "vidir";
   config = lib.mkIf config.vidir.enable {
-    home.packages = [pkgs.perl538Packages.vidir];
+    home.packages = [pkgs.perl5Packages.vidir];
   };
 }
