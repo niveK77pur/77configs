@@ -49,5 +49,6 @@
   {
     stylix.targets.mangohud.fonts.override.sizes.applications = lib.mkForce 30;
     home.packages = [pkgs.video2x];
+    programs.zathura.options.zoom-max = 10000;
   }
 ]
