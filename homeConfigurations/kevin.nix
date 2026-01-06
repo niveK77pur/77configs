@@ -26,6 +26,7 @@
       };
       sx.base16Scheme = stylix-base16Scheme;
       firefox.withPipewireScreenaudio = true;
+      zathura.withLilypondXdgOpen = true;
       hyprland = {
         enable = true;
         monitor = [
