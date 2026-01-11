@@ -54,6 +54,25 @@ in {
             internal = "panel_left_no_open";
           }
         ];
+
+        preview_transformers = [
+          # PDF Preview {{{1
+          {
+            input_extensions = ["pdf"];
+            output_extension = "png";
+            mode = "image";
+            command = [
+              (lib.getExe' pkgs.mupdf-headless "mutool")
+              "draw"
+              "-w"
+              "1000"
+              "-o"
+              "{output-path}"
+              "{input-path}"
+            ];
+          }
+          #  }}}1
+        ];
       };
     };
 
@@ -62,3 +81,5 @@ in {
     '';
   };
 }
+# vim: fdm=marker
+
