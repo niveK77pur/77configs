@@ -10,6 +10,7 @@
     makeAlias = helper.makeFishAliasFunction;
   in
     lib.mkIf config.fish.enable {
+      home.packages = [pkgs.fish-lsp];
       programs.fish = {
         enable = true;
 
