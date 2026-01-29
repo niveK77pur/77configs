@@ -103,6 +103,7 @@
             inherit
               git
               stylix-base16Scheme
+              inputs
               ;
           }))
         (lib.fileset.toList ./homeConfigurations));

@@ -1,8 +1,18 @@
 {
+  inputs,
   pkgs,
   git,
   stylix-base16Scheme,
 }: [
+  {
+    # See: https://github.com/nix-community/home-manager/blob/master/docs/manual/usage/gpu-non-nixos.md
+    targets.genericLinux.nixGL = {
+      # Wrappers become a no-op if `packages` is unset
+      inherit (inputs.nixgl) packages;
+      defaultWrapper = "mesa";
+      installScripts = ["mesa"];
+    };
+  }
   {
     config = {
       home.packages = [
