@@ -26,14 +26,12 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    nixgl,
     nix-index-database,
     ...
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [nixgl.overlay];
     };
     inherit (pkgs) lib;
     git = {
@@ -41,19 +39,6 @@
       userName = "Kevin Laurent Biewesch";
     };
     stylix-base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-    #  {{{
-    wrapNixGL = {
-      binName,
-      pkg ? pkgs.${binName},
-      config,
-    }:
-      if config.home.withNixGL.enable
-      then
-        pkgs.writeShellScriptBin "${binName}" ''
-          ${config.home.withNixGL.command} "${pkg}/bin/${binName}" "$@"
-        ''
-      else pkg;
-    #  }}}
     #  {{{
     makeUser = user: modules: {
       "${user}" = home-manager.lib.homeManagerConfiguration {
@@ -86,7 +71,6 @@
         in {
           inherit
             system
-            wrapNixGL
             inputs
             helper
             ;

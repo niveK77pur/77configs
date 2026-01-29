@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  wrapNixGL,
   ...
 }: let
   cfg = config.ghostty;
@@ -26,13 +25,6 @@
 in {
   options.ghostty = {
     enable = lib.mkEnableOption "ghostty";
-    package = lib.mkOption {
-      type = lib.types.nullOr lib.types.package;
-      default = wrapNixGL {
-        binName = "ghostty";
-        inherit config;
-      };
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -44,7 +36,7 @@ in {
       (lib.lists.optional pkgs.stdenv.isLinux pkgs.xdg-desktop-portal-gtk)
     ];
     programs.ghostty = {
-      inherit (cfg) package;
+      package = config.lib.nixGL.wrap pkgs.ghostty;
       enable = true;
       installBatSyntax = false; # stuck on a previous generation
       settings = {

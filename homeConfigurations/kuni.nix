@@ -31,11 +31,6 @@
       keychain.enable = true;
       categories.enableAll = true;
       gaming.enableAll = false;
-      home.withNixGL = rec {
-        enable = true;
-        package = pkgs.nixgl.nixGLIntel;
-        command = "${package}/bin/nixGLIntel";
-      };
       wezterm.overrides = {
         font_size = 9.5;
       };

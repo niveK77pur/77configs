@@ -1,25 +1,18 @@
 {
   lib,
+  pkgs,
   config,
-  wrapNixGL,
   ...
 }: let
   cfg = config.qutebrowser;
 in {
   options.qutebrowser = {
     enable = lib.mkEnableOption "qutebrowser";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = wrapNixGL {
-        binName = "qutebrowser";
-        inherit config;
-      };
-    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.qutebrowser = {
-      inherit (cfg) package;
+      package = config.lib.nixGL.wrap pkgs.qutebrowser;
       enable = true;
       settings = {};
     };

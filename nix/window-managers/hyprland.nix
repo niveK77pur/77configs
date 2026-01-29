@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  wrapNixGL,
   ...
 }: let
   cfg = config.hyprland;
@@ -84,7 +83,7 @@ in {
     enable = lib.mkEnableOption "hyprland";
     #  {{{1
     terminal = lib.mkOption {
-      default = "${config.ghostty.package}/bin/ghostty";
+      default = lib.getExe config.programs.ghostty.package;
       type = lib.types.str;
       description = "Command to be executed for opening a terminal";
     };
@@ -173,10 +172,7 @@ in {
       avizo.enable = true;
       home.packages = [
         pkgs.hyprshot
-        (wrapNixGL {
-          binName = "satty";
-          inherit config;
-        })
+        (config.lib.nixGL.wrap pkgs.satty)
         # needed by passmenu
         (pkgs.writeShellScriptBin "dmenu-wl" ''
           ${cfg.launcher} dmenu "$@"
