@@ -26,7 +26,6 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      # home.packages = [pkgs.jj-fzf];
       delta = {
         enable = true;
         enableJujutsuIntegration = true;
@@ -111,6 +110,9 @@ in {
             };
             # }}}1
           };
+        };
+        jjui = {
+          enable = true;
         };
       };
     }

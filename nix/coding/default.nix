@@ -19,7 +19,6 @@
     jj.enable = lib.mkDefault true;
     latex.enable = lib.mkDefault true;
     lazygit.enable = lib.mkDefault true;
-    lazyjj.enable = lib.mkDefault true;
     mergiraf.enable = lib.mkDefault true;
     neovim.enable = lib.mkDefault true;
     nix-tools.enable = lib.mkDefault true;
