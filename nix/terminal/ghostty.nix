@@ -89,5 +89,13 @@ in {
       lib.mapAttrs'
       (name: value: lib.nameValuePair "ghostty/shaders/${name}" {source = value;})
       shaders;
+
+    programs.fish.functions.ghostty-ssh-infocmp = let
+      infocmp = "${pkgs.ncurses}/bin/infocmp";
+    in {
+      body = "${infocmp} -x xterm-ghostty | ssh $host -- tic -x -";
+      argumentNames = "host";
+      description = "Easily copy ghostty terminfo to remote machine";
+    };
   };
 }
