@@ -34,7 +34,7 @@ in {
         fish = {
           shellInit = ''
             # somehow executing 'jj-fzf' directly leads to problems (i.e. bookmark editing does not fill the input field)
-            bind alt-j 'commandline "jj-fzf"; commandline -f execute; commandline -f repaint'
+            bind alt-j '${lib.getExe config.programs.jjui.package}'
           '';
           shellAbbrs = {
             jjl = {
