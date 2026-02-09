@@ -26,6 +26,9 @@ in {
             extensions = [".nix"];
           };
         };
+        plugin = [
+          "@franlol/opencode-md-table-formatter@0.0.3"
+        ];
       };
     };
   };
