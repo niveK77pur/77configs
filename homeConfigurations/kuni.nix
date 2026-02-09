@@ -9,6 +9,7 @@
         pkgs.bitwarden-desktop
       ];
       claude.enable = true;
+      opencode.enable = true;
       services.ssh-agent.enable = true;
       firefox = {
         enableKyomeiProfile = true;
