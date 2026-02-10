@@ -111,6 +111,16 @@
               sha512 = "sha512-I1+SkZ2ogF6wDEZwfCMCZNDsY4H9lDm6rAYwac13AzSCc8SqLwMw1gwAdzzEeJCG9nZF47FYwNEpWkdghNtM6A==";
             };
           }
+
+          {
+            name = "bass";
+            src = pkgs.fetchFromGitHub {
+              owner = "edc";
+              repo = "bass";
+              rev = "79b62958ecf4e87334f24d6743e5766475bcf4d0";
+              sha512 = "sha512-SZSpR94arO/9QTzaafFTRPKSAe1Z6f/ifmIwzowVqv7FnVnPAI6qMmWo8VNt8/QDXDCguH7UO5DPWG1vqICeOA==";
+            };
+          }
         ];
       };
     };
