@@ -14,7 +14,13 @@ in {
       enable = true;
       enableMcpIntegration = true;
       settings = {
-        permission = {
+        permission = let
+          commands = {
+            "find *" = "allow";
+            "grep *" = "allow";
+            "ls *" = "allow";
+          };
+        in {
           "*" = "ask";
 
           glob = "allow";
@@ -23,6 +29,9 @@ in {
           read = "allow";
           todoread = "allow";
           todowrite = "allow";
+
+          fish = commands;
+          bash = commands;
         };
         formatter = {
           nixfmt = {
