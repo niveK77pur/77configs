@@ -16,6 +16,13 @@ in {
       settings = {
         permission = {
           "*" = "ask";
+
+          glob = "allow";
+          grep = "allow";
+          list = "allow";
+          read = "allow";
+          todoread = "allow";
+          todowrite = "allow";
         };
         formatter = {
           nixfmt = {
