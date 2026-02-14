@@ -16,6 +16,7 @@ in {
       description = "Which profile name to set as default";
     };
     withPipewireScreenaudio = lib.mkEnableOption "pipewire-screenaudio";
+    withTridactylNative = lib.mkEnableOption "tridactyl-native";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -37,6 +38,7 @@ in {
           };
         nativeMessagingHosts = lib.concatLists [
           (lib.optional cfg.withPipewireScreenaudio inputs.pipewire-screenaudio.packages.${pkgs.stdenv.hostPlatform.system}.default)
+          (lib.optional cfg.withTridactylNative pkgs.tridactyl-native)
         ];
       };
     }

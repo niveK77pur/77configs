@@ -25,7 +25,10 @@
         imagesDir = "/home/kevin/Pictures/Wallpaper";
       };
       sx.base16Scheme = stylix-base16Scheme;
-      firefox.withPipewireScreenaudio = true;
+      firefox = {
+        withPipewireScreenaudio = true;
+        withTridactylNative = true;
+      };
       zathura.withLilypondXdgOpen = true;
       hyprland = {
         enable = true;
