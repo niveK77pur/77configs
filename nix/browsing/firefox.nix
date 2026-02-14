@@ -35,15 +35,11 @@ in {
           // {
             ${cfg.defaultProfile}.isDefault = true;
           };
-      };
-    }
-    (lib.mkIf cfg.withPipewireScreenaudio {
-      programs.firefox.package = pkgs.firefox.override {
-        nativeMessagingHosts = [
-          inputs.pipewire-screenaudio.packages.${pkgs.stdenv.hostPlatform.system}.default
+        nativeMessagingHosts = lib.concatLists [
+          (lib.optional cfg.withPipewireScreenaudio inputs.pipewire-screenaudio.packages.${pkgs.stdenv.hostPlatform.system}.default)
         ];
       };
-    })
+    }
     (lib.mkIf cfg.enableKyomeiProfile {
       programs.firefox.profiles.kyomei = {
         id = 1;
