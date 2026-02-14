@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   git,
   stylix-base16Scheme,
 }: [
@@ -74,6 +75,32 @@
         ];
       };
       programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
+    };
+  }
+  {
+    programs.television = {
+      enable = true;
+      channels = let
+        bao = lib.getExe pkgs.openbao;
+        jq = lib.getExe pkgs.jq;
+      in {
+        bao-approle = {
+          metadata = {
+            name = "bao approle";
+            description = "View bao approle roles";
+          };
+          source.command = "${bao} list -format=json auth/approle/role | ${jq} --raw-output '.[]'";
+          preview.command = "${bao} read auth/approle/role/{}";
+        };
+        bao-policy = {
+          metadata = {
+            name = "bao policy";
+            description = "View bao policies";
+          };
+          source.command = "${bao} policy list -format=json | ${jq} --raw-output '.[]'";
+          preview.command = "${bao} policy read {}";
+        };
+      };
     };
   }
 ]
