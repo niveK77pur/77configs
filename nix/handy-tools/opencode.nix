@@ -35,6 +35,7 @@ in {
         };
         plugin = [
           "@franlol/opencode-md-table-formatter@0.0.3"
+          "opencode-gemini-auth@latest"
         ];
       };
     };
