@@ -102,5 +102,67 @@
         };
       };
     };
+    home.packages = let
+      fzf = lib.concatStringsSep " " [
+        (lib.getExe pkgs.fzf)
+        "--style=full"
+        "--bind 'focus:transform-preview-label:echo [ {} ]'"
+        "--preview-window '60%,wrap,<60(up)'"
+      ];
+      bao = lib.getExe pkgs.openbao;
+      jq = lib.getExe pkgs.jq;
+      baofzf-approle = pkgs.writeShellApplication (let
+        preview_cmd = "${bao} read auth/approle/role/{}";
+      in {
+        name = "baofzf-approle";
+        text = lib.concatStringsSep " \\\n| " [
+          "${bao} list -format=json auth/approle/role"
+          "${jq} --raw-output '.[]'"
+          (lib.concatStringsSep " \\\n" [
+            fzf
+            "--preview '${preview_cmd}'"
+            "--preview-window ~2"
+            "--multi"
+            "--list-label 'AppRole Roles'"
+            "--prompt 'role> '"
+            "--bind 'ctrl-r:become(${preview_cmd})'"
+          ])
+        ];
+      });
+      baofzf-policy = pkgs.writeShellApplication (let
+        preview_cmd = "${bao} policy read {}";
+      in {
+        name = "baofzf-policy";
+        text = lib.concatStringsSep " \\\n| " [
+          "${bao} policy list -format=json"
+          "${jq} --raw-output '.[]'"
+          (lib.concatStringsSep " \\\n" [
+            fzf
+            "--preview '${preview_cmd}'"
+            "--multi"
+            "--list-label 'Policies'"
+            "--prompt 'policy> '"
+            "--bind 'ctrl-r:become(${preview_cmd})'"
+          ])
+        ];
+      });
+      baofzf = pkgs.writeShellApplication {
+        name = "baofzf";
+        text = let
+          tools = builtins.listToAttrs (map (t: {
+              inherit (t) name;
+              value = t;
+            }) [
+              baofzf-approle
+              baofzf-policy
+            ]);
+          fzf-opts = ''--input-label "Pick tool"'';
+        in ''
+          case "$(printf "${lib.concatStringsSep "\n" (builtins.attrNames tools)}" | ${fzf} ${fzf-opts})" in
+            ${lib.concatMapAttrsStringSep "\n" (name: value: "${name}) ${lib.getExe value};;") tools}
+          esac
+        '';
+      };
+    in [baofzf];
   }
 ]
