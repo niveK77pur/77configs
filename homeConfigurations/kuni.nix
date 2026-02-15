@@ -77,6 +77,7 @@
     };
   }
   ({
+    config,
     pkgs,
     lib,
     ...
@@ -106,12 +107,19 @@
       };
     };
     home.packages = let
-      fzf = lib.concatStringsSep " " [
-        (lib.getExe pkgs.fzf)
-        "--style=full"
-        "--bind 'focus:transform-preview-label:echo [ {} ]'"
-        "--preview-window '60%,wrap,<60(up)'"
-      ];
+      fzf = lib.concatStringsSep " " (lib.concatLists (
+        [
+          (lib.getExe pkgs.fzf)
+          "--style=full"
+          "--bind 'focus:transform-preview-label:echo [ {} ]'"
+          "--preview-window '60%,wrap,<60(up)'"
+        ]
+        (lib.optionals config.stylix.enable [
+          "--color 'input-border:${config.lib.stylix.colors.withHashtag.magenta}'"
+          "--color 'preview-border:${config.lib.stylix.colors.withHashtag.orange}'"
+          "--color 'list-border:${config.lib.stylix.colors.withHashtag.green}'"
+        ])
+      ));
       bao = lib.getExe pkgs.openbao;
       jq = lib.getExe pkgs.jq;
       baofzf-approle = pkgs.writeShellApplication (let
