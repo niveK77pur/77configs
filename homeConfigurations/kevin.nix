@@ -47,6 +47,7 @@
           }
         ];
       };
+      opencode.enable = true;
     };
   }
   {
