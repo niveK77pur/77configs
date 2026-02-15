@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   git,
   stylix-base16Scheme,
 }: [
@@ -77,7 +76,11 @@
       programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
     };
   }
-  {
+  ({
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.television = {
       enable = true;
       channels = let
@@ -164,5 +167,5 @@
         '';
       };
     in [baofzf];
-  }
+  })
 ]
