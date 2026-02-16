@@ -107,7 +107,7 @@
       };
     };
     home.packages = let
-      fzf = lib.concatStringsSep " " (lib.concatLists (
+      fzf = lib.concatStringsSep " " (lib.concatLists [
         [
           (lib.getExe pkgs.fzf)
           "--style=full"
@@ -119,7 +119,7 @@
           "--color 'preview-border:${config.lib.stylix.colors.withHashtag.orange}'"
           "--color 'list-border:${config.lib.stylix.colors.withHashtag.green}'"
         ])
-      ));
+      ]);
       bao = lib.getExe pkgs.openbao;
       jq = lib.getExe pkgs.jq;
       baofzf-approle = pkgs.writeShellApplication (let
