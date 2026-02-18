@@ -29,6 +29,9 @@ in {
   options.glab = {
     enable = lib.mkEnableOption "glab";
     package = lib.mkPackageOption pkgs "glab" {};
+    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption {inherit config;};
+    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption {inherit config;};
+    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption {inherit config;};
   };
 
   config = lib.mkIf cfg.enable {
@@ -36,5 +39,11 @@ in {
       cfg.package
       glab-mr-fzf
     ];
+
+    programs = {
+      fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration ''glab completion -s fish | source '';
+      bash.initExtra = lib.mkIf cfg.enableBashIntegration ''source <(glab completion -s bash)'';
+      zsh.initContent = lib.mkIf cfg.enableZshIntegration ''source <(glab completion -s zsh); compdef _glab glab'';
+    };
   };
 }
