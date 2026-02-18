@@ -4,6 +4,18 @@
   ...
 }: let
   cfg = config.opencode;
+  mkPerms = {
+    allow ? [],
+    ask ? [],
+    deny ? [],
+    granular ? {},
+  }:
+    lib.mergeAttrsList (lib.flatten [
+      (map (key: {${key} = "allow";}) allow)
+      (map (key: {${key} = "ask";}) ask)
+      (map (key: {${key} = "deny";}) deny)
+      granular
+    ]);
 in {
   options.opencode = {
     enable = lib.mkEnableOption "opencode";
@@ -14,24 +26,28 @@ in {
       enable = true;
       enableMcpIntegration = true;
       settings = {
-        permission = let
-          commands = {
-            "find *" = "allow";
-            "grep *" = "allow";
-            "ls *" = "allow";
+        permission = mkPerms {
+          ask = ["*"];
+          allow = [
+            "glob"
+            "grep"
+            "list"
+            "read"
+            "todoread"
+            "todowrite"
+          ];
+          granular = let
+            commands = mkPerms {
+              allow = [
+                "find *"
+                "grep *"
+                "ls *"
+              ];
+            };
+          in {
+            fish = commands;
+            bash = commands;
           };
-        in {
-          "*" = "ask";
-
-          glob = "allow";
-          grep = "allow";
-          list = "allow";
-          read = "allow";
-          todoread = "allow";
-          todowrite = "allow";
-
-          fish = commands;
-          bash = commands;
         };
         formatter = {
           nixfmt = {
