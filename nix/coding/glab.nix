@@ -13,6 +13,10 @@
         | ${lib.getExe pkgs.fzf} \
             --prompt "$prompt> " \
             --height 10 \
+            --layout reverse \
+            --info inline-right \
+            --no-separator \
+            --ghost bookmark \
             --query "$query" \
             --delimiter ':' \
             --with-nth '{1} [remote: @{2}]{3}{4}' \
