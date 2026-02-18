@@ -28,11 +28,12 @@
 in {
   options.glab = {
     enable = lib.mkEnableOption "glab";
+    package = lib.mkPackageOption pkgs "glab" {};
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      pkgs.glab
+      cfg.package
       glab-mr-fzf
     ];
   };
