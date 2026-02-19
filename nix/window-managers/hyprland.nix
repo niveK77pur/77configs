@@ -90,7 +90,7 @@ in {
     };
     #  {{{1
     launcher = lib.mkOption {
-      default = "${config.programs.fuzzel.package}/bin/fuzzel";
+      default = lib.getExe config.programs.vicinae.package;
       type = lib.types.str;
       description = "Command to use for the app launcher";
     };
@@ -144,7 +144,7 @@ in {
   config =
     lib.mkIf cfg.enable
     {
-      fuzzel.enable = true;
+      vicinae.enable = true;
       dunst.enable = true;
       swww.enable = true;
       clipse.enable = true;
@@ -179,7 +179,7 @@ in {
         })
         # needed by passmenu
         (pkgs.writeShellScriptBin "dmenu-wl" ''
-          ${cfg.launcher} --dmenu "$@"
+          ${cfg.launcher} dmenu "$@"
         '')
         pkgs.xdg-desktop-portal-hyprland
       ];
@@ -443,7 +443,7 @@ in {
                 })
                 (mkBind {
                   key = "D";
-                  params = "exec `${cfg.launcher}`";
+                  params = "${cfg.launcher} toggle";
                 })
                 (mkBind {
                   key = "P";
