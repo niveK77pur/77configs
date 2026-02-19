@@ -42,6 +42,9 @@ in {
                 "find *"
                 "grep *"
                 "ls *"
+                "go mod tidy"
+                "jj diff *"
+                "jj log *"
               ];
             };
           in {
