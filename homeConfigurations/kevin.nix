@@ -55,4 +55,17 @@
     home.packages = [pkgs.video2x];
     programs.zathura.options.zoom-max = 10000;
   }
+  {
+    services.udiskie = {
+      enable = true;
+      settings = {
+        device_config = [
+          {
+            # ExtremeSSD
+            id_uuid = ["ECFE-B921"];
+          }
+        ];
+      };
+    };
+  }
 ]
