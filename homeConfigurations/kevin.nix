@@ -48,6 +48,8 @@
         ];
       };
       opencode.enable = true;
+      vicinae.enable = true;
+      programs.vicinae.systemd.enable = true;
     };
   }
   {
