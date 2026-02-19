@@ -12,7 +12,8 @@ in {
   config = lib.mkIf cfg.enable {
     programs.vicinae = {
       enable = true;
-      systemd.enable = true;
+      # WARN: Launch from within Hyprland to inherit proper env vars
+      # systemd.enable = true;
     };
   };
 }

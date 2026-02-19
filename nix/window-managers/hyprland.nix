@@ -202,6 +202,7 @@ in {
               "ashell"
               "swww-daemon"
               "gammastep"
+              "${cfg.launcher} server" # Launch vicinae server here to inherit environment
             ];
 
             #  {{{1
