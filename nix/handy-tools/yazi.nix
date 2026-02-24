@@ -8,9 +8,17 @@
 in {
   options.yazi = {
     enable = lib.mkEnableOption "yazi";
+    withFishBind = lib.mkEnableOption "lf-fish-bind" // {default = true;};
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !(cfg.withFishBind && config.lf.withFishBind);
+        message = "Only yazi or lf can have fish bind enabled";
+      }
+    ];
+
     programs = {
       yazi = {
         enable = true;
@@ -19,6 +27,11 @@ in {
           pkgs.exiftool
           pkgs.mediainfo
         ];
+      };
+      fish = {
+        shellInit = lib.optionalString cfg.withFishBind ''
+          bind ctrl-o 'set old_tty (stty -g); stty sane; ${config.programs.yazi.shellWrapperName}; stty $old_tty; commandline -f repaint'
+        '';
       };
     };
   };

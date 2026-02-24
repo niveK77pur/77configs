@@ -9,6 +9,7 @@ in {
   options.lf = {
     enable = lib.mkEnableOption "lf";
     icons = lib.mkEnableOption "lf" // {default = true;};
+    withFishBind = lib.mkEnableOption "lf-fish-bind";
   };
 
   config = lib.mkIf config.lf.enable (lib.mkMerge [
@@ -158,7 +159,7 @@ in {
           };
         };
         fish = {
-          shellInit = ''
+          shellInit = lib.optionalString cfg.withFishBind ''
             bind ctrl-o 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
           '';
           functions = {
