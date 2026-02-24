@@ -27,6 +27,18 @@ in {
           pkgs.exiftool
           pkgs.mediainfo
         ];
+        keymap = {
+          mgr.prepend_keymap = [
+            {
+              on = ["<A-d>"];
+              run =
+                if pkgs.stdenv.isDarwin
+                then "noop"
+                else "shell -- ${lib.getExe pkgs.dragon-drop} --all --and-exit %s";
+              desc = "Drag and drop files from yazi";
+            }
+          ];
+        };
       };
       fish = {
         shellInit = lib.optionalString cfg.withFishBind ''
