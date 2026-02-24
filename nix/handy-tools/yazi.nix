@@ -27,6 +27,9 @@ in {
           pkgs.exiftool
           pkgs.mediainfo
         ];
+        initLua = ''
+          require("session"):setup { sync_yanked = true, }
+        '';
         keymap = {
           mgr.prepend_keymap = [
             {
