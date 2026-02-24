@@ -40,6 +40,11 @@ in {
                 else "shell -- ${lib.getExe pkgs.dragon-drop} --all --and-exit %s";
               desc = "Drag and drop files from yazi";
             }
+            {
+              on = ["c" "i"];
+              run = "shell -- wl-copy < %s";
+              desc = "Copy file contents to clipboard (Wayland)";
+            }
           ];
         };
       };
