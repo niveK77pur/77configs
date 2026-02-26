@@ -50,6 +50,7 @@ in {
         theme = {
           mgr = {
             symlink_target.dim = true;
+            border_symbol = " ";
           };
         };
       };
