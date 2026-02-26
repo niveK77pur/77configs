@@ -47,6 +47,11 @@ in {
             }
           ];
         };
+        theme = {
+          mgr = {
+            symlink_target.dim = true;
+          };
+        };
       };
       fish = {
         shellInit = lib.optionalString cfg.withFishBind ''
