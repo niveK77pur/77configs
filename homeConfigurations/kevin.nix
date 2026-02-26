@@ -3,6 +3,7 @@
   lib,
   git,
   stylix-base16Scheme,
+  ...
 }: [
   {
     config = {
