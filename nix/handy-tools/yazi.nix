@@ -29,12 +29,32 @@ in {
         ];
         plugins = {
           inherit (pkgs.yaziPlugins) piper;
+          mediainfo = pkgs.fetchFromGitHub {
+            owner = "boydaihungst";
+            repo = "mediainfo.yazi";
+            rev = "20ecff6dd154da4c6e28fc7f754e865fd5f9d1b3";
+            hash = "sha256-br8UDDPxVe4ZfoHIURD2zzjmyUImhKak0DYwCF9r2vw=";
+          };
         };
         initLua = ''
           require("session"):setup { sync_yanked = true, }
         '';
-        settings = {
+        settings = let
+          previewers_preloaders = [
+            # Replace magick, image, video with mediainfo
+            {
+              mime = "{audio,video,image}/*";
+              run = "mediainfo";
+            }
+            {
+              mime = "application/subrip";
+              run = "mediainfo";
+            }
+          ];
+        in {
+          plugin.prepend_preloaders = previewers_preloaders;
           plugin.prepend_previewers = lib.mkMerge [
+            previewers_preloaders
             [
               {
                 url = "*.adoc";
