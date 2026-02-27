@@ -33,6 +33,16 @@ in {
         initLua = ''
           require("session"):setup { sync_yanked = true, }
         '';
+        settings = {
+          plugin.prepend_previewers = lib.mkMerge [
+            [
+              {
+                url = "*.md";
+                run = ''piper -- CLICOLOR_FORCE=1 ${lib.getExe pkgs.glow} -w=$w -s=dark "$1"'';
+              }
+            ]
+          ];
+        };
         keymap = {
           mgr.prepend_keymap = [
             {
