@@ -66,6 +66,11 @@
           {
             # ExtremeSSD
             id_uuid = ["ECFE-B921"];
+            automount = true;
+          }
+          {
+            # Catch-all to prevent automounting random devices
+            automount = false;
           }
         ];
       };
