@@ -44,7 +44,7 @@
     viddy.enable = lib.mkDefault true;
     vidir.enable = lib.mkDefault true;
     yazi.enable = lib.mkDefault true;
-    z-lua.enable = lib.mkDefault true;
     zellij.enable = lib.mkDefault true;
+    zoxide.enable = lib.mkDefault true;
   };
 }
