@@ -59,7 +59,7 @@
             file="''${tmp//%20/\\ }"
             line=''${attr%:*:*}
             col=''${attr##*:}
-            nvr -s +:"dr $file | call cursor($line, $col)"
+            ${lib.getExe pkgs.neovim-remote} -s +:"dr $file | call cursor($line, $col)"
             exit
           fi
           ${pkgs.xdg-utils}/bin/xdg-open "$@"
