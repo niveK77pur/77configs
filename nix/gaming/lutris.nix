@@ -9,8 +9,8 @@
     home.packages = with pkgs; [
       (lutris.override {
         extraLibraries = pkgs: [
-          wineWowPackages.stable
-          wineWowPackages.staging
+          wineWow64Packages.stable
+          wineWow64Packages.staging
           winetricks
           keyutils
           mangohud
