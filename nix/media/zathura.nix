@@ -62,7 +62,7 @@
             nvr -s +:"dr $file | call cursor($line, $col)"
             exit
           fi
-          /usr/bin/xdg-open "$@"
+          ${pkgs.xdg-utils}/bin/xdg-open "$@"
         '')
       ];
     })
