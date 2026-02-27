@@ -27,6 +27,9 @@ in {
           pkgs.exiftool
           pkgs.mediainfo
         ];
+        plugins = {
+          inherit (pkgs.yaziPlugins) piper;
+        };
         initLua = ''
           require("session"):setup { sync_yanked = true, }
         '';
