@@ -37,6 +37,10 @@ in {
           plugin.prepend_previewers = lib.mkMerge [
             [
               {
+                url = "*.adoc";
+                run = ''piper -- ${lib.getExe pkgs.asciidoctor} -b html5 -o - "$1" 2>/dev/null | ${lib.getExe pkgs.pandoc} -f html -t gfm --wrap=none | CLICOLOR_FORCE=1 ${lib.getExe pkgs.glow} -w=$w -s=dark -'';
+              }
+              {
                 url = "*.md";
                 run = ''piper -- CLICOLOR_FORCE=1 ${lib.getExe pkgs.glow} -w=$w -s=dark "$1"'';
               }
