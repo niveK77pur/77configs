@@ -28,7 +28,11 @@ in {
           pkgs.mediainfo
         ];
         plugins = {
-          inherit (pkgs.yaziPlugins) piper;
+          inherit
+            (pkgs.yaziPlugins)
+            piper
+            toggle-pane
+            ;
           mediainfo = pkgs.fetchFromGitHub {
             owner = "boydaihungst";
             repo = "mediainfo.yazi";
@@ -81,6 +85,17 @@ in {
               on = ["c" "i"];
               run = "shell -- wl-copy < %s";
               desc = "Copy file contents to clipboard (Wayland)";
+            }
+
+            {
+              on = ["T" "p"];
+              run = "plugin toggle-pane min-preview";
+              desc = "Show or hide the preview pane";
+            }
+            {
+              on = ["T" "P"];
+              run = "plugin toggle-pane max-preview";
+              desc = "Maximize or restore the preview pane";
             }
           ];
         };
