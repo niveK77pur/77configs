@@ -13,7 +13,6 @@
     bash,
     xclip,
     coreutils,
-    marktext,
     neovim,
     wezterm,
   }:
@@ -28,7 +27,6 @@
         bash
         xclip
         coreutils
-        marktext
         neovim
         wezterm
       ];
