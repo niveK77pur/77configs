@@ -8,6 +8,10 @@
 in {
   options.broot = {
     enable = lib.mkEnableOption "broot";
+    fileManager = lib.mkOption {
+      type = lib.types.str;
+      default = lib.getExe config.programs.yazi.package;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -38,6 +42,24 @@ in {
             apply_to = "text_file";
             working_dir = "{root}";
             leave_broot = false;
+          }
+          {
+            name = "Open file manager in root folder";
+            invocation = "file_manager_root";
+            shortcut = "fm_root";
+            external = [
+              cfg.fileManager
+              "{root}"
+            ];
+          }
+          {
+            name = "Open file manager in folder";
+            invocation = "file_manager";
+            shortcut = "fm";
+            external = [
+              cfg.fileManager
+              "{directory}"
+            ];
           }
 
           {
