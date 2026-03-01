@@ -15,6 +15,9 @@ in {
       enable = true;
       settings = {
         icon_theme = "nerdfont";
+        imports = [
+          "${config.programs.broot.package.src}/resources/default-conf/verbs.hjson"
+        ];
         verbs = [
           {
             invocation = "open {command}";
