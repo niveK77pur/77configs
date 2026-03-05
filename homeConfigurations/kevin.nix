@@ -69,6 +69,11 @@
             automount = true;
           }
           {
+            # KEVIN-STICK
+            id_uuid = ["F1F5-BF85"];
+            automount = true;
+          }
+          {
             # Catch-all to prevent automounting random devices
             automount = false;
           }
