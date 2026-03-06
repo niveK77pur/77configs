@@ -92,6 +92,22 @@ in {
           amazon-bedrock.options = {
             region = "eu-central-1";
           };
+          vllm = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "vLLM (kair)";
+            options = {
+              # Accessible over tailscale
+              baseURL = "http://kair:8000/v1";
+            };
+            models = {
+              "qwen3.5-27b" = {
+                name = "Qwen3.5-27B";
+                options = {
+                  max_tokens = 32768;
+                };
+              };
+            };
+          };
         };
       };
     };
