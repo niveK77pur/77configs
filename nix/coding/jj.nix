@@ -112,6 +112,33 @@ in {
         };
         jjui = {
           enable = true;
+          settings = {
+            preview = lib.mkMerge [
+              (lib.mkIf config.programs.delta.enable {
+                revision_command = [
+                  "--config"
+                  "ui.diff-formatter=delta"
+                  "show"
+                  "--color"
+                  "always"
+                  "-r"
+                  "$change_id"
+                ];
+              })
+              (lib.mkIf config.programs.difftastic.enable {
+                file_command = [
+                  "--config"
+                  "ui.diff-formatter=difft"
+                  "diff"
+                  "--color"
+                  "always"
+                  "-r"
+                  "$change_id"
+                  "$file"
+                ];
+              })
+            ];
+          };
         };
       };
     }
