@@ -10,6 +10,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.mergiraf.enable = true;
+    programs.mergiraf = {
+      enable = true;
+      enableJujutsuIntegration = true;
+      enableGitIntegration = true;
+    };
   };
 }
