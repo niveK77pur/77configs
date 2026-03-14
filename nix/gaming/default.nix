@@ -24,6 +24,7 @@
       glx.enable = lib.mkDefault true;
       gpu-screen-recorder.enable = lib.mkDefault true;
       heroic.enable = lib.mkDefault true;
+      limo.enable = lib.mkDefault true;
       ludusavi.enable = lib.mkDefault true;
       lutris.enable = lib.mkDefault true;
       mangohud.enable = lib.mkDefault true;
