@@ -12,5 +12,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [pkgs.limo];
+    reshade-steam-proton.enable = true;
   };
 }
