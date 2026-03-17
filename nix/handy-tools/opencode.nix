@@ -1,9 +1,16 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
   cfg = config.opencode;
+  jujutsu-skill = pkgs.fetchFromGitHub {
+    owner = "danverbraganza";
+    repo = "jujutsu-skill";
+    rev = "efcc70090b14e4504d8f8523dd43d6a6605b9a1e";
+    hash = "sha256-rDL7M8ukN6vnWF2/G5x7fexsV/1u4M/TVhbrKzM835w=";
+  };
   mkPerms = {
     allow ? [],
     ask ? [],
@@ -43,6 +50,9 @@ in {
     programs.opencode = {
       enable = true;
       enableMcpIntegration = true;
+      skills = {
+        jujutsu = "${jujutsu-skill}/jujutsu";
+      };
       settings = {
         permission = mkPerms {
           ask = ["*"];
