@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.claude;
@@ -11,6 +10,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.claude-code];
+    programs.claude-code = {
+      enable = true;
+      inherit (config.programs.opencode) skills;
+    };
   };
 }
