@@ -16,6 +16,24 @@
       (map (key: {${key} = "deny";}) deny)
       granular
     ]);
+  commands = mkPerms {
+    allow = [
+      "curl *"
+      "find *"
+      "git diff *"
+      "git log *"
+      "git show *"
+      "git status *"
+      "go mod tidy"
+      "go build *"
+      "grep *"
+      "head *"
+      "jj diff *"
+      "jj log *"
+      "ls *"
+      "tail *"
+    ];
+  };
 in {
   options.opencode = {
     enable = lib.mkEnableOption "opencode";
@@ -36,18 +54,7 @@ in {
             "todoread"
             "todowrite"
           ];
-          granular = let
-            commands = mkPerms {
-              allow = [
-                "find *"
-                "grep *"
-                "ls *"
-                "go mod tidy"
-                "jj diff *"
-                "jj log *"
-              ];
-            };
-          in {
+          granular = {
             fish = commands;
             bash = commands;
           };
