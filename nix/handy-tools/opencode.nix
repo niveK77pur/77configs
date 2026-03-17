@@ -50,9 +50,14 @@ in {
             "glob"
             "grep"
             "list"
+            "lsp"
             "read"
+            "skill"
+            "task"
             "todoread"
             "todowrite"
+            "webfetch"
+            "websearch"
           ];
           granular = {
             fish = commands;
