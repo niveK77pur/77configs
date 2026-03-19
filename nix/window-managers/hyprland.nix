@@ -606,33 +606,33 @@ in {
               bind = lib.lists.concatLists [
                 (mkBind {
                   key = "S";
-                  params = "hyprshot -m region --clipboard-only";
+                  params = "hyprshot --freeze -m region --clipboard-only";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "W";
-                  params = "hyprshot -m window --clipboard-only";
+                  params = "hyprshot --freeze -m window --clipboard-only";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "F";
-                  params = "hyprshot -m output --clipboard-only";
+                  params = "hyprshot --freeze -m output --clipboard-only";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "R";
-                  params = "hyprshot -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy";
+                  params = "hyprshot --freeze -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "E";
-                  params = "[float] hyprshot -m region --raw | satty --filename -";
+                  params = "[float] hyprshot --freeze -m region --raw | satty --filename -";
                   submap-reset = true;
                 })
                 (mkBind {
                   key = "T";
                   params = pkgs.writers.writeFish "hyprshot-tesseract.fish" ''
-                    set text (hyprshot -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
+                    set text (hyprshot --freeze -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
                     notify-send "hyprshot tesseract copy to clipboard" $text
                     wl-copy $text
                   '';
