@@ -386,6 +386,15 @@ in {
                   "noinitialfocus"
                 ];
               })
+
+              (mkWindowRule {
+                parameters = "class:chrome-huly.app__-Default";
+                rules = [
+                  "monitor 0"
+                  "workspace 9"
+                  "noinitialfocus"
+                ];
+              })
             ];
 
             windowrule = [
