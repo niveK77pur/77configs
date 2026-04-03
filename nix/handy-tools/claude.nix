@@ -12,7 +12,11 @@ in {
   config = lib.mkIf cfg.enable {
     programs.claude-code = {
       enable = true;
-      inherit (config.programs.opencode) skills;
+      inherit
+        (config.programs.opencode)
+        skills
+        enableMcpIntegration
+        ;
     };
   };
 }
