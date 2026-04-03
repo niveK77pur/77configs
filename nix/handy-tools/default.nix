@@ -41,6 +41,7 @@
     ripgrep.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
     taskwarrior.enable = lib.mkDefault true;
+    tirith.enable = lib.mkDefault true;
     viddy.enable = lib.mkDefault true;
     vidir.enable = lib.mkDefault true;
     yazi.enable = lib.mkDefault true;
