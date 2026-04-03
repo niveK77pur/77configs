@@ -34,11 +34,17 @@
       "go mod tidy"
       "go build *"
       "grep *"
+      "rg *"
       "head *"
+      "jj show *"
       "jj diff *"
       "jj log *"
       "ls *"
+      "fd *"
+      "find *"
       "tail *"
+      "just lint *"
+      "just typecheck *"
     ];
   };
 in {
