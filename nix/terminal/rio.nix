@@ -31,6 +31,46 @@
           multiplier = 9.0;
           divider = 1.0;
         };
+        bindings.keys = lib.flatten [
+          # remap tab selection
+          (map (i: let
+            istr = toString i;
+          in [
+            {
+              # unmap the default
+              key = istr;
+              "with" = "control | shift";
+              action = "ReceiveChar";
+            }
+            {
+              key = istr;
+              "with" = "alt";
+              action =
+                if i != 9
+                then "SelectTab(${toString (i - 1)})"
+                else "SelectLastTab";
+            }
+          ]) (lib.range 1 9))
+
+          [
+            # remap to make default mappings work on swiss french layout
+            {
+              key = "1";
+              "with" = "control | shift";
+              action = "IncreaseFontSize";
+            }
+            {
+              key = "]";
+              "with" = "control";
+              action = "SelectNextSplit";
+            }
+            {
+              key = "[";
+              "with" = "control";
+              action = "SelectPrevSplit";
+            }
+          ]
+        ];
       };
     };
   };
