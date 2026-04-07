@@ -28,6 +28,7 @@
         };
         navigation = {
           current-working-directory = true;
+          mode = "TopTab";
         };
         scroll = {
           multiplier = 9.0;
