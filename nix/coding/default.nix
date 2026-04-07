@@ -23,5 +23,6 @@
     neovim.enable = lib.mkDefault true;
     nix-tools.enable = lib.mkDefault true;
     ripgrep.enable = lib.mkDefault true;
+    sd.enable = lib.mkDefault true;
   };
 }
