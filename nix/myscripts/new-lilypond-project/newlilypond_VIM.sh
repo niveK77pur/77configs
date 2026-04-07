@@ -90,7 +90,7 @@ mkdir openlilylib &&
     sed -i '/openlilylib/s/\[ \]/[x]/' README.md &&
     git add README.md &&
     git commit -m "Add edition engraver"
-cp "$HOME/.config/nvim/skeletons/Lilypond/newfile"/* .
+cp "@skeletonFolder@"/* .
 
 # set .envrc file to use flake.nix
 [[ -f _envrc ]] &&

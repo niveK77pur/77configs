@@ -8,6 +8,7 @@
   #  {{{
   pkg = {
     stdenvNoCC,
+    replaceVars,
     makeWrapper,
     lib,
     coreutils,
@@ -19,7 +20,11 @@
     gh,
     openssh,
     useGh ? false,
-  }:
+  }: let
+    script = replaceVars ./new-lilypond-project/newlilypond_VIM.sh {
+      skeletonFolder = placeholder "out";
+    };
+  in
     stdenvNoCC.mkDerivation rec {
       pname = "newlilypond_VIM.sh";
       version = "2025-10-19";
@@ -42,13 +47,8 @@
           openssh # if gh uses ssh
         ];
 
-      patchPhase = ''
-        substituteInPlace ${pname} \
-          --replace '$HOME/.config/nvim/skeletons/Lilypond/newfile' $out/skeleton
-      '';
-
       installPhase = ''
-        install -Dm755 ${pname} -t $out/bin
+        install -Dm755 ${script} -T $out/bin/${pname}
         cp -r skeleton $out
       '';
 
