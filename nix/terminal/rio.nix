@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: {
@@ -17,6 +18,7 @@
       }
     ];
     programs.rio = {
+      package = config.lib.nixGL.wrap pkgs.rio;
       enable = true;
       settings = {
         use-fork = false;
