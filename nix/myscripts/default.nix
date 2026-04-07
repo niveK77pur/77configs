@@ -10,6 +10,7 @@ in {
     (file:
       (file.hasExt "nix")
       && (file.name != "default.nix")
+      && (file.name != "flake.nix")
       && (file.name != "mount-go.nix"))
     ./.
   );

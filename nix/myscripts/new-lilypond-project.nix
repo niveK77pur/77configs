@@ -8,7 +8,6 @@
   #  {{{
   pkg = {
     stdenvNoCC,
-    fetchFromGitHub,
     makeWrapper,
     lib,
     coreutils,
@@ -25,16 +24,7 @@
       pname = "newlilypond_VIM.sh";
       version = "2025-10-19";
 
-      src = fetchFromGitHub {
-        owner = "niveK77pur";
-        repo = "nvim";
-        rev = "25bebc6140b31d0b570e9f79d17427e52ce95a5c";
-        sparseCheckout = [
-          "scripts"
-          "skeletons/Lilypond/newfile"
-        ];
-        sha256 = "sha256-kQiyqwLtB4sKTjxdCfRNrdB1T9WGYT2L47y4D5f7ccs=";
-      };
+      src = ./new-lilypond-project;
 
       buildInputs = [makeWrapper];
 
@@ -53,13 +43,13 @@
         ];
 
       patchPhase = ''
-        substituteInPlace scripts/${pname} \
+        substituteInPlace ${pname} \
           --replace '$HOME/.config/nvim/skeletons/Lilypond/newfile' $out/skeleton
       '';
 
       installPhase = ''
-        install -Dm755 scripts/${pname} -t $out/bin
-        cp -r skeletons/Lilypond/newfile $out/skeleton
+        install -Dm755 ${pname} -t $out/bin
+        cp -r skeleton $out
       '';
 
       postFixup = ''
