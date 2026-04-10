@@ -28,7 +28,7 @@
         };
         navigation = {
           current-working-directory = true;
-          mode = "TopTab";
+          mode = "Tab";
         };
         scroll = {
           multiplier = 9.0;
