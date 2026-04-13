@@ -56,7 +56,7 @@ in {
     programs.opencode = {
       enable = true;
       enableMcpIntegration = true;
-      rules = ../../config/opencode/AGENTS.md;
+      context = ../../config/opencode/AGENTS.md;
       skills = {
         jujutsu = "${jujutsu-skill}/jujutsu";
       };
