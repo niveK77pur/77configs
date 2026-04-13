@@ -65,6 +65,48 @@ in {
         in
           layouts.qwertz;
         audible_bell = "Disabled";
+
+        # {{{1
+        keys = [
+          {
+            # Interferes with jjui
+            key = "Enter";
+            mods = "ALT";
+            action = lib.generators.mkLuaInline "wezterm.action.DisableDefaultAssignment";
+          }
+          {
+            # Match ghostty default
+            key = "o";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.SplitHorizontal {domain="CurrentPaneDomain"}'';
+          }
+          {
+            # Match ghostty default
+            key = "e";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.SplitVertical {domain="CurrentPaneDomain"}'';
+          }
+          {
+            key = "h";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.ActivatePaneDirection "Left"'';
+          }
+          {
+            key = "j";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.ActivatePaneDirection "Down"'';
+          }
+          {
+            key = "k";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.ActivatePaneDirection "Up"'';
+          }
+          {
+            key = "l";
+            mods = "CTRL|SHIFT";
+            action = lib.generators.mkLuaInline ''wezterm.action.ActivatePaneDirection "Right"'';
+          }
+        ];
         #  }}}1
       };
     };
