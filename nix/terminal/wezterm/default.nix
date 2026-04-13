@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  cfg = config.wezterm.overrides;
+  cfg = config.wezterm;
 in {
   options.wezterm = {
     enable = lib.mkEnableOption "wezterm";
@@ -28,21 +28,47 @@ in {
   };
 
   config = lib.mkIf config.wezterm.enable {
-    home.packages = [
-      config.wezterm.package
-      pkgs.nerd-fonts.fira-code
-      pkgs.nerd-fonts.victor-mono
-    ];
-    xdg.configFile."wezterm/wezterm.lua".source = pkgs.stdenvNoCC.mkDerivation {
-      pname = "wezterm.lua";
-      version = "latest";
-      src = ../../../config/wezterm;
-      patches = [
-        (pkgs.replaceVars ./wezterm.patch {
-          inherit (cfg) window_background_opacity font_size;
-        })
-      ];
-      installPhase = "install -Dm311 wezterm.lua $out";
+    programs.wezterm = {
+      enable = true;
+      inherit (cfg) package;
+      settings = {
+        # Interface {{{1
+        enable_tab_bar = true;
+        hide_tab_bar_if_only_one_tab = true;
+        inherit (cfg.overrides) window_background_opacity;
+        window_padding = let
+          padding = 10;
+        in {
+          left = padding;
+          right = padding;
+          top = padding;
+          bottom = padding;
+        };
+        # Behaviour {{{1
+        warn_about_missing_glyphs = false;
+        check_for_updates = false;
+        scrollback_lines = 3500;
+
+        # uses rust regex: https://docs.rs/regex/1.3.9/regex/#syntax
+        quick_select_patterns = [
+          ''\\b[[:alnum:][:punct:]]+\\b'' # "words"
+        ];
+        quick_select_alphabet = let
+          # suggested alphabet for keyboard layout
+          layouts = {
+            qwerty = "asdfqwerzxcvjklmiuopghtybn";
+            qwertz = "asdfqweryxcvjkluiopmghtzbn";
+            azerty = "qsdfazerwxcvjklmuiopghtybn";
+            dvorak = "aoeuqjkxpyhtnsgcrlmwvzfidb";
+            colemak = "arstqwfpzxcvneioluymdhgjbk";
+          };
+        in
+          layouts.qwertz;
+        audible_bell = "Disabled";
+        #  }}}1
+      };
     };
   };
 }
+# vim: fdm=marker
+
