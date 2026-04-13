@@ -154,7 +154,7 @@ in {
         enable = true;
       };
       stylix.targets.ghostty.fonts.override.sizes.terminal = 10;
-      stylix.targets.wezterm.fonts.override.sizes.terminal = 10;
+      programs.wezterm.settings.font_size = lib.mkForce 10;
       wlogout = {
         enable = true;
         override-layout = {
