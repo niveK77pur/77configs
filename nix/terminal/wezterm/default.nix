@@ -6,22 +6,24 @@
 }: let
   cfg = config.wezterm.overrides;
 in {
-  options.wezterm.enable = lib.mkEnableOption "wezterm";
-  options.wezterm.package = lib.mkOption {
-    type = lib.types.package;
-    default = config.lib.nixGL.wrap pkgs.wezterm;
-    description = "The wezterm package to be used";
-  };
-  options.wezterm.overrides = {
-    window_background_opacity = lib.mkOption {
-      type = lib.types.float;
-      default = 1.0;
-      description = "Background opacity for wezterm";
+  options.wezterm = {
+    enable = lib.mkEnableOption "wezterm";
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = config.lib.nixGL.wrap pkgs.wezterm;
+      description = "The wezterm package to be used";
     };
-    font_size = lib.mkOption {
-      type = lib.types.float;
-      default = 12.0;
-      description = "Font size for wezterm";
+    overrides = {
+      window_background_opacity = lib.mkOption {
+        type = lib.types.float;
+        default = 1.0;
+        description = "Background opacity for wezterm";
+      };
+      font_size = lib.mkOption {
+        type = lib.types.float;
+        default = 12.0;
+        description = "Font size for wezterm";
+      };
     };
   };
 
