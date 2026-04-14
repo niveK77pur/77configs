@@ -40,7 +40,7 @@
         SCREEN = "eDP";
         OUTPUT = "DisplayPort-0";
       };
-      swww.service = {
+      awww.service = {
         enable = true;
         imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
       };

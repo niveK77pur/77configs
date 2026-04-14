@@ -145,7 +145,7 @@ in {
     {
       vicinae.enable = true;
       dunst.enable = true;
-      swww.enable = true;
+      awww.enable = true;
       clipse.enable = true;
       ashell.enable = true;
       flameshot.enable = false;

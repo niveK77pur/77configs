@@ -21,7 +21,7 @@
         SCREEN = "eDP-2";
         OUTPUT = "DP-1";
       };
-      swww.service = {
+      awww.service = {
         enable = true;
         imagesDir = "/home/kevin/Pictures/Wallpaper";
       };

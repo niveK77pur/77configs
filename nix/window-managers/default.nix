@@ -17,6 +17,6 @@
     clipse.enable = lib.mkDefault true;
     dunst.enable = lib.mkDefault true;
     hyprland.enable = lib.mkDefault true;
-    swww.enable = lib.mkDefault true;
+    awww.enable = lib.mkDefault true;
   };
 }
