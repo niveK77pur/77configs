@@ -47,7 +47,7 @@ in {
         }
       ];
 
-      home.packages = [cfg.package];
+      services.awww.enable = true;
     }
     (lib.mkIf cfg.service.enable {
       systemd.user.timers.swww-service = {

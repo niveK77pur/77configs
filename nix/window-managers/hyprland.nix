@@ -197,7 +197,6 @@ in {
             exec-once = [
               "${config.services.dunst.package}/bin/dunst"
               "ashell"
-              "swww-daemon"
               "gammastep"
               "${cfg.launcher} server" # Launch vicinae server here to inherit environment
             ];
