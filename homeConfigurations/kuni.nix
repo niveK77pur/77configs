@@ -21,10 +21,6 @@
       claude.enable = true;
       opencode.enable = true;
       services.ssh-agent.enable = true;
-      firefox = {
-        enableKyomeiProfile = true;
-        defaultProfile = "kyomei";
-      };
       slack.enable = true;
       gcloud.enable = true;
       glab.enable = true;
