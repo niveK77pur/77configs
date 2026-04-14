@@ -26,6 +26,7 @@ in {
           };
           init.defaultBranch = "main";
         };
+        signing.format = null;
       };
       # delta.enable = true;
       diff-so-fancy.enable = true;
