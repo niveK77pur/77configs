@@ -64,7 +64,7 @@ in {
             [ -d "${cfg.service.imagesDir}" ] || { echo "Folder `${cfg.service.imagesDir}` does not exist. Exiting."; exit 255; }
             ${lib.getExe config.services.awww.package} img \
               --transition-fps ${toString cfg.service.fps} \
-              --transition-type any \
+              --transition-type random \
               "$(find ${cfg.service.imagesDir} -follow -type f | shuf -n 1)"
           '');
         };
