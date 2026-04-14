@@ -42,6 +42,8 @@ in {
           pkgs.gnutar # tree-sitter
           pkgs.curl # tree-sitter
         ];
+        withRuby = false;
+        withPython3 = false;
       };
       fish.functions = {
         n = helper.makeFishAliasFunction {
