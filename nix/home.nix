@@ -84,6 +84,8 @@
       };
     };
 
+    gtk.gtk4.theme = null;
+
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "steam"
