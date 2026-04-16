@@ -15,6 +15,7 @@
   }
   {
     config = {
+      home.sessionVariables.GIT_SSH = "/usr/bin/ssh";
       home.packages = [
         pkgs.bitwarden-desktop
       ];
