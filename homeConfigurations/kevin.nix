@@ -9,10 +9,6 @@
     config = {
       categories.enableAll = true;
       mpv.withAnime4k = true;
-      wezterm.overrides = {
-        window_background_opacity = 0.97;
-        font_size = 11.1;
-      };
       git = {inherit (git) userName userEmail;};
       jj = {
         inherit (git) userName userEmail;

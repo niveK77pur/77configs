@@ -29,9 +29,6 @@
       keychain.enable = true;
       categories.enableAll = true;
       gaming.enableAll = false;
-      wezterm.overrides = {
-        font_size = 9.5;
-      };
       zathura.withLilypondXdgOpen = true;
       git = {inherit (git) userName userEmail;};
       jj = {
