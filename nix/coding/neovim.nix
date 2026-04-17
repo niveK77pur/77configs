@@ -41,6 +41,8 @@ in {
           pkgs.tree-sitter # tree-sitter
           pkgs.gnutar # tree-sitter
           pkgs.curl # tree-sitter
+          pkgs.ltex-ls-plus
+          pkgs.typos
         ];
         withRuby = false;
         withPython3 = false;
