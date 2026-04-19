@@ -86,6 +86,11 @@ in {
               run = "shell -- wl-copy < %s";
               desc = "Copy file contents to clipboard (Wayland)";
             }
+            {
+              on = ["c" "w"];
+              run = "shell --block -- ${lib.getExe pkgs.magic-wormhole} send %h";
+              desc = "Send files using magic-wormhole";
+            }
 
             {
               on = ["T" "p"];
