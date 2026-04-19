@@ -89,7 +89,7 @@ in {
               (lib.lists.foldr (file: agg:
                 agg
                 // {
-                  "${lib.removeSuffix ".fish" (builtins.baseNameOf file)}" = [
+                  "${lib.removeSuffix ".fish" (baseNameOf file)}" = [
                     "util"
                     "exec"
                     "--"
