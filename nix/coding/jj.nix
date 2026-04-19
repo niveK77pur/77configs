@@ -113,6 +113,7 @@ in {
         jjui = {
           enable = true;
           settings = {
+            # {{{1
             preview = lib.mkMerge [
               (lib.mkIf config.programs.delta.enable {
                 revision_command = [
@@ -138,6 +139,7 @@ in {
                 ];
               })
             ];
+            # }}}1
           };
         };
       };
