@@ -9,7 +9,7 @@
 in {
   options.firefox = {
     enable = lib.mkEnableOption "firefox";
-    enableKyomeiProfile = lib.mkEnableOption "firefox";
+    enableKyomeiProfile = lib.mkEnableOption "firefox" // {default = true;};
     defaultProfile = lib.mkOption {
       type = lib.types.str;
       default = "default";
