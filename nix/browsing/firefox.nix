@@ -10,6 +10,7 @@ in {
   options.firefox = {
     enable = lib.mkEnableOption "firefox";
     enableKyomeiProfile = lib.mkEnableOption "firefox" // {default = true;};
+    enableBraddlProfile = lib.mkEnableOption "firefox" // {default = true;};
     defaultProfile = lib.mkOption {
       type = lib.types.str;
       default = "default";
@@ -43,6 +44,31 @@ in {
         ];
       };
     }
+    (lib.mkIf cfg.enableBraddlProfile {
+      programs.firefox.profiles.braddl = {
+        id = 2;
+        search = {
+          default = "ddg";
+          force = true;
+        };
+        #  {{{1
+        settings = {
+          "extensions.autoDisableScopes" = 0;
+        };
+        #  {{{1
+        bookmarks = {
+          force = true;
+          settings = [
+            {
+              name = "Community City Incubator";
+              tags = ["incubator"];
+              url = "https://community.cityincubator.lu/dashboard";
+            }
+          ];
+        };
+        #  }}}1
+      };
+    })
     (lib.mkIf cfg.enableKyomeiProfile {
       programs.firefox.profiles.kyomei = {
         id = 1;
