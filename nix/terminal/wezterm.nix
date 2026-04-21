@@ -55,7 +55,7 @@ in {
           audible_bell = "Disabled";
 
           # {{{1
-          keys = [
+          keys = lib.flatten [
             {
               # Interferes with jjui
               key = "Enter";
@@ -94,6 +94,16 @@ in {
               mods = "CTRL|SHIFT";
               action = lib.generators.mkLuaInline ''wezterm.action.ActivatePaneDirection "Right"'';
             }
+            (builtins.genList (i: {
+                key = "${toString (i + 1)}";
+                mods = "ALT";
+                action = lib.generators.mkLuaInline ''wezterm.action.ActivateTab(${toString (
+                    if i == 8
+                    then -1
+                    else i
+                  )})'';
+              })
+              9)
           ];
           #  }}}1
         };
