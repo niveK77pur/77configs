@@ -64,6 +64,16 @@ in {
               tags = ["incubator"];
               url = "https://community.cityincubator.lu/dashboard";
             }
+            {
+              name = "GitHub - Braddl";
+              tags = ["braddl"];
+              url = "https://github.com/orgs/braddl-lu/repositories";
+            }
+            {
+              name = "Notion - Braddl";
+              tags = ["braddl"];
+              url = "https://www.notion.so/Braddl-3444f3e273b88059a031d8b6c2fa4577";
+            }
           ];
         };
         #  }}}1
