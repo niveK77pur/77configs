@@ -74,6 +74,11 @@ in {
         keymap = {
           mgr.prepend_keymap = [
             {
+              on = "A";
+              run = "create --dir";
+              desc = "Create a directory";
+            }
+            {
               on = ["<A-d>"];
               run =
                 if pkgs.stdenv.isDarwin
