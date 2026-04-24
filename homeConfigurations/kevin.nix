@@ -47,6 +47,8 @@
       opencode.enable = true;
       vicinae.enable = true;
       programs.vicinae.systemd.enable = true;
+      # Fix for KDE6: https://github.com/LGFae/swww/issues/393
+      services.awww.extraArgs = ["--layer" "bottom"];
     };
   }
   {
