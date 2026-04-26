@@ -8,6 +8,7 @@
   {
     config = {
       categories.enableAll = true;
+      services.ssh-agent.enable = true;
       mpv.withAnime4k = true;
       git = {inherit (git) userName userEmail;};
       jj = {
