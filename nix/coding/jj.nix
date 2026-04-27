@@ -32,9 +32,7 @@ in {
       };
       programs = {
         fish = {
-          shellInit = ''
-            bind alt-j '${lib.getExe config.programs.jjui.package}'
-          '';
+          binds."alt-j".command = lib.getExe config.programs.jjui.package;
           shellAbbrs = {
             jjl = {
               position = "command";

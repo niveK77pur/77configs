@@ -116,10 +116,11 @@ in {
           };
         };
       };
-      fish = {
-        shellInit = lib.optionalString cfg.withFishBind ''
-          bind ctrl-o 'set old_tty (stty -g); stty sane; ${config.programs.yazi.shellWrapperName}; stty $old_tty; commandline -f repaint'
-        '';
+      fish.binds = lib.optionalAttrs cfg.withFishBind {
+        "ctrl-o" = {
+          command = config.programs.yazi.shellWrapperName;
+          repaint = true;
+        };
       };
     };
   };

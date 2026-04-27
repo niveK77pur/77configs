@@ -159,9 +159,12 @@ in {
           };
         };
         fish = {
-          shellInit = lib.optionalString cfg.withFishBind ''
-            bind ctrl-o 'set old_tty (stty -g); stty sane; lfcd; stty $old_tty; commandline -f repaint'
-          '';
+          binds = lib.optionalAttrs cfg.withFishBind {
+            "ctrl-o" = {
+              command = "set old_tty (stty -g); stty sane; lfcd; stty $old_tty";
+              repaint = true;
+            };
+          };
           functions = {
             # see: https://github.com/gokcehan/lf/blob/master/etc/lfcd.fish
             lfcd = {

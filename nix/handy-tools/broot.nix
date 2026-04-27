@@ -169,9 +169,10 @@ in {
       };
     };
 
-    programs.fish.shellInit = ''
-      bind alt-o 'br; commandline -f repaint'
-    '';
+    programs.fish.binds."alt-o" = {
+      command = "br";
+      repaint = true;
+    };
   };
 }
 # vim: fdm=marker
