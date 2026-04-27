@@ -74,6 +74,7 @@
         ];
       };
       programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
+      services.tailscale-systray.enable = true;
     };
   }
   ({
