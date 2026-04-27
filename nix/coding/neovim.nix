@@ -35,6 +35,7 @@ in {
     programs = {
       neovim = {
         enable = true;
+        sideloadInitLua = true;
         defaultEditor = true;
         extraPackages = [
           pkgs.gcc # tree-sitter
