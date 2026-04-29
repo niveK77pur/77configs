@@ -25,6 +25,7 @@ in {
       programs.firefox = {
         enable = true;
         package = config.lib.nixGL.wrap pkgs.firefox;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
         profiles =
           {
             default = {
