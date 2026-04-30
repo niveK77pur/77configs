@@ -77,6 +77,19 @@
       services.tailscale-systray.enable = true;
     };
   }
+  {
+    programs.mcp = {
+      enable = true;
+      servers.arxiv-mcp-server = {
+        command = "${pkgs.uv}/bin/uvx";
+        args = [
+          "arxiv-mcp-server"
+          "--storage-path"
+          "/tmp/arxiv-mcp-server/papers"
+        ];
+      };
+    };
+  }
   ({
     config,
     pkgs,
