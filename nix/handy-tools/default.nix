@@ -38,6 +38,7 @@
     parallel.enable = lib.mkDefault true;
     pay-respects.enable = lib.mkDefault true;
     pdfarranger.enable = lib.mkDefault true;
+    qalc.enable = lib.mkDefault true;
     ripgrep.enable = lib.mkDefault true;
     sx.enable = lib.mkDefault true;
     taskwarrior.enable = lib.mkDefault true;
