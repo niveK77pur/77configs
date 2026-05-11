@@ -14,10 +14,10 @@ jobs:
       configs: ${{ steps.discover.outputs.configs }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
 
       - name: Discover homeConfigurations
         id: discover
@@ -32,10 +32,10 @@ jobs:
         config: ${{ fromJSON(needs.list-configs.outputs.configs) }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v30
+        uses: cachix/install-nix-action@v31
 
       - name: Build ${{ matrix.config }}
         run: |
