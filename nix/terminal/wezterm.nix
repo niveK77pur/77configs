@@ -105,6 +105,29 @@ in {
               })
               9)
           ];
+          # {{{1
+          mouse_bindings = let
+            scroll = 3;
+          in [
+            {
+              event.Down = {
+                streak = 1;
+                button.WheelUp = 1;
+              };
+              mods = "NONE";
+              action = lib.generators.mkLuaInline "wezterm.action.ScrollByLine(${toString (- scroll)})";
+              alt_screen = false;
+            }
+            {
+              event.Down = {
+                streak = 1;
+                button.WheelDown = 1;
+              };
+              mods = "NONE";
+              action = lib.generators.mkLuaInline "wezterm.action.ScrollByLine(${toString scroll})";
+              alt_screen = false;
+            }
+          ];
           #  }}}1
         };
       };
