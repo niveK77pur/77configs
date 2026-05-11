@@ -1,0 +1,25 @@
+name: Home Manager CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build-home-configurations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - name: Build all homeConfigurations
+        run: |
+          nix eval .#homeConfigurations --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)' --raw | while read -r config; do
+            echo "Building homeConfiguration: $config"
+            nix build ".#homeConfigurations.$config.activationPackage"
+          done
