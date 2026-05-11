@@ -4,53 +4,52 @@
   git,
   stylix-base16Scheme,
   ...
-}: [
+}:
+lib.mkMerge [
   {
-    config = {
-      categories.enableAll = true;
-      services.ssh-agent.enable = true;
-      mpv.withAnime4k = true;
-      git = {inherit (git) userName userEmail;};
-      jj = {
-        inherit (git) userName userEmail;
-      };
-      mrandr = {
-        SCREEN = "eDP-2";
-        OUTPUT = "DP-1";
-      };
-      awww.service = {
-        enable = true;
-        imagesDir = "/home/kevin/Pictures/Wallpaper";
-      };
-      sx.base16Scheme = stylix-base16Scheme;
-      firefox = {
-        withPipewireScreenaudio = true;
-        withTridactylNative = true;
-      };
-      zathura.withLilypondXdgOpen = true;
-      hyprland = {
-        enable = true;
-        monitor = [
-          {
-            name = "eDP-1";
-            scale = 1.6;
-          }
-          {
-            name = "desc:Sony SONY TV  *00 0x01010101";
-            # resolution = "1920x1080@60";
-            scale = 2;
-            extraArgs = {
-              vrr = 3;
-            };
-          }
-        ];
-      };
-      opencode.enable = true;
-      vicinae.enable = true;
-      programs.vicinae.systemd.enable = true;
-      # Fix for KDE6: https://github.com/LGFae/swww/issues/393
-      services.awww.extraArgs = ["--layer" "bottom"];
+    categories.enableAll = true;
+    services.ssh-agent.enable = true;
+    mpv.withAnime4k = true;
+    git = {inherit (git) userName userEmail;};
+    jj = {
+      inherit (git) userName userEmail;
     };
+    mrandr = {
+      SCREEN = "eDP-2";
+      OUTPUT = "DP-1";
+    };
+    awww.service = {
+      enable = true;
+      imagesDir = "/home/kevin/Pictures/Wallpaper";
+    };
+    sx.base16Scheme = stylix-base16Scheme;
+    firefox = {
+      withPipewireScreenaudio = true;
+      withTridactylNative = true;
+    };
+    zathura.withLilypondXdgOpen = true;
+    hyprland = {
+      enable = true;
+      monitor = [
+        {
+          name = "eDP-1";
+          scale = 1.6;
+        }
+        {
+          name = "desc:Sony SONY TV  *00 0x01010101";
+          # resolution = "1920x1080@60";
+          scale = 2;
+          extraArgs = {
+            vrr = 3;
+          };
+        }
+      ];
+    };
+    opencode.enable = true;
+    vicinae.enable = true;
+    programs.vicinae.systemd.enable = true;
+    # Fix for KDE6: https://github.com/LGFae/swww/issues/393
+    services.awww.extraArgs = ["--layer" "bottom"];
   }
   {
     stylix.targets.mangohud.fonts.override.sizes.applications = lib.mkForce 30;

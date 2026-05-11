@@ -40,19 +40,18 @@
     };
     stylix-base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
     #  {{{
-    makeUser = user: modules: {
+    makeUser = user: modulePath: {
       "${user}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules =
-          [
-            nix-index-database.homeModules.nix-index
-            ./nix/home.nix
-            ./nix/categories.nix
-          ]
-          ++ modules;
+        modules = [
+          nix-index-database.homeModules.nix-index
+          ./nix/home.nix
+          ./nix/categories.nix
+          modulePath
+        ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
@@ -73,6 +72,8 @@
             system
             inputs
             helper
+            git
+            stylix-base16Scheme
             ;
           username = user;
         };
@@ -83,13 +84,7 @@
       lib.mergeAttrsList
       (map
         (f:
-          makeUser (lib.removeSuffix ".nix" (baseNameOf f)) (pkgs.callPackage f {
-            inherit
-              git
-              stylix-base16Scheme
-              inputs
-              ;
-          }))
+          makeUser (lib.removeSuffix ".nix" (baseNameOf f)) f)
         (lib.fileset.toList ./homeConfigurations));
 
     devShells.${system}.default = pkgs.mkShell {

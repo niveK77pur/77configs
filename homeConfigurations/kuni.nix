@@ -1,9 +1,13 @@
 {
   inputs,
   pkgs,
+  lib,
   git,
   stylix-base16Scheme,
-}: [
+  config,
+  ...
+}:
+lib.mkMerge [
   {
     # See: https://github.com/nix-community/home-manager/blob/master/docs/manual/usage/gpu-non-nixos.md
     targets.genericLinux.nixGL = {
@@ -14,68 +18,66 @@
     };
   }
   {
-    config = {
-      home.sessionVariables.GIT_SSH = "/usr/bin/ssh";
-      home.packages = [
-        pkgs.bitwarden-desktop
-      ];
-      claude.enable = true;
-      opencode.enable = true;
-      services.ssh-agent.enable = true;
-      slack.enable = true;
-      gcloud.enable = true;
-      glab.enable = true;
-      huly.enable = true;
-      keychain.enable = true;
-      categories.enableAll = true;
-      gaming.enableAll = false;
-      zathura.withLilypondXdgOpen = true;
-      git = {inherit (git) userName userEmail;};
-      jj = {
-        inherit (git) userName userEmail;
-      };
-      mrandr = {
-        SCREEN = "eDP";
-        OUTPUT = "DisplayPort-0";
-      };
-      awww.service = {
-        enable = true;
-        imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
-      };
-      sx.base16Scheme = stylix-base16Scheme;
-      hyprland = {
-        enable = true;
-        monitor = [
-          {
-            name = "eDP-1";
-            scale = 1.6;
-          }
-          {
-            name = "DP-1"; # TODO: Make sure it matches monitor by name and ID
-            position = "auto-left";
-            scale = 1 + 1.0 / 3;
-          }
-          {
-            name = "HDMI-A-1";
-            position = "auto-up";
-          }
-          {
-            # monitor on dongle
-            name = "desc:LG Electronics LG ULTRAFINE 0x00015B5D";
-            position = "auto-right";
-            scale = 1.6;
-          }
-          {
-            # monitor on HDMI
-            name = "desc:LG Electronics LG ULTRAFINE 502NTKF2L925";
-            position = "auto-right";
-            scale = 1.6;
-          }
-        ];
-      };
-      programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
-      services.tailscale-systray.enable = true;
+    home.sessionVariables.GIT_SSH = "/usr/bin/ssh";
+    home.packages = [
+      pkgs.bitwarden-desktop
+    ];
+    claude.enable = true;
+    opencode.enable = true;
+    services.ssh-agent.enable = true;
+    slack.enable = true;
+    gcloud.enable = true;
+    glab.enable = true;
+    huly.enable = true;
+    keychain.enable = true;
+    categories.enableAll = true;
+    gaming.enableAll = false;
+    zathura.withLilypondXdgOpen = true;
+    git = {inherit (git) userName userEmail;};
+    jj = {
+      inherit (git) userName userEmail;
     };
+    mrandr = {
+      SCREEN = "eDP";
+      OUTPUT = "DisplayPort-0";
+    };
+    awww.service = {
+      enable = true;
+      imagesDir = "/home/kuni/Pictures/i3wallpapers/active";
+    };
+    sx.base16Scheme = stylix-base16Scheme;
+    hyprland = {
+      enable = true;
+      monitor = [
+        {
+          name = "eDP-1";
+          scale = 1.6;
+        }
+        {
+          name = "DP-1"; # TODO: Make sure it matches monitor by name and ID
+          position = "auto-left";
+          scale = 1 + 1.0 / 3;
+        }
+        {
+          name = "HDMI-A-1";
+          position = "auto-up";
+        }
+        {
+          # monitor on dongle
+          name = "desc:LG Electronics LG ULTRAFINE 0x00015B5D";
+          position = "auto-right";
+          scale = 1.6;
+        }
+        {
+          # monitor on HDMI
+          name = "desc:LG Electronics LG ULTRAFINE 502NTKF2L925";
+          position = "auto-right";
+          scale = 1.6;
+        }
+      ];
+    };
+    programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
+    services.tailscale-systray.enable = true;
   }
   {
     programs.mcp = {
@@ -90,12 +92,7 @@
       };
     };
   }
-  ({
-    config,
-    pkgs,
-    lib,
-    ...
-  }: {
+  {
     programs.television = {
       enable = true;
       channels = let
@@ -189,5 +186,5 @@
         '';
       };
     in [baofzf];
-  })
+  }
 ]
