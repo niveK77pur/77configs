@@ -8,8 +8,10 @@ on:
       - main
 
 jobs:
-  build-home-configurations:
+  list-configs:
     runs-on: ubuntu-latest
+    outputs:
+      configs: ${{ steps.discover.outputs.configs }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,9 +19,24 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v30
 
-      - name: Build all homeConfigurations
+      - name: Discover homeConfigurations
+        id: discover
         run: |
-          nix eval .#homeConfigurations --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)' --raw | while read -r config; do
-            echo "Building homeConfiguration: $config"
-            nix build ".#homeConfigurations.$config.activationPackage"
-          done
+          echo "configs=$(nix eval .#homeConfigurations --apply 'builtins.attrNames' --json)" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: list-configs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: ${{ fromJSON(needs.list-configs.outputs.configs) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - name: Build ${{ matrix.config }}
+        run: |
+          nix build ".#homeConfigurations.${{ matrix.config }}.activationPackage"
