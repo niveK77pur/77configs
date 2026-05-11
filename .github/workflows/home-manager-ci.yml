@@ -28,6 +28,7 @@ jobs:
     needs: list-configs
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         config: ${{ fromJSON(needs.list-configs.outputs.configs) }}
     steps:
