@@ -27,7 +27,7 @@ in {
       exec = lib.getExe huly;
       icon = builtins.fetchurl {
         url = "https://huly.io/favicon/favicon-512x512.png";
-        sha256 = "07g36i7zawrzq4za29dd69z85njn6n1p5jzp8pgps5zalg49d65p";
+        sha256 = "19wvcpw767zzplr0ydivav6bvdzhj1llcl9nz6nz9wlf3927q7d9";
       };
       genericName = "Messaging Client";
       comment = "chromium app for huly.app";
