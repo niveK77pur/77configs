@@ -54,10 +54,10 @@
         --ro-bind /run/systemd/resolve /run/systemd/resolve
 
         # This may contain sensitive information which we explicitly prevent
-        # from being accessed. This is a "catch-all" in case more of "/run" is
-        # mounted.
+        # from being bound into the sandbox. This is a "catch-all" in case more
+        # of "/run" is mounted.
         # WARN: We may want to put this argument at the very end.
-        --perms 000 --tmpfs /run/user
+        --tmpfs /run/user
 
         --dev /dev
         --proc /proc
@@ -77,6 +77,11 @@
         --ro-bind "$HOME/.config" "$HOME/.config"
         --ro-bind "$HOME/.local" "$HOME/.local"
         --ro-bind "$HOME/.cache" "$HOME/.cache"
+
+        # Allow neovim in the sandbox to write into necessary locations without
+        # leaking into the host.
+        --tmpfs "$HOME/.local/state/nvim"
+        --tmpfs "$HOME/.cache/nvim"
 
         # We can let claude manage some of its own files; being too restrictive
         # here may make claude hang on start-up. Some of these files are
