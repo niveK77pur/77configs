@@ -21,6 +21,7 @@
       url = "github:IceDBorn/pipewire-screenaudio";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niveK77pur-nixos.url = "github:niveK77pur/nixos?ref=optiplex";
   };
 
   outputs = inputs @ {
