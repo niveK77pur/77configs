@@ -75,7 +75,7 @@
     lib.lists.map (rule: "${rule}, ${parameters}") rules;
   #  {{{1
   mergeBindings = bindings:
-  # we only expect to be providing the 'bin' familiy of settings here
+  # we only expect to be providing the 'bin' family of settings here
     builtins.zipAttrsWith (_: values: lib.concatLists values) bindings;
   #  }}}1
 in {
@@ -594,13 +594,13 @@ in {
           ])
           (lib.attrsets.optionalAttrs (cfg.monitor != null) {
             monitor =
-              builtins.map (
+              map (
                 m:
                   lib.strings.concatStringsSep ", " ([
                       m.name
                       m.resolution
                       m.position
-                      (builtins.toString m.scale)
+                      (toString m.scale)
                     ]
                     ++ (lib.mapAttrsToList (arg: val: "${arg}, ${toString val}") m.extraArgs))
               )
