@@ -89,6 +89,7 @@ lib.mkMerge [
           "/tmp/arxiv-mcp-server/papers"
         ];
       };
+      servers.basic-memory.url = "https://kb.braddl.lu/mcp";
     };
   }
   {
