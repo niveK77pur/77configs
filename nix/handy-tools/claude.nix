@@ -83,6 +83,11 @@
         --tmpfs "$HOME/.local/state/nvim"
         --tmpfs "$HOME/.cache/nvim"
 
+        # In case some of the MCP servers require uvx. This would lead to
+        # redownloading everything due to not being persisted on the host.
+        --tmpfs "$HOME/.cache/uv"
+        --tmpfs "$HOME/.local/share/uv"
+
         # We can let claude manage some of its own files; being too restrictive
         # here may make claude hang on start-up. Some of these files are
         # necessary to read so that claude does not suffer a "factory reset"
