@@ -1,4 +1,6 @@
 {
+  inputs,
+  config,
   pkgs,
   lib,
   git,
@@ -79,5 +81,28 @@ lib.mkMerge [
         ];
       };
     };
+  }
+  {
+    services.syncthing = {
+      enable = true;
+      tray.enable = true;
+      settings = {
+        inherit (inputs.niveK77pur-nixos.syncthing) devices;
+        folders = {
+          VinLudens-Sheets =
+            inputs.niveK77pur-nixos.syncthing.folders.VinLudens-Sheets
+            // {
+              path = "~/Documents/VinLudens-Sheets";
+              devices = with config.services.syncthing.settings.devices; [
+                optiplex.name
+                titan.name
+                tuxedo.name
+              ];
+            };
+        };
+      };
+    };
+  }
+  {
   }
 ]
