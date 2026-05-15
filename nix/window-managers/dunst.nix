@@ -29,13 +29,10 @@ in {
           padding = 8;
           horizontal_padding = 8;
           frame_width = 2;
-          # frame_color = "#e68a00";
-          # separator_color = "frame";
           sort = true;
           idle_threshold = 120;
 
           # text {{{1
-          # font = "FiraCode Nerd Font Mono"; # ISSUE: Check why font is not working
           line_height = 0;
           markup = "full";
           format = ''<b>%s</b>\n%b'';
@@ -53,7 +50,6 @@ in {
           icon_position = "left";
           min_icon_size = 0;
           max_icon_size = 32;
-          # icon_path = "/usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/"; # TODO: needed?
 
           # history {{{1
           sticky_history = true;
