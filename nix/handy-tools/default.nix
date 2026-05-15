@@ -22,6 +22,7 @@
     bat.enable = lib.mkDefault true;
     broot.enable = lib.mkDefault true;
     comma.enable = lib.mkDefault true;
+    diffoscope.enable = lib.mkDefault true;
     direnv.enable = lib.mkDefault true;
     dua.enable = lib.mkDefault true;
     duf.enable = lib.mkDefault true;
