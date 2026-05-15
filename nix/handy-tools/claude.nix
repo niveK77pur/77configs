@@ -11,7 +11,7 @@
     name = "bwrap-claude";
     runtimeInputs = [
       pkgs.bubblewrap
-      config.programs.claude-code.package
+      config.programs.claude-code.finalPackage
     ];
     text = ''
       bwrap_extra=()
