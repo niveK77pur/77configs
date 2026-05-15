@@ -33,14 +33,6 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [
-        (final: prev: {
-          # See: https://github.com/NixOS/nixpkgs/issues/513245
-          openldap = prev.openldap.overrideAttrs (_: {
-            doCheck = false;
-          });
-        })
-      ];
     };
     inherit (pkgs) lib;
     git = {
