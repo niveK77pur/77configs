@@ -126,7 +126,7 @@ in {
             source = pkgs.writeShellScript "preview.sh" ''
               file="$1"
               width="$2"
-              heigt="$3"
+              height="$3"
               x="$4"
               y="$5"
 
