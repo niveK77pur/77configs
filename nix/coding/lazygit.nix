@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  helper,
   ...
 }: {
   options.lazygit.enable = lib.mkEnableOption "lazygit";
