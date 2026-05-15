@@ -1,15 +1,17 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }: {
   options.aria2.enable = lib.mkEnableOption "aria2";
   config = lib.mkIf config.aria2.enable {
-    home.packages = [pkgs.aria2];
-    xdg.configFile.aria2 = {
-      source = ../../config/aria2;
-      recursive = true;
+    programs.aria2 = {
+      enable = true;
+      settings = {
+        continue = true;
+        auto-file-renaming = false;
+        summary-interval = 180;
+      };
     };
   };
 }
