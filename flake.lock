@@ -260,7 +260,6 @@
       },
       "original": {
         "owner": "niveK77pur",
-        "ref": "optiplex",
         "repo": "nixos",
         "type": "github"
       }
