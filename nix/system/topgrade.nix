@@ -16,8 +16,6 @@
           "vim"
         ];
         git.repos = [
-          "~/.config/77configs"
-          "~/.config/nvim"
           "~/.password-store"
         ];
       };
