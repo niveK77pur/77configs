@@ -1,5 +1,0 @@
-# Defined via `source`
-function tr --wraps='~/.tmux/plugins/tmux-resurrect/scripts/restore.sh' --description 'alias tr=~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
-  ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh $argv
-        
-end
