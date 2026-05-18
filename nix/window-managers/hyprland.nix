@@ -147,7 +147,7 @@ in {
       dunst.enable = true;
       awww.enable = true;
       clipse.enable = true;
-      ashell.enable = true;
+      noctalia.enable = true;
       flameshot.enable = false;
       pass.enable = true;
       ghostty = {
@@ -196,7 +196,7 @@ in {
 
             exec-once = [
               "${config.services.dunst.package}/bin/dunst"
-              "ashell"
+              "${lib.getExe config.programs.noctalia-shell.package}"
               "gammastep"
               "${cfg.launcher} server" # Launch vicinae server here to inherit environment
             ];
