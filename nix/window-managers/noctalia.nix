@@ -21,6 +21,14 @@ in {
         bar = {
           position = "right";
           outerCorners = false;
+          widgets = {
+            center = [
+              {
+                id = "Workspace";
+                showLabelsOnlyWhenOccupied = false;
+              }
+            ];
+          };
         };
         wallpaper.enabled = false;
       };
