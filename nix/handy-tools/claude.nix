@@ -11,6 +11,7 @@
     name = "bwrap-claude";
     runtimeInputs = [
       pkgs.bubblewrap
+      pkgs.coreutils
       config.programs.claude-code.finalPackage
     ];
     text = ''
@@ -19,8 +20,8 @@
       # everything after goes to the command
       while [[ $# -gt 0 ]]; do
         case "$1" in
-          --ro) bwrap_extra+=(--ro-bind "$2" "$2"); shift 2;;
-          --rw) bwrap_extra+=(--bind "$2" "$2"); shift 2;;
+          --ro) bwrap_extra+=(--ro-bind "$(realpath "$2")" "$(realpath "$2")"); shift 2;;
+          --rw) bwrap_extra+=(--bind "$(realpath "$2")" "$(realpath "$2")"); shift 2;;
           --) shift; break;;
           *) bwrap_extra+=("$1"); shift;;
         esac
