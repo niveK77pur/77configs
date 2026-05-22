@@ -3,4 +3,5 @@ let
   titan = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4GEt0RzGHbe5tvaui5TBa0JbsZFtmjKuC8EAQzXJqFAgdCMDxUJ/ljPTN9hmCdYmRzDkHKNkNkGil4lp2icbALq7FB4sFc2dV9oVAepbsJSlrFwvcuyq72Ny/5T5PMpuwqVKH3uUut3BcHScSvbuaKAUGYRCJBZ4uyv9KaDavS6+tI2K1KBzWc21/cFXBJv7N0Fgm5U0ChC27YqgRQmhIWL311QiwjHBgEXQLF96+JY6GTbhV/VQAjIVwgmVELjxBvJobri5n3SQC5eDGkWxauy91hKVuoJ7jqxtjfKkymK81EadN17Ylr7RUSbWn+Bt7GP9MvJ2zz1457+fcRH0vyxj0jEr0OT6ipFjAFMvSGG0E3JTgio1haw5XIoKoV59jo/wT8BEg19RCU+26DUN1f2SRDs96kOkZe/Bcb59qHJmq9yicbsB37RLzCoVoDJ7CWSVW/VyfDx/J2TxKwA6oNVxO8rt+mpa4pf4wuIxHQJAGHi8KJ051aW7iqc7obhc=";
   niveK77pur = [tuxedo titan];
 in {
+  "claude-auth.age".publicKeys = niveK77pur;
 }
