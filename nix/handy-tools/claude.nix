@@ -117,17 +117,19 @@ in {
     enable = lib.mkEnableOption "claude";
   };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = lib.singleton bwrap-claude;
-    programs.claude-code = {
-      enable = true;
-      inherit
-        (config.programs.opencode)
-        skills
-        enableMcpIntegration
-        ;
-    };
-  };
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      home.packages = lib.singleton bwrap-claude;
+      programs.claude-code = {
+        enable = true;
+        inherit
+          (config.programs.opencode)
+          skills
+          enableMcpIntegration
+          ;
+      };
+    }
+  ]);
 }
 # vim: fdm=marker
 
