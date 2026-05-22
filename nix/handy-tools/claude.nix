@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.claude;
+  claudeAuthEnvVar = "CLAUDE_CODE_OAUTH_TOKEN";
   #  {{{1
   bwrap-claude = pkgs.writeShellApplication {
     # Written on fedora, test on other distros
@@ -63,6 +64,8 @@
         --dev /dev
         --proc /proc
 
+        ${lib.optionalString cfg.withAuthToken ''--setenv ${claudeAuthEnvVar} "$(cat "${config.age.secrets.claude-auth.path}")"''}
+
         # Explicitly prevent writing into these folders, to avoid giving the
         # wrong impression. By default, folders will be a writable tmpfs within
         # the sandbox.
@@ -115,6 +118,7 @@
 in {
   options.claude = {
     enable = lib.mkEnableOption "claude";
+    withAuthToken = lib.mkEnableOption "claude-auth" // {default = true;};
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -129,6 +133,18 @@ in {
           ;
       };
     }
+    (lib.mkIf cfg.withAuthToken {
+      programs.claude-code.package = pkgs.symlinkJoin {
+        name = "claude-oauth";
+        paths = [pkgs.claude-code];
+        nativeBuildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram $out/bin/${pkgs.claude-code.meta.mainProgram} \
+            --run 'token="''${${claudeAuthEnvVar}:-"$(cat "${config.age.secrets.claude-auth.path}")"}" && export ${claudeAuthEnvVar}="$token"'
+        '';
+      };
+      age.secrets.claude-auth.file = ../../secrets/claude-auth.age;
+    })
   ]);
 }
 # vim: fdm=marker
