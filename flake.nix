@@ -13,6 +13,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +33,7 @@
     nixpkgs,
     home-manager,
     nix-index-database,
+    agenix,
     ...
   }: let
     system = "x86_64-linux";
@@ -53,6 +55,8 @@
         # the path to your home.nix.
         modules = [
           nix-index-database.homeModules.nix-index
+          agenix.homeManagerModules.default
+          {home.packages = [agenix.packages.${system}.default];}
           ./nix/home.nix
           ./nix/categories.nix
           modulePath

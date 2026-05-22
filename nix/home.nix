@@ -86,6 +86,11 @@
 
     gtk.gtk4.theme = null;
 
+    age.identityPaths =
+      map
+      (f: "/home/${lib.removeSuffix ".nix" (baseNameOf f)}/.ssh/agenix")
+      (lib.fileset.toList ../homeConfigurations);
+
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "steam"
