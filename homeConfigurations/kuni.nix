@@ -20,7 +20,7 @@ lib.mkMerge [
   {
     home.sessionVariables.GIT_SSH = "/usr/bin/ssh";
     home.packages = [
-      pkgs.bitwarden-desktop
+      # pkgs.bitwarden-desktop ## See: https://github.com/NixOS/nixpkgs/issues/526914
     ];
     claude.enable = true;
     opencode.enable = true;
