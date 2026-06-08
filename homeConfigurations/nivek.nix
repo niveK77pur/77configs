@@ -5,6 +5,7 @@
 }:
 lib.mkMerge [
   {
+    isServerConfiguration = true;
     coding.enableAll = true;
     handy-tools.enableAll = true;
     system.enableAll = true;
