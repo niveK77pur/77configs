@@ -17,9 +17,10 @@ in {
 
   options.myscripts = {
     enableAll = lib.mkEnableOption "myscripts";
+    isServerConfiguration = lib.mkEnableOption "myscripts server configuration" // {default = config.isServerConfiguration;};
   };
 
-  config = lib.mkIf cfg.enableAll {
+  config = lib.mkIf (cfg.enableAll && (!cfg.isServerConfiguration)) {
     ccopy.enable = lib.mkDefault true;
     cedit.enable = lib.mkDefault true;
     mount.enable = lib.mkDefault true;

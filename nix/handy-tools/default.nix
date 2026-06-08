@@ -2,7 +2,9 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.handy-tools;
+in {
   imports =
     (lib.fileset.toList (
       lib.fileset.fileFilter
@@ -31,8 +33,8 @@
     eza.enable = lib.mkDefault true;
     fd.enable = lib.mkDefault true;
     fzf.enable = lib.mkDefault true;
-    hours.enable = lib.mkDefault true;
-    kdeconnect.enable = lib.mkDefault true;
+    hours.enable = lib.mkDefault (!cfg.isServerConfiguration);
+    kdeconnect.enable = lib.mkDefault (!cfg.isServerConfiguration);
     lazygit.enable = lib.mkDefault true;
     lf.enable = lib.mkDefault true;
     magic-wormhole.enable = lib.mkDefault true;
@@ -40,11 +42,11 @@
     nix-your-shell.enable = lib.mkDefault true;
     parallel.enable = lib.mkDefault true;
     pay-respects.enable = lib.mkDefault true;
-    pdfarranger.enable = lib.mkDefault true;
+    pdfarranger.enable = lib.mkDefault (!cfg.isServerConfiguration);
     qalc.enable = lib.mkDefault true;
     ripgrep.enable = lib.mkDefault true;
-    sx.enable = lib.mkDefault true;
-    taskwarrior.enable = lib.mkDefault true;
+    sx.enable = lib.mkDefault (!cfg.isServerConfiguration);
+    taskwarrior.enable = lib.mkDefault (!cfg.isServerConfiguration);
     tirith.enable = lib.mkDefault true;
     viddy.enable = lib.mkDefault true;
     vidir.enable = lib.mkDefault true;

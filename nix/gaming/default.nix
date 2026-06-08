@@ -2,7 +2,9 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.gaming;
+in {
   imports = lib.fileset.toList (
     lib.fileset.fileFilter
     (file: (file.hasExt "nix") && (file.name != "default.nix"))
@@ -14,10 +16,11 @@
     devices = {
       enableAll = lib.mkEnableOption "gaming-devices";
     };
+    isServerConfiguration = lib.mkEnableOption "gaming server configuration" // {default = config.isServerConfiguration;};
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf config.gaming.enableAll {
+  config = lib.mkIf (!cfg.isServerConfiguration) (lib.mkMerge [
+    (lib.mkIf cfg.enableAll {
       gamemode.enable = lib.mkDefault true;
       gamescope.enable = lib.mkDefault true;
       gaming.devices.enableAll = lib.mkDefault true;
@@ -33,8 +36,8 @@
       vulkan.enable = lib.mkDefault true;
     })
 
-    (lib.mkIf config.gaming.devices.enableAll {
+    (lib.mkIf cfg.devices.enableAll {
       playstation.enable = true;
     })
-  ];
+  ]);
 }
