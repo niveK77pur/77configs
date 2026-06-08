@@ -14,6 +14,7 @@ in {
 
   config = lib.mkIf config.lf.enable (lib.mkMerge [
     {
+      pistol.enable = true;
       programs = {
         lf = {
           enable = true;
