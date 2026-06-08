@@ -13,8 +13,10 @@
       ../coding/lazygit.nix
       ../coding/ripgrep.nix
     ];
-
-  options.handy-tools.enableAll = lib.mkEnableOption "handy-tools";
+  options.handy-tools = {
+    enableAll = lib.mkEnableOption "handy-tools";
+    isServerConfiguration = lib.mkEnableOption "handy-tools server configuration" // {default = config.isServerConfiguration;};
+  };
 
   config = lib.mkIf config.handy-tools.enableAll {
     aria2.enable = lib.mkDefault true;
