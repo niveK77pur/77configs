@@ -196,7 +196,7 @@ in {
 
             exec-once = [
               "${config.services.dunst.package}/bin/dunst"
-              "${lib.getExe config.programs.noctalia-shell.package}"
+              "${lib.getExe config.programs.noctalia.package}"
               "gammastep"
               "${cfg.launcher} server" # Launch vicinae server here to inherit environment
             ];
