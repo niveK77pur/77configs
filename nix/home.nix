@@ -88,7 +88,7 @@
       };
     };
 
-    gtk.gtk4.theme = null;
+    gtk.gtk4.theme = lib.mkDefault null;
 
     age.identityPaths =
       map
