@@ -110,6 +110,11 @@
         pkgs.alejandra
         pkgs.statix
 
+        # lua
+        pkgs.lua-language-server
+        pkgs.stylua
+        pkgs.selene
+
         pkgs.fish-lsp
       ];
     };
