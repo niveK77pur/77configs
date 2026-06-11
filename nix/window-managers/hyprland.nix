@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.hyprland;
+  mainMod = "SUPER";
+  resizeWindowAmount = 40;
   #  {{{1
   envVars = {
     # Hint Electron apps to use Wayland
@@ -31,52 +33,23 @@
     # QT_QPA_PLATFORMTHEME="qt5ct";
   };
   #  {{{1
-  mkSubMap = {
-    name,
-    settings,
-    trigger,
-    trigger-resets ? false,
-  }:
-    lib.strings.concatLines [
-      "bind=${trigger}, submap, ${name}"
-      "submap=${name}"
-
-      (lib.hm.generators.toHyprconf {
-        attrs = settings;
-      })
-
-      (lib.strings.optionalString trigger-resets "bind=${trigger}, submap, reset")
-      "bind = , escape, submap, reset"
-      "submap = reset"
-    ];
-  #  {{{1
   mkBind = {
-    MODS ? "$mainMod",
+    MODS ? mainMod,
     extraMods ? [],
     key,
-    dispatcher ? "exec",
+    dispatcher ? "exec_cmd",
     params ? [],
-    args ? [],
-    submap-reset ? null,
+    flags ? {},
   }: let
-    # use lists as default values to completely exclude attribute from bind definition
-    mods = lib.concatStringsSep " " (lib.lists.flatten [MODS extraMods]);
-    bind = lib.concatStringsSep ", " (lib.lists.flatten [mods key dispatcher params args]);
-  in
-    if submap-reset == null
-    then bind
-    else [bind] ++ (lib.lists.optional submap-reset (lib.concatStringsSep ", " [mods key "submap" "reset"]));
-  #  {{{1
-  mkWindowRule = {
-    # See: https://wiki.hyprland.org/Configuring/Window-Rules/
-    rules,
-    parameters,
-  }:
-    lib.lists.map (rule: "${rule}, ${parameters}") rules;
-  #  {{{1
-  mergeBindings = bindings:
-  # we only expect to be providing the 'bin' family of settings here
-    builtins.zipAttrsWith (_: values: lib.concatLists values) bindings;
+    serializedParams = lib.concatStringsSep ", " (map (p: lib.generators.toLua {} p) (lib.flatten params));
+  in {
+    _args =
+      [
+        (lib.concatStringsSep "+" (lib.flatten [MODS extraMods key]))
+        (lib.generators.mkLuaInline "hl.dsp.${dispatcher}(${serializedParams})")
+      ]
+      ++ (lib.optional (flags != {}) flags);
+  };
   #  }}}1
 in {
   options.hyprland = {
@@ -95,8 +68,8 @@ in {
     };
     #  {{{1
     monitor = lib.mkOption {
-      default = null;
-      type = lib.types.nullOr (lib.types.listOf (lib.types.submodule {
+      default = [];
+      type = lib.types.listOf (lib.types.submodule {
         options = {
           #  {{{2
           name = lib.mkOption {
@@ -134,7 +107,7 @@ in {
           };
           #  }}}2
         };
-      }));
+      });
       description = "Options for monitors; see `hyprctl monitors all`";
     };
     #  }}}1
@@ -184,6 +157,7 @@ in {
       services.hyprpolkitagent.enable = true;
 
       wayland.windowManager.hyprland = {
+        configType = "lua";
         enable = true; # enable Hyprland
         # but do not install Hyprland
         package = null;
@@ -191,229 +165,198 @@ in {
 
         settings = lib.attrsets.mergeAttrsList [
           {
-            # See https://wiki.hyprland.org/Configuring/Monitors/
-            # monitor = ",preferred,auto,auto"; # TODO: keep this?
-
-            exec-once = [
-              "${config.services.dunst.package}/bin/dunst"
-              "${lib.getExe config.programs.noctalia-shell.package}"
-              "gammastep"
-              "${cfg.launcher} server" # Launch vicinae server here to inherit environment
-            ];
-
             #  {{{1
             env =
               lib.attrsets.mapAttrsToList (
-                name: value: "${name},${value}"
+                name: value: {_args = [name value];}
               )
               envVars;
 
-            # Settings {{{1
-            #  {{{2
-            input = {
-              # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
-              kb_layout = "ch";
-              kb_variant = "fr";
+            #  {{{1
+            config = {
+              #  {{{2
+              input = {
+                # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+                kb_layout = "ch";
+                kb_variant = "fr";
 
-              follow_mouse = "1";
+                follow_mouse = 1;
 
-              touchpad = {
-                natural_scroll = true;
-                scroll_factor = "0.6";
-                tap-to-click = false;
+                touchpad = {
+                  natural_scroll = true;
+                  scroll_factor = 0.6;
+                  tap_to_click = false;
+                };
+
+                # sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+                # accel_profile = adaptive
               };
 
-              sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-              # accel_profile = adaptive
+              #  {{{2
+              general = let
+                gap_size = 10;
+              in {
+                # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+                gaps_in = gap_size / 2;
+                gaps_out = gap_size;
+                border_size = 2;
+                # col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg"; # ISSUE: Option does not exist anymore
+                # col.inactive_border = "rgba(595959aa)"; # ISSUE: Option does not exist anymore
+
+                layout = "dwindle";
+                # layout = master
+
+                resize_on_border = true;
+              };
+
+              #  {{{2
+              decoration = {
+                # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+                rounding = 6;
+                inactive_opacity = 0.9;
+
+                blur = {
+                  enabled = true;
+                  size = 3;
+                  passes = 2;
+                  xray = true; # floating windows see through ignore tiled windows
+                };
+              };
+
+              #  {{{2
+              animations.enabled = true;
+
+              #  {{{2
+              dwindle = {
+                # you probably want this
+                preserve_split = true;
+              };
+
+              # {{{2
+              gestures = {
+                # See https://wiki.hyprland.org/Configuring/Variables/ for more
+                workspace_swipe_cancel_ratio = 0.3;
+                workspace_swipe_forever = true;
+              };
+
+              # {{{2
+              misc = {
+                enable_swallow = true;
+                swallow_regex = "^org.wezfurlong.wezterm$|^com.mitchellh.ghostty$";
+                swallow_exception_regex = ".*[yY]azi.*";
+                # cursor_zoom_factor = 1.0; # ISSUE: Option does not exist anymore
+              };
+
+              # {{{2
+              binds = {
+                workspace_back_and_forth = true;
+                allow_workspace_cycles = true;
+              };
+
+              # {{{2
+              xwayland = {
+                force_zero_scaling = true;
+              };
             };
 
-            #  {{{2
-            general = let
-              gap_size = 10;
-            in {
-              # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-              gaps_in = gap_size / 2;
-              gaps_out = gap_size;
-              border_size = 2;
-              # col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg"; # ISSUE: Option does not exist anymore
-              # col.inactive_border = "rgba(595959aa)"; # ISSUE: Option does not exist anymore
-
-              layout = "dwindle";
-              # layout = master
-
-              resize_on_border = true;
-            };
-
-            #  {{{2
-            decoration = {
-              # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-              rounding = 6;
-              inactive_opacity = 0.9;
-
-              blur = {
+            # {{{1
+            animation = [
+              {
+                leaf = "windows";
                 enabled = true;
-                size = 3;
-                passes = 2;
-                xray = true; # floating windows see through ignore tiled windows
-              };
-            };
-
-            #  {{{2
-            animations = {
-              # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-              enabled = true;
-              bezier = [
-                "myBezier, 0.05, 0.9, 0.1, 1.05"
-                "workspaceBZ, 0.7, 0, 0.3, 1"
-              ];
-
-              animation = [
-                "windows, 1, 4, myBezier, popin"
-                "border, 1, 3, default"
-                # "borderangle, 1, 8, default
-                "fade, 1, 7, default"
-                "workspaces, 1, 3, workspaceBZ"
-              ];
-            };
-
-            #  {{{2
-            dwindle = {
-              # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-              # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-              pseudotile = true;
-              # you probably want this
-              preserve_split = true;
-            };
-
-            # {{{2
-            master = {
-              # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-              # new_is_master = true; # ISSUE: Option does not exist anymore
-            };
-
-            # {{{2
-            gestures = {
-              # See https://wiki.hyprland.org/Configuring/Variables/ for more
-              workspace_swipe_cancel_ratio = 0.3;
-              workspace_swipe_forever = true;
-            };
-            gesture = "3, horizontal, workspace";
-
-            # {{{2
-            # group = {
-            #   insert_after_current = false;
-            #   # focus_removed_window = false;
-            # };
-
-            # {{{2
-            misc = {
-              enable_swallow = true;
-              swallow_regex = "^org.wezfurlong.wezterm$|^com.mitchellh.ghostty$";
-              swallow_exception_regex = ".*[yY]azi.*";
-              # cursor_zoom_factor = 1.0; # ISSUE: Option does not exist anymore
-            };
-
-            # {{{2
-            binds = {
-              workspace_back_and_forth = true;
-            };
-
-            # {{{2
-            xwayland = {
-              force_zero_scaling = true;
-            };
-
-            # {{{2
-            # # Example per-device config
-            # # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
-            # "device:epic-mouse-v1" = {
-            #   sensitivity = -0.5;
-            # };
-
-            # Window Rules {{{1
-            # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-            windowrulev2 = lib.lists.concatLists [
-              (mkWindowRule {
-                parameters = "class:.*";
-                rules = [
-                  "center 1"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:clipse";
-                rules = [
-                  "float"
-                  "size 622 652"
-                  "stayfocused"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:thunderbird";
-                rules = [
-                  "monitor 0"
-                  "workspace 8"
-                  "noinitialfocus"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:discord";
-                rules = [
-                  "monitor 0"
-                  "workspace 9"
-                  "noinitialfocus"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:ferdium";
-                rules = [
-                  "monitor 0"
-                  "workspace 9"
-                  "noinitialfocus"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:Slack";
-                rules = [
-                  "monitor 0"
-                  "workspace 9"
-                  "noinitialfocus"
-                ];
-              })
-
-              (mkWindowRule {
-                parameters = "class:chrome-huly.app__-Default";
-                rules = [
-                  "monitor 0"
-                  "workspace 9"
-                  "noinitialfocus"
-                ];
-              })
+                speed = 4;
+                bezier = "myBezier";
+                style = "popin";
+              }
+              {
+                leaf = "border";
+                enabled = true;
+                speed = 3;
+                bezier = "default";
+              }
+              {
+                leaf = "borderangle";
+                enabled = true;
+                speed = 8;
+                bezier = "default";
+              }
+              {
+                leaf = "fade";
+                enabled = true;
+                speed = 7;
+                bezier = "default";
+              }
+              {
+                leaf = "workspaces";
+                enabled = true;
+                speed = 3;
+                bezier = "workspaceBZ";
+              }
             ];
 
-            windowrule = [
-              # FIX: https://github.com/hyprwm/Hyprland/issues/2412
-              ''noinitialfocus,class:^jetbrains-.*$,floating:1,title:^$|^\s$|^win\d+$''
+            # {{{1
+            curve = [
+              {
+                _args = [
+                  "myBezier"
+                  {
+                    type = "bezier";
+                    points = [[0.05 0.9] [0.1 1.05]];
+                  }
+                ];
+              }
+              {
+                _args = [
+                  "workspaceBZ"
+                  {
+                    type = "bezier";
+                    points = [[0.7 0] [0.3 1]];
+                  }
+                ];
+              }
             ];
 
-            # Key Bindings {{{1
-            # See https://wiki.hyprland.org/Configuring/Binds/ for more
+            # {{{1
+            window_rule =
+              [
+                {
+                  match.class = ".*";
+                  center = true;
+                }
+                {
+                  match.class = "clipse";
+                  float = true;
+                  size = [622 652];
+                  stay_focused = true;
+                }
+                {
+                  match.class = "thunderbird";
+                  monitor = "0";
+                  workspace = "8";
+                  no_initial_focus = true;
+                }
+                # FIX: JetBrains problems: https://github.com/hyprwm/Hyprland/issues/2412
+              ]
+              # Messaging applications
+              ++ (map (c: {
+                match.class = c;
+                monitor = "0";
+                workspace = "9";
+                no_initial_focus = true;
+              }) ["discord" "ferdium" "Slack"]);
 
-            # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-            "$mainMod" = "SUPER";
+            #  {{{1
+            gesture = {
+              fingers = 3;
+              direction = "horizontal";
+              action = "workspace";
+            };
 
-            #  }}}1
-          }
-          (mergeBindings [
-            {
-              #  {{{1
-              bind = [
+            #  {{{1
+            bind =
+              [
                 (mkBind {
                   key = "RETURN";
                   params = "${cfg.terminal}";
@@ -421,12 +364,12 @@ in {
                 (mkBind {
                   extraMods = "CTRL";
                   key = "RETURN";
-                  params = "[float] ${cfg.terminal}";
+                  params = [cfg.terminal {float = true;}];
                 })
                 (mkBind {
                   extraMods = "SHIFT";
                   key = "Q";
-                  dispatcher = "killactive";
+                  dispatcher = "window.close";
                 })
                 (mkBind {
                   key = "M";
@@ -435,18 +378,16 @@ in {
                 (mkBind {
                   extraMods = ["CTRL"];
                   key = "SPACE";
-                  dispatcher = "togglefloating";
+                  dispatcher = "window.float";
                 })
                 (mkBind {
                   key = "SPACE";
-                  dispatcher = "changegroupactive";
-                  params = "f";
+                  dispatcher = "group.next";
                 })
                 (mkBind {
                   extraMods = "SHIFT";
                   key = "SPACE";
-                  dispatcher = "changegroupactive";
-                  params = "b";
+                  dispatcher = "group.prev";
                 })
                 (mkBind {
                   key = "D";
@@ -457,78 +398,145 @@ in {
                   params = "${pkgs.pass}/bin/passmenu";
                 })
 
-                # Move focus with mainMod + arrow keys {{{
-                "$mainMod, left, movefocus, l"
-                "$mainMod, right, movefocus, r"
-                "$mainMod, up, movefocus, u"
-                "$mainMod, down, movefocus, d"
-                "$mainMod, H, movefocus, l"
-                "$mainMod, L, movefocus, r"
-                "$mainMod, K, movefocus, u"
-                "$mainMod, J, movefocus, d"
-                #  }}}
-                # Move window {{{
-                "$mainMod SHIFT, H, movewindoworgroup, l"
-                "$mainMod SHIFT, J, movewindoworgroup, d"
-                "$mainMod SHIFT, K, movewindoworgroup, u"
-                "$mainMod SHIFT, L, movewindoworgroup, r"
-                #  }}}
-                # Resize window {{{
-                "$mainMod CTRL, H, resizeactive, -20% 0%"
-                "$mainMod CTRL, J, resizeactive, 0% 20%"
-                "$mainMod CTRL, K, resizeactive, 0% -20%"
-                "$mainMod CTRL, L, resizeactive, 20% 0%"
-                #  }}}
-
-                # Switch workspaces with mainMod + [0-9] {{{
-                "$mainMod, 1, workspace, 1"
-                "$mainMod, 2, workspace, 2"
-                "$mainMod, 3, workspace, 3"
-                "$mainMod, 4, workspace, 4"
-                "$mainMod, 5, workspace, 5"
-                "$mainMod, 6, workspace, 6"
-                "$mainMod, 7, workspace, 7"
-                "$mainMod, 8, workspace, 8"
-                "$mainMod, 9, workspace, 9"
-                "$mainMod, 0, workspace, 10"
-                #  }}}
-                # Move active window to a workspace with mainMod + SHIFT + [0-9] {{{
-                "$mainMod SHIFT, 1, movetoworkspace, 1"
-                "$mainMod SHIFT, 2, movetoworkspace, 2"
-                "$mainMod SHIFT, 3, movetoworkspace, 3"
-                "$mainMod SHIFT, 4, movetoworkspace, 4"
-                "$mainMod SHIFT, 5, movetoworkspace, 5"
-                "$mainMod SHIFT, 6, movetoworkspace, 6"
-                "$mainMod SHIFT, 7, movetoworkspace, 7"
-                "$mainMod SHIFT, 8, movetoworkspace, 8"
-                "$mainMod SHIFT, 9, movetoworkspace, 9"
-                "$mainMod SHIFT, 0, movetoworkspace, 10"
-                #  }}}
-                # Focus urgend or last window
+                # Move focus with mainMod + arrow keys {{{2
                 (mkBind {
-                  key = "U";
-                  dispatcher = "focusurgentorlast";
+                  key = "H";
+                  dispatcher = "focus";
+                  params.direction = "left";
+                })
+                (mkBind {
+                  key = "J";
+                  dispatcher = "focus";
+                  params.direction = "down";
+                })
+                (mkBind {
+                  key = "K";
+                  dispatcher = "focus";
+                  params.direction = "up";
+                })
+                (mkBind {
+                  key = "L";
+                  dispatcher = "focus";
+                  params.direction = "right";
                 })
 
-                # Fullscreen windows
+                # Move window {{{2
+                (mkBind {
+                  key = "H";
+                  extraMods = "SHIFT";
+                  dispatcher = "window.move";
+                  params = {
+                    direction = "left";
+                    group_aware = true;
+                  };
+                })
+                (mkBind {
+                  key = "J";
+                  extraMods = "SHIFT";
+                  dispatcher = "window.move";
+                  params = {
+                    direction = "down";
+                    group_aware = true;
+                  };
+                })
+                (mkBind {
+                  key = "K";
+                  extraMods = "SHIFT";
+                  dispatcher = "window.move";
+                  params = {
+                    direction = "up";
+                    group_aware = true;
+                  };
+                })
+                (mkBind {
+                  key = "L";
+                  extraMods = "SHIFT";
+                  dispatcher = "window.move";
+                  params = {
+                    direction = "right";
+                    group_aware = true;
+                  };
+                })
+
+                # Resize window {{{2
+                (mkBind {
+                  key = "H";
+                  extraMods = "CTRL";
+                  dispatcher = "window.resize";
+                  params = {
+                    x = -resizeWindowAmount;
+                    y = 0;
+                    relative = true;
+                  };
+                  flags.repeating = true;
+                })
+                (mkBind {
+                  key = "J";
+                  extraMods = "CTRL";
+                  dispatcher = "window.resize";
+                  params = {
+                    x = 0;
+                    y = resizeWindowAmount;
+                    relative = true;
+                  };
+                  flags.repeating = true;
+                })
+                (mkBind {
+                  key = "K";
+                  extraMods = "CTRL";
+                  dispatcher = "window.resize";
+                  params = {
+                    x = 0;
+                    y = -resizeWindowAmount;
+                    relative = true;
+                  };
+                  flags.repeating = true;
+                })
+                (mkBind {
+                  key = "L";
+                  extraMods = "CTRL";
+                  dispatcher = "window.resize";
+                  params = {
+                    x = resizeWindowAmount;
+                    y = 0;
+                    relative = true;
+                  };
+                  flags.repeating = true;
+                })
+
+                # Focus urgend or last window {{{2
+                (mkBind {
+                  key = "U";
+                  dispatcher = "focus";
+                  params.urgent_or_last = true;
+                })
+
+                # Fullscreen windows {{{2
                 (mkBind {
                   key = "F";
-                  dispatcher = "fullscreen";
+                  dispatcher = "window.fullscreen";
+                  # params = "fullscreen";
                 })
                 (mkBind {
                   extraMods = "SHIFT";
                   key = "F";
-                  dispatcher = "fullscreenstate";
-                  params = "0 2";
+                  dispatcher = "window.fullscreen_state";
+                  params = {
+                    internal = 0;
+                    client = 2;
+                  };
                 })
                 (mkBind {
                   extraMods = "CTRL";
                   key = "F";
-                  dispatcher = "fullscreenstate";
-                  params = "2 0";
+                  dispatcher = "window.fullscreen_state";
+                  params = {
+                    internal = 2;
+                    client = 0;
+                  };
                 })
 
-                # Dunst notifications
+                # Dunst notifications {{{2
                 (mkBind {
                   key = "F1";
                   params = pkgs.writeShellScript "dunst-toggle.sh" ''
@@ -550,177 +558,175 @@ in {
                   params = "dunstctl close-all";
                 })
 
-                # clipboard manager
+                # clipboard manager {{{2
                 (mkBind {
                   key = "V";
                   params = "${config.wezterm.package}/bin/wezterm start --class clipse -e clipse";
                 })
-              ];
-              #  {{{1
-              bindm = [
-                # Move/resize windows with mainMod + LMB/RMB and dragging
+
+                # Move/resize windows with mainMod + LMB/RMB and dragging {{{2
                 (mkBind {
                   key = "mouse:272";
-                  dispatcher = "movewindow";
+                  dispatcher = "window.drag";
+                  flags = {mouse = true;};
                 })
                 (mkBind {
                   key = "mouse:273";
-                  dispatcher = "resizewindow";
+                  dispatcher = "window.resize";
+                  flags = {mouse = true;};
                 })
-              ];
-              #  }}}1
-            }
-            #  {{{1
-            (lib.optionalAttrs config.avizo.enable {
-              bindl = [
-                ", XF86AudioMute, exec, ${config.avizo.package}/bin/volumectl toggle-mute"
-              ];
-              bindel = [
-                ", XF86AudioRaiseVolume, exec, ${config.avizo.package}/bin/volumectl -u up"
-                ", XF86AudioLowerVolume, exec, ${config.avizo.package}/bin/volumectl -u down"
-                ", XF86MonBrightnessUp, exec, ${config.avizo.package}/bin/lightctl up"
-                ", XF86MonBrightnessDown, exec, ${config.avizo.package}/bin/lightctl down"
-              ];
-            })
-            #  {{{1
-            (lib.optionalAttrs config.services.playerctld.enable {
-              bindl = [
-                ", XF86AudioPlay, exec, playerctl play-pause"
-                ", XF86AudioPrev, exec, playerctl previous"
-                ", XF86AudioNext, exec, playerctl next"
-              ];
-            })
-            #  }}}1
-          ])
-          (lib.attrsets.optionalAttrs (cfg.monitor != null) {
-            monitor =
-              map (
-                m:
-                  lib.strings.concatStringsSep ", " ([
-                      m.name
-                      m.resolution
-                      m.position
-                      (toString m.scale)
-                    ]
-                    ++ (lib.mapAttrsToList (arg: val: "${arg}, ${toString val}") m.extraArgs))
+
+                # }}}2
+              ]
+              # {{{2
+              ++ (lib.optionals config.avizo.enable [
+                (mkBind {
+                  MODS = [];
+                  key = "XF86AudioMute";
+                  params = "${config.avizo.package}/bin/volumectl toggle-mute";
+                  flags = {locked = true;};
+                })
+                (mkBind {
+                  MODS = [];
+                  key = "XF86AudioRaiseVolume";
+                  params = "${config.avizo.package}/bin/volumectl -u up";
+                  flags = {
+                    locked = true;
+                    repeating = true;
+                  };
+                })
+                (mkBind {
+                  MODS = [];
+                  key = "XF86AudioLowerVolume";
+                  params = "${config.avizo.package}/bin/volumectl -u down";
+                  flags = {
+                    locked = true;
+                    repeating = true;
+                  };
+                })
+                (mkBind {
+                  MODS = [];
+                  key = "XF86MonBrightnessUp";
+                  params = "${config.avizo.package}/bin/lightctl up";
+                  flags = {
+                    locked = true;
+                    repeating = true;
+                  };
+                })
+                (mkBind {
+                  MODS = [];
+                  key = "XF86MonBrightnessDown";
+                  params = "${config.avizo.package}/bin/lightctl down";
+                  flags = {
+                    locked = true;
+                    repeating = true;
+                  };
+                })
+              ])
+              # {{{2
+              ++ (
+                lib.optionals config.services.playerctld.enable [
+                  (mkBind {
+                    MODS = [];
+                    key = "XF86AudioPlay";
+                    params = "playerctl play-pause";
+                    flags = {locked = true;};
+                  })
+                  (mkBind {
+                    MODS = [];
+                    key = "XF86AudioPrev";
+                    params = "playerctl previous";
+                    flags = {locked = true;};
+                  })
+                  (mkBind {
+                    MODS = [];
+                    key = "XF86AudioNext";
+                    params = "playerctl next";
+                    flags = {locked = true;};
+                  })
+                ]
               )
-              cfg.monitor;
-          })
+              # Workspace switching {{{2
+              ++ (builtins.genList (i: let
+                n = i + 1;
+                k = toString (lib.mod n 10);
+              in
+                mkBind {
+                  key = k;
+                  dispatcher = "focus";
+                  params = {workspace = n;};
+                })
+              9)
+              ++ (builtins.genList (i: let
+                n = i + 1;
+                k = toString (lib.mod n 10);
+              in
+                mkBind {
+                  key = k;
+                  extraMods = "SHIFT";
+                  dispatcher = "window.move";
+                  params = {workspace = n;};
+                })
+              9);
+            # }}}2
+
+            # {{{1
+            monitor =
+              [
+                {
+                  output = "";
+                  mode = "preferred";
+                  position = "auto";
+                  scale = "auto"; # or `1` ?
+                }
+              ]
+              ++ (map (m: ({
+                  output = m.name;
+                  mode = m.resolution;
+                  inherit (m) position scale;
+                }
+                // m.extraArgs))
+              cfg.monitor);
+            #  }}}1
+          }
         ];
-        extraConfig = lib.strings.concatLines [
-          (mkSubMap {
-            name = "screenshot";
-            trigger = "$mainMod,X";
-            settings = {
-              bind = lib.lists.concatLists [
-                (mkBind {
-                  key = "S";
-                  params = "hyprshot --freeze -m region --clipboard-only";
-                  submap-reset = true;
-                })
-                (mkBind {
-                  key = "W";
-                  params = "hyprshot --freeze -m window --clipboard-only";
-                  submap-reset = true;
-                })
-                (mkBind {
-                  key = "F";
-                  params = "hyprshot --freeze -m output --clipboard-only";
-                  submap-reset = true;
-                })
-                (mkBind {
-                  key = "R";
-                  params = "hyprshot --freeze -m region --raw | ${pkgs.imagemagick}/bin/convert - -resize 400x - | wl-copy";
-                  submap-reset = true;
-                })
-                (mkBind {
-                  key = "E";
-                  params = "[float] hyprshot --freeze -m region --raw | satty --filename -";
-                  submap-reset = true;
-                })
-                (mkBind {
-                  key = "T";
-                  params = pkgs.writers.writeFish "hyprshot-tesseract.fish" ''
-                    set text (hyprshot --freeze -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
-                    notify-send "hyprshot tesseract copy to clipboard" $text
-                    wl-copy $text
-                  '';
-                  submap-reset = true;
-                })
-                (mkBind {
-                  # mainly useful for pasting image into claude. See https://github.com/anthropics/claude-code/issues/5113
-                  key = "P";
-                  params = "hyprshot -m region -o /tmp -f screenshot.png ; echo /tmp/screenshot.png | wl-copy";
-                  submap-reset = true;
-                })
-              ];
+        extraLuaFiles = {
+          "autostart" = {
+            autoLoad = true;
+            content = pkgs.writeText "hypr-autostart.lua" ''
+              hl.on("hyprland.start", function()
+                hl.exec_cmd("${config.services.dunst.package}/bin/dunst")
+                hl.exec_cmd("${lib.getExe config.programs.noctalia-shell.package}")
+                hl.exec_cmd("${lib.getExe config.services.gammastep.package}")
+                hl.exec_cmd("${cfg.launcher} server")
+              end)
+            '';
+          };
+          "submap.screenshot" = {
+            autoLoad = true;
+            content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/screenshot.lua {
+              inherit mainMod;
+              magick = lib.getExe pkgs.imagemagick;
+              hyprshot-tesseract = pkgs.writers.writeFish "hyprshot-tesseract.fish" ''
+                set text (hyprshot --freeze -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
+                notify-send "hyprshot tesseract copy to clipboard" $text
+                wl-copy $text
+              '';
             };
-          })
-
-          (mkSubMap {
-            name = "system";
-            trigger = "$mainMod,S";
-            trigger-resets = true;
-            settings = {
-              bind = builtins.concatLists (builtins.genList (i: let
-                  value = (i + 1) * 10;
-                in [
-                  # number row
-                  (mkBind {
-                    key = "code:${toString (i + 10)}";
-                    params = "${config.avizo.package}/bin/lightctl set ${toString value}";
-                  })
-                  # character row right below
-                  (mkBind {
-                    key = "code:${toString (i + 24)}";
-                    params = "${config.avizo.package}/bin/volumectl set ${toString value}";
-                  })
-                ])
-                10);
+          };
+          "submap.system" = {
+            autoLoad = true;
+            content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/system.lua {
+              inherit mainMod;
+              lightctl = "${config.avizo.package}/bin/lightctl";
+              volumectl = "${config.avizo.package}/bin/volumectl";
             };
-          })
-
-          (mkSubMap {
-            name = "layout";
-            trigger = "$mainMod,W";
-            trigger-resets = true;
-            settings.bind = lib.lists.concatLists [
-              # dwindle
-              (mkBind {
-                key = "D";
-                dispatcher = "layoutmsg";
-                params = "togglesplit";
-                submap-reset = true;
-              })
-              (mkBind {
-                key = "S";
-                dispatcher = "layoutmsg";
-                params = "swapsplit";
-                submap-reset = true;
-              })
-
-              # grouped/tabbed windows
-              (mkBind {
-                key = "G";
-                dispatcher = "togglegroup";
-                submap-reset = true;
-              })
-              (mkBind {
-                key = "L";
-                dispatcher = "lockactivegroup";
-                params = "toggle";
-                submap-reset = true;
-              })
-
-              # swallow windows
-              (mkBind {
-                key = "X";
-                dispatcher = "toggleswallow";
-                submap-reset = true;
-              })
-            ];
-          })
-        ];
+          };
+          "submap.layout" = {
+            autoLoad = true;
+            content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/layout.lua {inherit mainMod;};
+          };
+        };
       };
 
       home.sessionVariables = envVars;
