@@ -24,7 +24,6 @@ lib.mkMerge [
     ];
     claude.enable = true;
     opencode.enable = true;
-    services.ssh-agent.enable = true;
     slack.enable = true;
     gcloud.enable = true;
     glab.enable = true;
@@ -76,7 +75,10 @@ lib.mkMerge [
       ];
     };
     programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
-    services.tailscale-systray.enable = true;
+    services = {
+      ssh-agent.enable = true;
+      tailscale-systray.enable = true;
+    };
   }
   {
     programs.mcp = {
