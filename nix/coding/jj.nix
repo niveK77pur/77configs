@@ -57,8 +57,8 @@ in {
               private-commits =
                 lib.strings.concatStringsSep " | "
                 (map (revset: "(" + revset + ")") [
-                  "description(glob:'wip:*')"
-                  "description(glob:'private:*')"
+                  "description(glob:'wip*:*')"
+                  "description(glob:'private*:*')"
                   "empty() ~ merges() ~ root()" # an empty commit
                 ]);
             };
