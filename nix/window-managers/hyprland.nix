@@ -7,6 +7,7 @@
   cfg = config.hyprland;
   mainMod = "SUPER";
   resizeWindowAmount = 40;
+  hyprshutdown = config.lib.nixGL.wrap pkgs.hyprshutdown;
   #  {{{1
   envVars = {
     # Hint Electron apps to use Wayland
@@ -131,13 +132,7 @@ in {
       wlogout = {
         enable = true;
         override-layout = {
-          Logout.action = "${pkgs.writeShellScript "hyprexitwithgrace" ''
-            LOGFILE=/tmp/hypr/hyprexitwithgrace.log
-            mkdir -p $(dirname "$LOGFILE")
-            HYPRCMDS=$(hyprctl -j clients | jq -j '.[] | "dispatch closewindow address:\(.address); "')
-            hyprctl --batch "$HYPRCMDS" >> "$LOGFILE" 2>&1
-            hyprctl dispatch exit >> "$LOGFILE" 2>&1
-          ''}";
+          Logout.action = lib.getExe hyprshutdown;
         };
       };
       hyprlock.enable = true;
@@ -146,6 +141,7 @@ in {
       avizo.enable = true;
       home.packages = [
         pkgs.hyprshot
+        hyprshutdown
         (config.lib.nixGL.wrap pkgs.satty)
         # needed by passmenu
         (pkgs.writeShellScriptBin "dmenu-wl" ''
