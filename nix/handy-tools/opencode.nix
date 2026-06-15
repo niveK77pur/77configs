@@ -8,8 +8,8 @@
   jujutsu-skill = pkgs.fetchFromGitHub {
     owner = "danverbraganza";
     repo = "jujutsu-skill";
-    rev = "efcc70090b14e4504d8f8523dd43d6a6605b9a1e";
-    hash = "sha256-rDL7M8ukN6vnWF2/G5x7fexsV/1u4M/TVhbrKzM835w=";
+    rev = "b0668317ec8b375ea3d5815d3f029f4104443a0b";
+    hash = "sha256-EcQWhnk4KQBQncemlQQTn2XXvUXVdYKkB2OJSpGQ4AI=";
   };
   mkPerms = {
     allow ? [],
