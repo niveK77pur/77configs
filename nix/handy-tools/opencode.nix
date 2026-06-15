@@ -11,6 +11,12 @@
     rev = "b0668317ec8b375ea3d5815d3f029f4104443a0b";
     hash = "sha256-EcQWhnk4KQBQncemlQQTn2XXvUXVdYKkB2OJSpGQ4AI=";
   };
+  ai-skills = pkgs.fetchFromGitHub {
+    owner = "mattpocock";
+    repo = "skills";
+    rev = "694fa30311e02c2639942308513555e61ee84a6f";
+    hash = "sha256-NGRKdnHSBKoR48zGotmJ3zGXnQ58ogudv8T4Va/2DSY=";
+  };
   mkPerms = {
     allow ? [],
     ask ? [],
@@ -59,6 +65,9 @@ in {
       context = ../../config/opencode/AGENTS.md;
       skills = {
         jujutsu = "${jujutsu-skill}/jujutsu";
+        handoff = "${ai-skills}/skills/productivity/handoff";
+        write-a-skill = "${ai-skills}/skills/productivity/write-a-skill";
+        grill-with-docs = "${ai-skills}/skills/engineering/grill-with-docs";
       };
       settings = {
         permission = mkPerms {
