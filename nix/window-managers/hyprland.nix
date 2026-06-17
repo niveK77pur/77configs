@@ -341,7 +341,7 @@ in {
                 monitor = "0";
                 workspace = "9";
                 no_initial_focus = true;
-              }) ["discord" "ferdium" "Slack"]);
+              }) ["discord" "ferdium" "slack"]);
 
             #  {{{1
             gesture = {
