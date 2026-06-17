@@ -109,6 +109,16 @@ lib.mkMerge [
                 titan.name
               ];
             };
+          SN-Note-PDF =
+            inputs.niveK77pur-nixos.syncthing.folders.SN-Note-PDF
+            // {
+              path = "~/Documents/SuperNote-PDFs";
+              type = "receiveonly";
+              devices = with config.services.syncthing.settings.devices; [
+                optiplex.name
+                tuxedo.name
+              ];
+            };
         };
       };
     };
