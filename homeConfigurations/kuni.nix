@@ -106,6 +106,7 @@ lib.mkMerge [
               devices = with config.services.syncthing.settings.devices; [
                 optiplex.name
                 tuxedo.name
+                titan.name
               ];
             };
         };
