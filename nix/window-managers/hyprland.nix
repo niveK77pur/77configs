@@ -8,6 +8,7 @@
   mainMod = "SUPER";
   resizeWindowAmount = 40;
   hyprshutdown = config.lib.nixGL.wrap pkgs.hyprshutdown;
+  satty = config.lib.nixGL.wrap pkgs.satty;
   #  {{{1
   envVars = {
     # Hint Electron apps to use Wayland
@@ -142,7 +143,7 @@ in {
       home.packages = [
         pkgs.hyprshot
         hyprshutdown
-        (config.lib.nixGL.wrap pkgs.satty)
+        satty
         # needed by passmenu
         (pkgs.writeShellScriptBin "dmenu-wl" ''
           ${cfg.launcher} dmenu "$@"
@@ -703,6 +704,7 @@ in {
             content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/screenshot.lua {
               inherit mainMod;
               magick = lib.getExe pkgs.imagemagick;
+              satty = lib.getExe satty;
               hyprshot-tesseract = pkgs.writers.writeFish "hyprshot-tesseract.fish" ''
                 set text (hyprshot --freeze -m region --raw | ${lib.getExe pkgs.tesseract} - - | string collect)
                 notify-send "hyprshot tesseract copy to clipboard" $text

@@ -9,7 +9,7 @@ hl.define_submap(submap_name, "reset", function()
 	hl.bind("@mainMod@ + R", hl.dsp.exec_cmd("hyprshot --freeze -m region --raw | @magick@ - -resize 400x - | wl-copy"))
 	hl.bind(
 		"@mainMod@ + E",
-		hl.dsp.exec_cmd("hyprshot --freeze -m region --raw | satty --filename -", { float = true })
+		hl.dsp.exec_cmd("hyprshot --freeze -m region --raw | @satty@ --filename -", { float = true })
 	)
 	hl.bind("@mainMod@ + T", hl.dsp.exec_cmd("@hyprshot-tesseract@"))
 end)
