@@ -44,6 +44,8 @@ in {
           pkgs.curl # tree-sitter
           pkgs.ltex-ls-plus
           pkgs.typos
+          pkgs.cargo # parinfer-rust
+          pkgs.rustc # parinfer-rust
         ];
         withRuby = false;
         withPython3 = false;
