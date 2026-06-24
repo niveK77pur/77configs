@@ -110,16 +110,16 @@ in {
           };
           vllm = {
             npm = "@ai-sdk/openai-compatible";
-            name = "vLLM (kair)";
+            name = "vLLM (braddl)";
             options = {
               # Accessible over tailscale
-              baseURL = "http://kair:8000/v1";
+              baseURL = "http://braddl:8001/v1";
             };
             models = {
-              "qwen3.5-27b" = {
-                name = "Qwen3.5-27B";
+              "lb-chatvec-4374" = {
+                name = "Luxembourg LLM Charel";
                 options = {
-                  max_tokens = 32768;
+                  max_tokens = 8192;
                 };
               };
             };
