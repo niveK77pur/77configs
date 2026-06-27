@@ -27,6 +27,22 @@
           *) bwrap_extra+=("$1"); shift;;
         esac
       done
+
+      # shellcheck disable=SC1091
+      distro=$(. /etc/os-release && echo "$ID")
+      case "$distro" in
+        # Networking needs the distro's DNS/NSS sockets plus some files under
+        # /etc. Mounting the entire /run may leak too much sensitive
+        # information.
+        nixos) sys_paths=(/usr /bin /lib /lib64 /run/nscd /run/current-system /run/wrappers) ;;
+        fedora) sys_paths=(/usr /bin /lib /lib64 /run/systemd/resolve) ;;
+        *) echo "bwrap-claude: unsupported distro '$distro'" >&2; exit 1 ;;
+      esac
+      sys_binds=()
+      for d in "''${sys_paths[@]}"; do
+        sys_binds+=(--ro-bind "$d" "$d")
+      done
+
       bwrap_args=(
         --die-with-parent
 
@@ -45,15 +61,6 @@
         # otherwise the sandbox will be severely lacking in capabilities.
         --ro-bind /nix /nix
         --ro-bind /etc /etc
-        --ro-bind /usr /usr
-        --symlink /usr/lib /lib
-        --symlink /usr/lib64 /lib64
-        --symlink /usr/bin /bin
-
-        # Otherwise networking will not work, some files under /etc are also
-        # important for networking to function. Mounting the entire /run may
-        # leak too much sensitive information.
-        --ro-bind /run/systemd/resolve /run/systemd/resolve
 
         # This may contain sensitive information which we explicitly prevent
         # from being bound into the sandbox. This is a "catch-all" in case more
@@ -111,7 +118,7 @@
       # Create empty file on the host to ro-bind into sandbox. Otherwise, this
       # may allow code injection.
       [ -e "$HOME/.claude/settings.local.json" ] || touch "$HOME/.claude/settings.local.json"
-      bwrap "''${bwrap_args[@]}" "''${bwrap_extra[@]}" -- claude --dangerously-skip-permissions "$@"
+      bwrap "''${sys_binds[@]}" "''${bwrap_args[@]}" "''${bwrap_extra[@]}" -- claude --dangerously-skip-permissions "$@"
     '';
   };
   #  }}}1
