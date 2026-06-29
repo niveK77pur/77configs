@@ -142,6 +142,7 @@ in {
       avizo.enable = true;
       home.packages = [
         pkgs.hyprshot
+        pkgs.wayscriber
         hyprshutdown
         satty
         # needed by passmenu
@@ -695,6 +696,7 @@ in {
                 hl.exec_cmd("${config.services.dunst.package}/bin/dunst")
                 hl.exec_cmd("${lib.getExe config.programs.noctalia-shell.package}")
                 hl.exec_cmd("${lib.getExe config.services.gammastep.package}")
+                hl.exec_cmd("${lib.getExe pkgs.wayscriber} --daemon")
                 hl.exec_cmd("${cfg.launcher} server")
               end)
             '';
@@ -723,6 +725,13 @@ in {
           "submap.layout" = {
             autoLoad = true;
             content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/layout.lua {inherit mainMod;};
+          };
+          "submap.wayscribe" = {
+            autoLoad = true;
+            content = pkgs.replaceVars ../../config/hypr/extraLuaFiles/wayscribe.lua {
+              inherit mainMod;
+              wayscriber = lib.getExe pkgs.wayscriber;
+            };
           };
         };
       };
