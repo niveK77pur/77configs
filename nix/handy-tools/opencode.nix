@@ -68,7 +68,7 @@ in {
         handoff = "${ai-skills}/skills/productivity/handoff";
         write-a-skill = "${ai-skills}/skills/productivity/write-a-skill";
         grill-with-docs = "${ai-skills}/skills/engineering/grill-with-docs";
-        no-slop-comments = ../../config/opencode/skills/no-slop-comments;
+        no-slop-prose = ../../config/opencode/skills/no-slop-prose;
       };
       settings = {
         permission = mkPerms {
