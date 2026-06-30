@@ -23,6 +23,8 @@
         case "$1" in
           --ro) bwrap_extra+=(--ro-bind "$(realpath "$2")" "$(realpath "$2")"); shift 2;;
           --rw) bwrap_extra+=(--bind "$(realpath "$2")" "$(realpath "$2")"); shift 2;;
+          --ro-try) bwrap_extra+=(--ro-bind-try "$(realpath -m "$2")" "$(realpath -m "$2")"); shift 2;;
+          --rw-try) bwrap_extra+=(--bind-try "$(realpath -m "$2")" "$(realpath -m "$2")"); shift 2;;
           --) shift; break;;
           *) bwrap_extra+=("$1"); shift;;
         esac
