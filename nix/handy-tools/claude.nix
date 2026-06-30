@@ -17,6 +17,7 @@
     ];
     text = ''
       bwrap_extra=()
+      shared_host_folder=""
       # everything before a '--' goes to bwrap
       # everything after goes to the command
       while [[ $# -gt 0 ]]; do
@@ -25,6 +26,7 @@
           --rw) bwrap_extra+=(--bind "$(realpath "$2")" "$(realpath "$2")"); shift 2;;
           --ro-try) bwrap_extra+=(--ro-bind-try "$(realpath -m "$2")" "$(realpath -m "$2")"); shift 2;;
           --rw-try) bwrap_extra+=(--bind-try "$(realpath -m "$2")" "$(realpath -m "$2")"); shift 2;;
+          --shared) shared_host_folder="$(realpath -m "$2")"; shift 2;;
           --) shift; break;;
           *) bwrap_extra+=("$1"); shift;;
         esac
@@ -45,6 +47,10 @@
         sys_binds+=(--ro-bind "$d" "$d")
       done
 
+      if [ -z "$shared_host_folder" ]; then
+        shared_host_folder="$(mktemp -d --suffix=-bwrap-claude)"
+        trap 'rm -rf "$shared_host_folder"' EXIT
+      fi
       bwrap_args=(
         --die-with-parent
 
@@ -83,6 +89,8 @@
 
         # Mount a proper folder into the sandbox /tmp if needed
         --tmpfs /tmp
+        # Mount for convenient sharing with the sandbox
+        --bind "$shared_host_folder" "$shared_host_folder"
 
         # Make life a bit easier and allow tools and everything to continue
         # working with their states. Do not allow modifying them though.
@@ -120,6 +128,7 @@
       # Create empty file on the host to ro-bind into sandbox. Otherwise, this
       # may allow code injection.
       [ -e "$HOME/.claude/settings.local.json" ] || touch "$HOME/.claude/settings.local.json"
+      [ -d "$shared_host_folder" ] || mkdir -p "$shared_host_folder"
       bwrap "''${sys_binds[@]}" "''${bwrap_args[@]}" "''${bwrap_extra[@]}" -- claude --dangerously-skip-permissions "$@"
     '';
   };
