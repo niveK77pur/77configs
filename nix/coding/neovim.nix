@@ -46,6 +46,7 @@ in {
           pkgs.typos
           pkgs.cargo # parinfer-rust
           pkgs.rustc # parinfer-rust
+          pkgs.fixjson
         ];
         withRuby = false;
         withPython3 = false;
