@@ -5,6 +5,7 @@
   helper,
   ...
 }: let
+  #  {{{1
   python-ghosttext-dependencies = pkgs.python3.withPackages (ps:
     with ps; [
       pynvim
@@ -28,6 +29,47 @@
         };
       })
     ]);
+  # {{{1
+  scmindent = pkgs.callPackage (
+    {
+      lib,
+      stdenvNoCC,
+      fetchFromGitHub,
+      makeWrapper,
+      lua5,
+    }:
+      stdenvNoCC.mkDerivation {
+        name = "scmindent";
+        version = "2022-07-06";
+
+        src = fetchFromGitHub {
+          owner = "ds26gte";
+          repo = "scmindent";
+          rev = "8c0fb12977fd7e63736963fd3e52d1dac359bc59";
+          hash = "sha256-XjG5UHVd5Wf05P3Bdjzb6QE1A184q1FmVMNHR10YV9U=";
+        };
+
+        nativeBuildInputs = [makeWrapper];
+
+        installPhase = ''
+          runHook preInstall
+          install -D scmindent.lua "$out/bin/scmindent.lua"
+          runHook postInstall
+        '';
+
+        postInstall = ''
+          wrapProgram "$out/bin/scmindent.lua" \
+            --prefix PATH : ${lib.makeBinPath [lua5]}
+        '';
+
+        meta = {
+          description = "Editing Lisp and Scheme files in vi";
+          homepage = "https://github.com/ds26gte/scmindent";
+          mainProgram = "scmindent.lua";
+        };
+      }
+  ) {};
+  #  }}}1
 in {
   options.neovim.enable = lib.mkEnableOption "neovim";
   config = lib.mkIf config.neovim.enable {
@@ -47,6 +89,7 @@ in {
           pkgs.cargo # parinfer-rust
           pkgs.rustc # parinfer-rust
           pkgs.fixjson
+          scmindent
         ];
         withRuby = false;
         withPython3 = false;
@@ -71,3 +114,5 @@ in {
     };
   };
 }
+# vim: fdm=marker
+
