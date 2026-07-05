@@ -6,11 +6,13 @@
   cfg = config.handy-tools;
 in {
   imports =
-    (lib.fileset.toList (
-      lib.fileset.fileFilter
-      (file: (file.hasExt "nix") && (file.name != "default.nix"))
-      ./.
-    ))
+    (lib.fileset.toList (lib.fileset.difference
+      (
+        lib.fileset.fileFilter
+        (file: (file.hasExt "nix") && (file.name != "default.nix"))
+        ./.
+      )
+      ./claude))
     ++ [
       ../coding/lazygit.nix
       ../coding/ripgrep.nix

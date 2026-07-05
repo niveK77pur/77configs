@@ -133,6 +133,7 @@
     '';
   };
   #  }}}1
+  claude-resume-global = pkgs.callPackage ./claude/claude-resume-global.nix {};
 in {
   options.claude = {
     enable = lib.mkEnableOption "claude";
@@ -141,7 +142,10 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      home.packages = lib.singleton bwrap-claude;
+      home.packages = [
+        bwrap-claude
+        claude-resume-global
+      ];
       programs.claude-code = {
         enable = true;
         inherit
