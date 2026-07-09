@@ -145,6 +145,7 @@ in {
       home.packages = [
         bwrap-claude
         claude-resume-global
+        pkgs.unixtools.script
       ];
       programs.claude-code = {
         enable = true;
