@@ -64,20 +64,22 @@
     ; fatal error that terminates this program, so we need to handle it
     ; properly.
     (signal-ignore signal/pipe)
-    (for-each (lambda (file)
-                      (let* ((json (process-jsonl file))
-                             (fields (list (or (alist-ref 'cwd json) "NOCWD")
-                                           (or (alist-ref 'customTitle json) "")
-                                           (or (alist-ref 'aiTitle json) "")
-                                           (or (alist-ref 'sessionId json) "NOID")))
-                             (line (string-intersperse fields "\t")))
-                            (handle-exceptions
-                              exn
-                              (void)
-                              (begin
-                                (write-line line output)
-                                (flush-output output)))))
-              from-files)
+    (call/cc
+      (lambda (exit)
+        (for-each (lambda (file)
+                          (let* ((json (process-jsonl file))
+                                 (fields (list (or (alist-ref 'cwd json) "NOCWD")
+                                               (or (alist-ref 'customTitle json) "")
+                                               (or (alist-ref 'aiTitle json) "")
+                                               (or (alist-ref 'sessionId json) "NOID")))
+                                 (line (string-intersperse fields "\t")))
+                                (handle-exceptions
+                                  exn
+                                  (exit #f)
+                                  (begin
+                                    (write-line line output)
+                                    (flush-output output)))))
+                  from-files)))
     (close-output-port output)
     (signal-default signal/pipe)
     (let ((choice (read-line input)))
