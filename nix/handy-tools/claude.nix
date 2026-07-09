@@ -47,9 +47,24 @@
         sys_binds+=(--ro-bind "$d" "$d")
       done
 
+      cleanup_paths=()
       if [ -z "$shared_host_folder" ]; then
         shared_host_folder="$(mktemp -d --suffix=-bwrap-claude)"
-        trap 'rm -rf "$shared_host_folder"' EXIT
+        cleanup_paths+=("$shared_host_folder")
+      fi
+      ${lib.optionalString cfg.withAuthToken ''
+        # Interactive Claude Code prefers ~/.claude/.credentials.json (the
+        # subscription login) over CLAUDE_CODE_OAUTH_TOKEN. That file is bound
+        # read-only below, so once its access token expires Claude can neither
+        # use it nor refresh it and every request 401s -- even though the env
+        # token above is valid. Mask it with an empty object so the env token is
+        # the credential that gets used.
+        empty_creds="$(mktemp --suffix=-bwrap-claude-creds)"
+        printf '{}' > "$empty_creds"
+        cleanup_paths+=("$empty_creds")
+      ''}
+      if [ ''${#cleanup_paths[@]} -gt 0 ]; then
+        trap 'rm -rf "''${cleanup_paths[@]}"' EXIT
       fi
       bwrap_args=(
         --die-with-parent
@@ -119,7 +134,11 @@
         --bind-try "$HOME/.claude" "$HOME/.claude"
         --ro-bind-try "$HOME/.claude/settings.json" "$HOME/.claude/settings.json"
         --ro-bind-try "$HOME/.claude/settings.local.json" "$HOME/.claude/settings.local.json"
-        --ro-bind-try "$HOME/.claude/.credentials.json" "$HOME/.claude/.credentials.json"
+        ${
+        if cfg.withAuthToken
+        then ''--ro-bind "$empty_creds" "$HOME/.claude/.credentials.json"''
+        else ''--ro-bind-try "$HOME/.claude/.credentials.json" "$HOME/.claude/.credentials.json"''
+      }
         --ro-bind-try "$HOME/.claude/plugins" "$HOME/.claude/plugins"
         --ro-bind-try "$HOME/.claude/skills" "$HOME/.claude/skills"
 
