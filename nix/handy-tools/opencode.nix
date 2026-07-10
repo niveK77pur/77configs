@@ -112,14 +112,16 @@ in {
             npm = "@ai-sdk/openai-compatible";
             name = "vLLM (braddl)";
             options = {
-              # Accessible over tailscale
-              baseURL = "http://braddl:8001/v1";
+              # ssh forward port: ssh -L 8000:localhost:8000 braddl
+              baseURL = "http://localhost:8000/v1";
             };
             models = {
-              "lb-chatvec-4374" = {
+              "qwen3.5-9b-lb" = {
                 name = "Luxembourg LLM Charel";
                 options = {
-                  max_tokens = 8192;
+                  # 8192 is the model's full context; cap output well below
+                  # it so the prompt has room.
+                  max_tokens = 4096;
                 };
               };
             };
