@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.clipse = {
       enable = true;
-      imageDisplay = {
+      settings.imageDisplay = {
         type = "sixel";
       };
     };
