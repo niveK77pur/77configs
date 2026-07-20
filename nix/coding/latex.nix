@@ -22,7 +22,7 @@ in {
     })
 
     (lib.mkIf cfg.latexindent.enable (let
-      mysettings = builtins.toFile "mysettings.yaml" (lib.generators.toYAML {} {
+      mysettings = (pkgs.formats.yaml {}).generate "mysettings.yaml" {
         defaultIndent = "  ";
 
         indentAfterHeadings = {
@@ -66,13 +66,13 @@ in {
           body = ''[^}]*?\}\{[^}]*?'';
           end = ''\}'';
         };
-      });
+      };
     in {
       # Seems like source for `texlivePackages.latexindent` is no longer
       # reachable
       home.packages = [pkgs.perlPackages.LatexIndent];
 
-      xdg.configFile."latexindent/indentconfig.yaml".text = lib.generators.toYAML {} {
+      xdg.configFile."latexindent/indentconfig.yaml".source = (pkgs.formats.yaml {}).generate "latexindent-indentconfig.yaml" {
         paths = [
           mysettings
         ];
