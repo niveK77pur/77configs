@@ -157,6 +157,7 @@ in {
   options.claude = {
     enable = lib.mkEnableOption "claude";
     withAuthToken = lib.mkEnableOption "claude-auth" // {default = true;};
+    disableTopgrade = lib.mkEnableOption "claude-topgrade" // {default = cfg.enable;};
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -166,13 +167,16 @@ in {
         claude-resume-global
         pkgs.unixtools.script
       ];
-      programs.claude-code = {
-        enable = true;
-        inherit
-          (config.programs.opencode)
-          skills
-          enableMcpIntegration
-          ;
+      programs = {
+        claude-code = {
+          enable = true;
+          inherit
+            (config.programs.opencode)
+            skills
+            enableMcpIntegration
+            ;
+        };
+        topgrade.settings.misc.disable = lib.optional cfg.disableTopgrade "claude_code";
       };
     }
     (lib.mkIf cfg.withAuthToken {
