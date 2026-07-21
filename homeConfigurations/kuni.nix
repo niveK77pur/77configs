@@ -74,7 +74,12 @@ lib.mkMerge [
         }
       ];
     };
-    programs.hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
+    programs = {
+      hyprlock.package = null; # nixpkgs hyprlock does not respect Fedora PAM config
+      topgrade.settings.misc.disable = [
+        "hyprpm"
+      ];
+    };
     services = {
       ssh-agent.enable = true;
       tailscale-systray.enable = true;
