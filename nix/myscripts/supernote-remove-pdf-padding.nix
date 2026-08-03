@@ -5,26 +5,23 @@
   ...
 }: let
   cfg = config.supernote-remove-pdf-padding;
-  pkg = {
-    stdenvNoCC,
-    makeWrapper,
-    python3,
-  }:
-    stdenvNoCC.mkDerivation rec {
+  pkg = {python3Packages}:
+    python3Packages.buildPythonApplication rec {
       pname = "supernote-remove-pdf-padding";
       version = "0.0.1";
 
       src = ../../bin/supernote-remove-pdf-padding.py;
-      unpackPhase = "cp -a $src $(stripHash $src)";
+      dontUnpack = true;
+      pyproject = false;
 
-      nativeBuildInputs = [makeWrapper];
+      propagatedBuildInputs = with python3Packages; [
+        pypdf
+      ];
 
       installPhase = ''
         runHook preInstall
 
-        install -Dm 555 "$(stripHash $src)" $out/bin/${meta.mainProgram}
-        wrapProgram $out/bin/${meta.mainProgram} \
-          --set PATH ${lib.makeBinPath [(python3.withPackages (ps: with ps; [pypdf]))]} \
+        install -Dm 555 "$src" $out/bin/${meta.mainProgram}
 
         runHook postInstall
       '';
