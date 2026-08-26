@@ -116,6 +116,15 @@ lib.mkMerge [
                 titan.name
               ];
             };
+          Curriculum-Vitae =
+            inputs.niveK77pur-nixos.syncthing.folders.Curriculum-Vitae
+            // {
+              path = "~/Documents/Curriculum_vitae";
+              devices = with config.services.syncthing.settings.devices; [
+                optiplex.name
+                tuxedo.name
+              ];
+            };
           SN-Note-PDF =
             inputs.niveK77pur-nixos.syncthing.folders.SN-Note-PDF
             // {
