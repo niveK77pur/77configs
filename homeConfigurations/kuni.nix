@@ -125,6 +125,15 @@ lib.mkMerge [
                 tuxedo.name
               ];
             };
+          Work-Applications =
+            inputs.niveK77pur-nixos.syncthing.folders.Work-Applications
+            // {
+              path = "~/Documents/Applications";
+              devices = with config.services.syncthing.settings.devices; [
+                optiplex.name
+                tuxedo.name
+              ];
+            };
           SN-Note-PDF =
             inputs.niveK77pur-nixos.syncthing.folders.SN-Note-PDF
             // {
