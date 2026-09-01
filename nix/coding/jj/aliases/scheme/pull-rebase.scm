@@ -52,15 +52,24 @@
     (lines exit-code)
     (run-jj "log --no-graph --revision 'latest(bookmarks() & first_ancestors(@))' --template 'separate(\" \", self.change_id(), self.bookmarks())'")
     (if (and (= exit-code 0) (not (null? lines)))
-        (match-let (((change-id bookmark) (string-split (car lines))))
+        (match-let (((bookmark-change-id bookmark) (string-split (car lines))))
                    (print (sprintf "Fetching bookmark '~A'" bookmark))
                    (receive
                      (lines exit-code)
                      (run-jj (sprintf "git fetch --branch '~A'" bookmark))
                      (if (and (= exit-code 0) (not (string=? (car lines) "Nothing changed.")))
-                         ;; TODO: 3. `jj rebase -s <bookmark change ID>+ -d <bookmark>`
-                         (begin
-                           (printf "Rebasing ~A onto ~A" change-id bookmark)
-                           (run-jj (sprintf "rebase --source ~A+ --onto ~A" change-id branch)))
+                         (receive
+                           (lines exit-code)
+                           (run-jj (sprintf "log --no-graph --revision '~A+' --template 'self.change_id() ++ \"\\n\"'" bookmark-change-id))
+                           (if (and (= exit-code 0) (not (null? lines)))
+                               (for-each
+                                 (lambda (change-id)
+                                         (printf "Rebasing ~A onto ~A" change-id bookmark)
+                                         (receive (_ exit-code)
+                                                  (run-jj (sprintf "rebase --source ~A --onto ~A" change-id bookmark))
+                                                  (if (= exit-code 0)
+                                                      (printf " [OK]~%")
+                                                      (printf " [FAILED]~%"))))
+                                 lines)))
                          (printf "Nothing changed for bookmark ~A." bookmark))))
         (error "Failed to determine current bookmark"))))
