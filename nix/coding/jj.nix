@@ -5,6 +5,13 @@
   ...
 }: let
   cfg = config.jj;
+  private-commits =
+    lib.strings.concatStringsSep " | "
+    (map (revset: "(" + revset + ")") [
+      "description(glob:'wip*:*')"
+      "description(glob:'private*:*')"
+      "empty() ~ merges() ~ root()" # an empty commit
+    ]);
 in {
   options.jj = {
     enable = lib.mkEnableOption "jj";
@@ -54,13 +61,7 @@ in {
               ];
             };
             git = {
-              private-commits =
-                lib.strings.concatStringsSep " | "
-                (map (revset: "(" + revset + ")") [
-                  "description(glob:'wip*:*')"
-                  "description(glob:'private*:*')"
-                  "empty() ~ merges() ~ root()" # an empty commit
-                ]);
+              inherit private-commits;
             };
             #  {{{1
             aliases = lib.mergeAttrsList [
