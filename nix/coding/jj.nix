@@ -60,6 +60,9 @@ in {
                 "log"
               ];
             };
+            revsets = {
+              bookmark-advance-to = "heads(::@ & mutable() ~ roots(mutable() & (${private-commits}))::)";
+            };
             git = {
               inherit private-commits;
             };
