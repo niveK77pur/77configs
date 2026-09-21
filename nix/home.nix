@@ -101,6 +101,7 @@
         "steam-original"
         "steam-unwrapped"
         "discord"
+        "discord-unwrapped"
         "nvidia"
         "claude-code"
         "slack"
