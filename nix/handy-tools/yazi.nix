@@ -81,7 +81,7 @@ in {
             {
               on = ["<A-d>"];
               run =
-                if pkgs.stdenv.isDarwin
+                if pkgs.stdenv.hostPlatform.isDarwin
                 then "noop"
                 else "shell -- ${lib.getExe pkgs.dragon-drop} --all --and-exit %s";
               desc = "Drag and drop files from yazi";

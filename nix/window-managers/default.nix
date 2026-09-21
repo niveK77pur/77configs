@@ -17,7 +17,7 @@ in {
   };
 
   config = lib.mkIf (cfg.enableAll && (!cfg.isServerConfiguration)) {
-    autoraise.enable = lib.mkDefault pkgs.stdenv.isDarwin;
+    autoraise.enable = lib.mkDefault pkgs.stdenv.hostPlatform.isDarwin;
     clipse.enable = lib.mkDefault true;
     dunst.enable = lib.mkDefault true;
     hyprland.enable = lib.mkDefault true;

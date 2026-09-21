@@ -19,6 +19,6 @@ lib.mkMerge [
     starship.enable = true;
     git = {inherit (git) userName userEmail;};
     jj = {inherit (git) userName userEmail;};
-    autoraise.enable = pkgs.stdenv.isDarwin;
+    autoraise.enable = pkgs.stdenv.hostPlatform.isDarwin;
   }
 ]

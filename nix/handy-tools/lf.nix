@@ -104,7 +104,7 @@ in {
               }; #  }}}
 
             dragon =
-              if pkgs.stdenv.isDarwin
+              if pkgs.stdenv.hostPlatform.isDarwin
               then ":echoerr 'dragon-drop' not available for darwin"
               else "&${pkgs.dragon-drop}/bin/dragon-drop --all --and-exit $fx";
 

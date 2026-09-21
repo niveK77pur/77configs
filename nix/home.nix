@@ -15,7 +15,7 @@
       # manage.
       inherit username;
       homeDirectory = "/${
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then "Users"
         else "home"
       }/${config.home.username}";
