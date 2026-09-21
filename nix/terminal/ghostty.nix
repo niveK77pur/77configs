@@ -33,7 +33,7 @@ in {
         pkgs.nerd-fonts.fira-code
         pkgs.maple-mono.NF
       ]
-      (lib.lists.optional pkgs.stdenv.isLinux pkgs.xdg-desktop-portal-gtk)
+      (lib.lists.optional pkgs.stdenv.hostPlatform.isLinux pkgs.xdg-desktop-portal-gtk)
     ];
     programs.ghostty = {
       package = config.lib.nixGL.wrap pkgs.ghostty;
