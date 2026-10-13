@@ -26,6 +26,7 @@
       url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
     niveK77pur-nixos.url = "github:niveK77pur/nixos";
   };
 
@@ -57,6 +58,13 @@
           nix-index-database.homeModules.nix-index
           agenix.homeManagerModules.default
           {home.packages = [agenix.packages.${system}.default];}
+          inputs.multiverse.homeManagerModules.default
+          {
+            multiverse = {
+              enable = true;
+              pins = {};
+            };
+          }
           ./nix/home.nix
           ./nix/categories.nix
           modulePath
