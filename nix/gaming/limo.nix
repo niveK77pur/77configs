@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.limo;
@@ -11,7 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [pkgs.limo];
+    multiverse.pins.limo = "1.2"; # NOTE: Latest 1.2.2 build is broken
     reshade-steam-proton.enable = true;
   };
 }
