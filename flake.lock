@@ -283,6 +283,21 @@
         "type": "github"
       }
     },
+    "multiverse": {
+      "locked": {
+        "lastModified": 1791882132,
+        "narHash": "sha256-bUnuHCRgwH8+SfXktsLXtdPtcALEmEAEOT7Jk9y940s=",
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "rev": "acabf7666dbd3896a7db4f145bcbc90ed6dc01aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "type": "github"
+      }
+    },
     "niveK77pur-nixos": {
       "inputs": {
         "agenix": "agenix_2",
@@ -521,6 +536,7 @@
       "inputs": {
         "agenix": "agenix",
         "home-manager": "home-manager",
+        "multiverse": "multiverse",
         "niveK77pur-nixos": "niveK77pur-nixos",
         "nix-index-database": "nix-index-database_2",
         "nixgl": "nixgl",
