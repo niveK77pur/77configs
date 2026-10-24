@@ -11,10 +11,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    multiverse.pins.noctalia-shell = "4.7.6"; # NOTE: 4.7.7 build failure
     programs.noctalia = {
       enable = true;
-      package = config.lib.nixGL.wrap config.multiverse.pinned.noctalia-shell;
+      package = config.lib.nixGL.wrap pkgs.noctalia-shell;
       # 4.7.x is legacy v4 and has no `config validate` subcommand.
       checkConfig = false;
     };

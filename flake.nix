@@ -36,6 +36,14 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
+      overlays = [
+        (inputs.multiverse.lib.pinOverlay {
+          pins = {
+            noctalia-shell = "4.7.6";
+          };
+          config.allowUnfree = true;
+        })
+      ];
     };
     inherit (pkgs) lib;
     git = {
