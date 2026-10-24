@@ -694,7 +694,7 @@ in {
             content = pkgs.writeText "hypr-autostart.lua" ''
               hl.on("hyprland.start", function()
                 hl.exec_cmd("${config.services.dunst.package}/bin/dunst")
-                hl.exec_cmd("${lib.getExe config.programs.noctalia-shell.package}")
+                hl.exec_cmd("${lib.getExe config.programs.noctalia.package}")
                 hl.exec_cmd("${lib.getExe config.services.gammastep.package}")
                 hl.exec_cmd("${lib.getExe pkgs.wayscriber} --daemon")
                 hl.exec_cmd("${cfg.launcher} server")
