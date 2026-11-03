@@ -10,6 +10,8 @@
     (map (revset: "(" + revset + ")") [
       "description(glob:'wip*:*')"
       "description(glob:'private*:*')"
+      "description(glob:'slop*:*')"
+      "description(glob:'review*:*')"
       "empty() ~ merges() ~ root()" # an empty commit
     ]);
 in {
