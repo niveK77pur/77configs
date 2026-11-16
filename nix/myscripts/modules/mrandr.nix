@@ -21,7 +21,7 @@
       pname = "mrandr.sh";
       version = "1.0.0";
 
-      src = ../../bin/${pname};
+      src = ../../../bin/${pname};
       unpackPhase = "ln -s $src $(stripHash $src)";
 
       runtimeDependencies = [

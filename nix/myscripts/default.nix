@@ -12,7 +12,7 @@ in {
       && (file.name != "default.nix")
       && (file.name != "flake.nix")
       && (file.name != "mount-go.nix"))
-    ./.
+    ./modules
   );
 
   options.myscripts = {

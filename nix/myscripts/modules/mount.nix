@@ -4,31 +4,45 @@
   config,
   ...
 }: let
-  cfg = config.cedit;
+  cfg = config.mount;
   #  {{{
   pkg = {
     stdenvNoCC,
     makeWrapper,
     lib,
-    bash,
-    xclip,
+    libnotify,
+    dmenu,
+    smenu,
     coreutils,
-    neovim,
-    wezterm,
+    glib,
+    mount,
+    udisks,
+    gnused,
+    util-linux,
+    usbutils,
+    gnugrep,
+    gawk,
   }:
     stdenvNoCC.mkDerivation rec {
-      pname = "cedit";
+      pname = "mount.sh";
       version = "1.0.0";
 
-      src = ../../bin/${pname};
+      src = ../../../bin/${pname};
       unpackPhase = "ln -s $src $(stripHash $src)";
 
       runtimeDependencies = [
-        bash
-        xclip
+        libnotify
+        dmenu
+        smenu
+        glib # for 'gio'
+        mount
+        udisks
         coreutils
-        neovim
-        wezterm
+        gnused
+        util-linux
+        usbutils
+        gnugrep
+        gawk
       ];
 
       buildInputs = [makeWrapper];
@@ -38,19 +52,17 @@
       '';
 
       postFixup = ''
-        wrapProgram $out/bin/${pname} \
-          --set PATH ${lib.makeBinPath runtimeDependencies} \
-          --set TERMINAL ${wezterm}/bin/wezterm
+        wrapProgram $out/bin/${pname} --set PATH ${lib.makeBinPath runtimeDependencies}
       '';
 
       meta = {
-        description = "Edit contents in clipboard (X11)";
+        description = "(Un-)mount USB devices";
       };
     };
   #  }}}
 in {
-  options.cedit = {
-    enable = lib.mkEnableOption "cedit";
+  options.mount = {
+    enable = lib.mkEnableOption "mount";
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.callPackage pkg {};

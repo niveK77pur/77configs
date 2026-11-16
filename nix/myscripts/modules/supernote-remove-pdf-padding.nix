@@ -10,7 +10,7 @@
       pname = "supernote-remove-pdf-padding";
       version = "0.0.1";
 
-      src = ../../bin/supernote-remove-pdf-padding.py;
+      src = ../../../bin/supernote-remove-pdf-padding.py;
       dontUnpack = true;
       pyproject = false;
 
