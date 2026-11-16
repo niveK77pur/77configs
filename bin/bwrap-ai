@@ -1,0 +1,170 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p bash
+#! nix-shell -p bubblewrap
+#! nix-shell -p coreutils
+
+bwrap_extra=()
+cleanup_paths=()
+shared_host_folder=""
+
+# These arrays are meant to be populated by the BWRAP_HOOK_FILE and offer a
+# convenient way to provide default arguments that `bwrap-ai` should take, and
+# default commands. Populating these will not prevent the final bwrap-ai
+# command from taking its usual arguments, as mentioned before the arg parsing.
+bwrap_ai_hook_args=()
+base_command=()
+
+# A hook file allows injecting and extending this base script to adapt it to
+# other tools, without sacrificing the core of this AI bubblewrap. The file
+# being `source`d, allows hooking into any arrays and variables that were
+# created until this point in the script.
+if [ -n "${BWRAP_HOOK_FILE-:}" ]; then
+  if [ ! -f "$BWRAP_HOOK_FILE" ]; then
+    echo "[ERROR] BWRAP_HOOK_FILE is provided, but file does not exist." >&2
+    exit 1
+  fi
+  # shellcheck disable=SC1090
+  source "$BWRAP_HOOK_FILE"
+fi
+
+set -- "${bwrap_ai_hook_args[@]}" "$@"
+
+# everything before a '--' goes to bwrap
+# everything after is the command
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --ro)
+    bwrap_extra+=(--ro-bind "$(realpath "$2")" "$(realpath "$2")")
+    shift 2
+    ;;
+  --rw)
+    bwrap_extra+=(--bind "$(realpath "$2")" "$(realpath "$2")")
+    shift 2
+    ;;
+  --ro-try)
+    bwrap_extra+=(--ro-bind-try "$(realpath -m "$2")" "$(realpath -m "$2")")
+    shift 2
+    ;;
+  --rw-try)
+    bwrap_extra+=(--bind-try "$(realpath -m "$2")" "$(realpath -m "$2")")
+    shift 2
+    ;;
+  --shared)
+    shared_host_folder="$(realpath -m "$2")"
+    shift 2
+    ;;
+  --)
+    shift
+    break
+    ;;
+  *)
+    bwrap_extra+=("$1")
+    shift
+    ;;
+  esac
+done
+
+# shellcheck disable=SC1091
+distro=$(. /etc/os-release && echo "$ID")
+case "$distro" in
+# Networking needs the distro's DNS/NSS sockets plus some files under
+# /etc. Mounting the entire /run may leak too much sensitive
+# information.
+nixos) sys_paths=(
+  /usr
+  /bin
+  /lib
+  /lib64
+  /run/nscd
+  /run/current-system
+  /run/wrappers
+  /run/systemd/resolve
+) ;;
+fedora) sys_paths=(
+  /usr
+  /bin
+  /lib
+  /lib64
+  /run/systemd/resolve
+) ;;
+*)
+  echo "bwrap: unsupported distro '$distro'" >&2
+  exit 1
+  ;;
+esac
+sys_binds=()
+for d in "${sys_paths[@]}"; do
+  sys_binds+=(--ro-bind "$d" "$d")
+done
+
+if [ -z "$shared_host_folder" ]; then
+  shared_host_folder="$(mktemp -d --suffix=-bwrap-ai)"
+  cleanup_paths+=("$shared_host_folder")
+fi
+
+bwrap_args=(
+  --die-with-parent
+
+  # Obfuscate some information inside the sandbox to prevent accidental
+  # leaking and mingling with the host system.
+  --unshare-pid
+  --unshare-uts
+  --unshare-ipc
+
+  # Detaches the process from the terminal, preventing any TIOCSTI
+  # attacks; injecting characters into the parent terminal and executing
+  # unintended commands on the host.
+  --new-session
+
+  # Provide access to applications and files installed on the system,
+  # otherwise the sandbox will be severely lacking in capabilities.
+  --ro-bind /nix /nix
+  --ro-bind /etc /etc
+
+  # This may contain sensitive information which we explicitly prevent
+  # from being bound into the sandbox. This is a "catch-all" in case more
+  # of "/run" is mounted.
+  # WARN: We may want to put this argument at the very end.
+  --tmpfs /run/user
+
+  --dev /dev
+  --proc /proc
+
+  # Explicitly prevent writing into these folders, to avoid giving the
+  # wrong impression. By default, folders will be a writable tmpfs within
+  # the sandbox.
+  --perms 550 --tmpfs /home
+  --perms 550 --tmpfs "$HOME"
+
+  # Mount a proper folder into the sandbox /tmp if needed
+  --tmpfs /tmp
+  # Mount for convenient sharing with the sandbox
+  --bind "$shared_host_folder" "$shared_host_folder"
+
+  # Make life a bit easier and allow tools and everything to continue
+  # working with their states. Do not allow modifying them though.
+  --ro-bind "$HOME/.nix-profile" "$HOME/.nix-profile"
+  --ro-bind "$HOME/.config" "$HOME/.config"
+  --ro-bind "$HOME/.local" "$HOME/.local"
+  --ro-bind "$HOME/.cache" "$HOME/.cache"
+
+  # Allow neovim in the sandbox to write into necessary locations without
+  # leaking into the host.
+  --tmpfs "$HOME/.local/state/nvim"
+  --tmpfs "$HOME/.cache/nvim"
+
+  # In case some of the MCP servers require uvx. This would lead to
+  # redownloading everything due to not being persisted on the host.
+  --tmpfs "$HOME/.cache/uv"
+  --tmpfs "$HOME/.local/share/uv"
+
+  --bind "$(pwd)" "$(pwd)"
+)
+
+if [ ${#cleanup_paths[@]} -gt 0 ]; then
+  trap 'rm -rf "${cleanup_paths[@]}"' EXIT
+fi
+[ -d "$shared_host_folder" ] || mkdir -p "$shared_host_folder"
+bwrap "${sys_binds[@]}" "${bwrap_args[@]}" "${bwrap_extra[@]}" -- "${base_command[@]}" "$@"
+
+# vim: ft=sh
