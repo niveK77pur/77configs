@@ -128,6 +128,8 @@
         pkgs.selene
 
         pkgs.fish-lsp
+        pkgs.shfmt
+        pkgs.shellcheck
       ];
     };
   };
