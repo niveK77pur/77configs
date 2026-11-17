@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
   postFixup = lib.concatStringsSep " " ([
       "wrapProgram"
       "$out/bin/${pname}"
-      "--set PATH ${lib.makeBinPath runtimeDependencies} "
+      "--prefix PATH : ${lib.makeBinPath runtimeDependencies}"
     ]
     ++ (lib.optional (hookFile != null) "--set BWRAP_HOOK_FILE ${lib.escapeShellArg (toString hookFile)}"));
 
