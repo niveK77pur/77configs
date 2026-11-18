@@ -13,7 +13,7 @@
         --rw "$HOME/.local/share/opencode"
         --rw "$HOME/.local/state/opencode"
       )
-      base_command=(opencode --standalone)
+      base_command=(opencode --standalone --auto)
     '';
   };
   jujutsu-skill = pkgs.fetchFromGitHub {
