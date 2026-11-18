@@ -5,6 +5,17 @@
   ...
 }: let
   cfg = config.opencode;
+  bwrap-opencode = pkgs.callPackage ../myscripts/derivations/bwrap-ai.nix {
+    pname = "bwrap-opencode";
+    extraRuntimeInputs = [config.programs.opencode.package];
+    hookFile = pkgs.writeShellScript "bwrap-opencode-hook" ''
+      bwrap_ai_hook_args+=(
+        --rw "$HOME/.local/share/opencode"
+        --rw "$HOME/.local/state/opencode"
+      )
+      base_command=(opencode --standalone)
+    '';
+  };
   jujutsu-skill = pkgs.fetchFromGitHub {
     owner = "danverbraganza";
     repo = "jujutsu-skill";
@@ -59,6 +70,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [bwrap-opencode];
     programs.opencode = {
       enable = true;
       enableMcpIntegration = true;
