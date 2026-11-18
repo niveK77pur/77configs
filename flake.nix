@@ -40,6 +40,7 @@
         (inputs.multiverse.lib.pinOverlay {
           pins = {
             noctalia-shell = "4.7.6";
+            mpv = "0.40.0"; # 0.42.0 crashes with a SIGSEGV
           };
           config.allowUnfree = true;
         })
