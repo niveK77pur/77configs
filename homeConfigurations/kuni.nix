@@ -88,15 +88,14 @@ lib.mkMerge [
   {
     programs.mcp = {
       enable = true;
-      servers.arxiv-mcp-server = {
-        command = "${pkgs.uv}/bin/uvx";
-        args = [
-          "arxiv-mcp-server"
-          "--storage-path"
-          "/tmp/arxiv-mcp-server/papers"
-        ];
-      };
-      servers.basic-memory.url = "https://kb.braddl.lu/mcp";
+      # servers.arxiv-mcp-server = {
+      #   command = "${pkgs.uv}/bin/uvx";
+      #   args = [
+      #     "arxiv-mcp-server"
+      #     "--storage-path"
+      #     "/tmp/arxiv-mcp-server/papers"
+      #   ];
+      # };
     };
   }
   {
