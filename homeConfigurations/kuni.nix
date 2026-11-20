@@ -22,7 +22,6 @@ lib.mkMerge [
     home.packages = [
       # pkgs.bitwarden-desktop ## See: https://github.com/NixOS/nixpkgs/issues/526914
     ];
-    claude.enable = true;
     opencode.enable = true;
     slack.enable = true;
     gcloud.enable = true;
