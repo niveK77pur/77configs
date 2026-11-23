@@ -116,29 +116,6 @@ in {
           "@franlol/opencode-md-table-formatter@0.0.3"
           "opencode-gemini-auth@latest"
         ];
-        provider = {
-          amazon-bedrock.options = {
-            region = "eu-central-1";
-          };
-          vllm = {
-            npm = "@ai-sdk/openai-compatible";
-            name = "vLLM (braddl)";
-            options = {
-              # ssh forward port: ssh -L 8000:localhost:8000 braddl
-              baseURL = "http://localhost:8000/v1";
-            };
-            models = {
-              "qwen3.5-9b-lb" = {
-                name = "Luxembourg LLM Charel";
-                options = {
-                  # 8192 is the model's full context; cap output well below
-                  # it so the prompt has room.
-                  max_tokens = 4096;
-                };
-              };
-            };
-          };
-        };
       };
     };
   };
