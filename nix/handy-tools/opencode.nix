@@ -19,14 +19,14 @@
   jujutsu-skill = pkgs.fetchFromGitHub {
     owner = "danverbraganza";
     repo = "jujutsu-skill";
-    rev = "b0668317ec8b375ea3d5815d3f029f4104443a0b";
-    hash = "sha256-EcQWhnk4KQBQncemlQQTn2XXvUXVdYKkB2OJSpGQ4AI=";
+    rev = "85a8376a3a0d5cf16ecb9b0fb0f3f48a48ce62c2";
+    hash = "sha256-+6xM0G/o9qHLdDogFAWI96t3lYK5h26iXyN/IPU1xC0=";
   };
   ai-skills = pkgs.fetchFromGitHub {
     owner = "mattpocock";
     repo = "skills";
-    rev = "694fa30311e02c2639942308513555e61ee84a6f";
-    hash = "sha256-NGRKdnHSBKoR48zGotmJ3zGXnQ58ogudv8T4Va/2DSY=";
+    rev = "abeeaf95660ba9e8b7c753eb38f441ca707a8823";
+    hash = "sha256-fc5+qmchp1IQ/rQP1olWKC1eC4VdYhaB7YYzC3+JBe0=";
   };
   mkPerms = {
     allow ? [],
@@ -78,8 +78,9 @@ in {
       skills = {
         jujutsu = "${jujutsu-skill}/jujutsu";
         handoff = "${ai-skills}/skills/productivity/handoff";
-        write-a-skill = "${ai-skills}/skills/productivity/write-a-skill";
+        write-a-skill = "${ai-skills}/skills/productivity/writing-for-agents";
         grill-with-docs = "${ai-skills}/skills/engineering/grill-with-docs";
+        prototype = "${ai-skills}/skills/engineering/prototype";
         no-slop-prose = ../../config/opencode/skills/no-slop-prose;
       };
       settings = {
@@ -113,8 +114,7 @@ in {
           };
         };
         plugin = [
-          "@franlol/opencode-md-table-formatter@0.0.3"
-          "opencode-gemini-auth@latest"
+          "@franlol/opencode-md-table-formatter@latest"
         ];
       };
     };
