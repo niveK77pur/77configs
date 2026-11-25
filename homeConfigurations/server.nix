@@ -2,6 +2,6 @@
 lib.mkMerge [
   {
     isServerConfiguration = true;
-    claude.enable = true;
+    opencode.enable = true;
   }
 ]
