@@ -6,6 +6,7 @@
 bwrap_extra=()
 cleanup_paths=()
 shared_host_folder=""
+shared_sandbox_folder=""
 
 # These arrays are meant to be populated by the BWRAP_HOOK_FILE and offer a
 # convenient way to provide default arguments that `bwrap-ai` should take, and
@@ -51,6 +52,10 @@ while [[ $# -gt 0 ]]; do
     ;;
   --shared)
     shared_host_folder="$(realpath -m "$2")"
+    shift 2
+    ;;
+  --shared-dest)
+    shared_sandbox_folder="$(realpath -m "$2")"
     shift 2
     ;;
   --)
@@ -101,6 +106,7 @@ if [ -z "$shared_host_folder" ]; then
   shared_host_folder="$(mktemp -d --suffix=-bwrap-ai)"
   cleanup_paths+=("$shared_host_folder")
 fi
+shared_sandbox_folder="${shared_sandbox_folder:-$shared_host_folder}"
 
 bwrap_args=(
   --die-with-parent
@@ -139,7 +145,7 @@ bwrap_args=(
   # Mount a proper folder into the sandbox /tmp if needed
   --tmpfs /tmp
   # Mount for convenient sharing with the sandbox
-  --bind "$shared_host_folder" "$shared_host_folder"
+  --bind "$shared_host_folder" "$shared_sandbox_folder"
 
   # Make life a bit easier and allow tools and everything to continue
   # working with their states. Do not allow modifying them though.
