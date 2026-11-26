@@ -10,6 +10,7 @@
     extraRuntimeInputs = [config.programs.opencode.package];
     hookFile = pkgs.writeShellScript "bwrap-opencode-hook" ''
       bwrap_ai_hook_args+=(
+        --shared-dest /tmp/opencode
         --rw "$HOME/.local/share/opencode"
         --rw "$HOME/.local/state/opencode"
       )
